@@ -2,83 +2,35 @@
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
 
+html,
 body {
     margin: 0;
-    min-height: 100vh;
+    padding: 0;
+    min-height: 100%;
+}
+
+
+body {
 
     font-family:
         Arial,
         Helvetica,
         sans-serif;
 
-    color: #d9faff;
+    color: #e8fbff;
 
     background:
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(0, 220, 255, 0.15),
-            transparent 25%
-        ),
-
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(120, 0, 255, 0.15),
-            transparent 25%
-        ),
-
-        linear-gradient(
-            135deg,
-            #07111d,
-            #0b1d2c 45%,
-            #06101a
-        );
+        #06111b;
 
     overflow-x: hidden;
+
 }
 
 
-/* GRID BACKGROUND */
-
-body::before {
-
-    content: "";
-
-    position: fixed;
-
-    inset: 0;
-
-    pointer-events: none;
-
-    opacity: 0.25;
-
-    background-image:
-
-        linear-gradient(
-            90deg,
-            transparent 48%,
-            rgba(0, 220, 255, 0.12) 49%,
-            rgba(0, 220, 255, 0.12) 51%,
-            transparent 52%
-        ),
-
-        linear-gradient(
-            transparent 48%,
-            rgba(0, 220, 255, 0.12) 49%,
-            rgba(0, 220, 255, 0.12) 51%,
-            transparent 52%
-        );
-
-    background-size: 80px 80px;
-
-    z-index: -1;
-}
-
-
-/* PAGE */
+/* =================================
+   GENERAL PAGE
+================================= */
 
 .page {
 
@@ -92,259 +44,238 @@ body::before {
 
     flex-direction: column;
 
-    padding: 20px;
+    padding: 25px;
 
-    position: relative;
-
-    animation: fadeIn 0.5s ease;
 }
+
 
 .page.active {
+
     display: flex;
+
+    animation:
+        pageIn .6s ease;
+
 }
 
 
-@keyframes fadeIn {
+@keyframes pageIn {
 
     from {
+
         opacity: 0;
-        transform: translateY(10px);
+
+        transform:
+            translateY(20px);
+
     }
 
     to {
+
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
+
     }
 
 }
 
 
-/* CIRCUIT TEXT */
 
-.circuit-decoration {
+/* =================================
+   HALAMAN LOGIN
+================================= */
 
-    color: #55e8ff;
-
-    font-family: monospace;
-
-    font-size: 17px;
-
-    letter-spacing: 2px;
-
-    text-align: center;
-
-    margin: 15px;
-
-    text-shadow:
-        0 0 5px #00d9ff,
-        0 0 15px rgba(0, 217, 255, 0.6);
-
-    animation: glow 2s infinite alternate;
-}
-
-
-@keyframes glow {
-
-    from {
-        opacity: 0.5;
-    }
-
-    to {
-        opacity: 1;
-    }
-
-}
-
-
-/* CARD */
-
-.card {
-
-    width: 90%;
-
-    max-width: 450px;
-
-    padding: 35px;
-
-    text-align: center;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(12, 31, 47, 0.97),
-            rgba(7, 19, 31, 0.97)
-        );
-
-    border:
-        1px solid rgba(
-            65,
-            225,
-            255,
-            0.35
-        );
-
-    border-radius: 20px;
-
-    box-shadow:
-
-        0 0 25px
-        rgba(0, 210, 255, 0.12),
-
-        0 20px 50px
-        rgba(0, 0, 0, 0.45);
+.login-page {
 
     position: relative;
 
-    overflow: hidden;
+    background:
+
+        linear-gradient(
+            rgba(2, 12, 20, .72),
+            rgba(2, 12, 20, .88)
+        ),
+
+        url("foto.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-attachment: fixed;
+
 }
 
 
-.card::before {
-
-    content: "";
+.login-overlay {
 
     position: absolute;
 
-    top: 0;
-    left: 0;
+    inset: 0;
 
-    width: 100%;
-    height: 2px;
+    background:
 
-    background: #00eaff;
-
-    box-shadow:
-        0 0 15px #00eaff;
-}
-
-
-/* ICON */
-
-.electronic-icon {
-
-    font-size: 50px;
-
-    margin-bottom: 5px;
-
-    filter:
-        drop-shadow(
-            0 0 12px
-            rgba(0, 230, 255, 0.7)
+        radial-gradient(
+            circle at center,
+            transparent 10%,
+            rgba(0,0,0,.55) 90%
         );
+
+    pointer-events: none;
+
 }
 
 
-.chip-icon {
+/* =================================
+   CIRCUIT
+================================= */
 
-    display: inline-flex;
+.circuit-decoration {
 
-    align-items: center;
-
-    justify-content: center;
-
-    width: 70px;
-
-    height: 32px;
-
-    margin-bottom: 10px;
-
-    background: #101820;
-
-    border: 1px solid #42e7ff;
-
-    color: #42e7ff;
+    color: #45e9ff;
 
     font-family: monospace;
 
-    font-size: 13px;
+    font-size: 16px;
 
-    box-shadow:
-        0 0 10px
-        rgba(0, 220, 255, 0.2);
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 0 8px #00eaff,
+        0 0 20px #00eaff;
+
+    z-index: 2;
+
 }
 
 
-/* TITLE */
+.circuit-decoration.top {
 
-.card h1 {
+    margin-bottom: 18px;
+
+}
+
+
+.circuit-decoration.bottom {
+
+    margin-top: 18px;
+
+}
+
+
+
+/* =================================
+   LOGIN CARD
+================================= */
+
+.login-card {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    padding: 38px;
+
+    text-align: center;
+
+    position: relative;
+
+    z-index: 2;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(7,25,38,.96),
+            rgba(3,13,22,.97)
+        );
+
+    border:
+        1px solid
+        rgba(0,225,255,.45);
+
+    border-radius: 22px;
+
+    box-shadow:
+
+        0 0 30px
+        rgba(0,220,255,.2),
+
+        0 25px 70px
+        rgba(0,0,0,.7);
+
+    backdrop-filter:
+        blur(8px);
+
+}
+
+
+.electric-icon {
+
+    font-size: 55px;
+
+    text-shadow:
+        0 0 15px #00eaff;
+
+}
+
+
+.chip {
+
+    display: inline-flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    width: 75px;
+
+    height: 32px;
+
+    margin:
+        8px 0 12px;
+
+    border:
+        1px solid #00eaff;
+
+    color: #00eaff;
+
+    background: #08141e;
+
+    font-family: monospace;
+
+}
+
+
+.login-card h1 {
 
     margin:
         5px 0 10px;
 
     font-size: 32px;
 
-    color: #d9faff;
+    line-height: 1.1;
 
-    text-shadow:
-        0 0 10px
-        rgba(0, 220, 255, 0.4);
-}
+    letter-spacing: 2px;
 
-
-.card h2 {
-
-    font-size: 22px;
-
-    line-height: 1.4;
-
-    margin:
-        15px 0;
 }
 
 
 .subtitle {
 
-    color: #8db9c5;
+    color: #91b9c4;
 
-    line-height: 1.5;
+    margin-bottom: 28px;
 
-    margin-bottom: 30px;
 }
 
 
-/* USER */
 
-.user-info {
-
-    display: inline-block;
-
-    padding:
-        7px 14px;
-
-    margin-bottom: 10px;
-
-    border-radius: 20px;
-
-    background:
-        rgba(50, 220, 255, 0.08);
-
-    border:
-        1px solid
-        rgba(50, 220, 255, 0.25);
-
-    color: #64eaff;
-
-    font-family: monospace;
-}
-
-
-/* QUESTION */
-
-.question-number {
-
-    margin-top: 15px;
-
-    color: #55e8ff;
-
-    font-family: monospace;
-
-    font-size: 14px;
-
-    font-weight: bold;
-}
-
-
-/* FORM */
+/* =================================
+   FORM
+================================= */
 
 label {
 
@@ -352,13 +283,15 @@ label {
 
     text-align: left;
 
-    margin-top: 16px;
+    margin:
+        15px 0 7px;
 
-    margin-bottom: 7px;
+    color: #9edbe5;
 
     font-weight: bold;
 
-    color: #9ed4df;
+    font-size: 14px;
+
 }
 
 
@@ -368,20 +301,22 @@ input {
 
     padding: 14px;
 
-    border:
-        1px solid #285465;
-
     border-radius: 10px;
 
-    font-size: 16px;
+    border:
+        1px solid #285565;
+
+    background:
+        rgba(2,14,22,.95);
+
+    color: white;
 
     outline: none;
 
-    color: #dffaff;
+    font-size: 16px;
 
-    background: #081722;
+    transition: .25s;
 
-    transition: 0.3s;
 }
 
 
@@ -390,44 +325,44 @@ input:focus {
     border-color: #00eaff;
 
     box-shadow:
-        0 0 10px
-        rgba(0, 220, 255, 0.25);
+        0 0 15px
+        rgba(0,220,255,.2);
+
 }
 
 
-/* BUTTON */
+
+/* =================================
+   BUTTON
+================================= */
 
 button {
 
-    border: none;
+    width: 100%;
 
-    padding: 14px 25px;
+    padding: 15px;
 
-    margin-top: 25px;
+    margin-top: 22px;
 
-    border-radius: 8px;
+    border: 0;
+
+    border-radius: 10px;
+
+    color: white;
 
     background:
         linear-gradient(
             135deg,
-            #0c8ca8,
-            #126078
+            #078ca8,
+            #12536b
         );
-
-    color: white;
-
-    font-size: 14px;
 
     font-weight: bold;
 
     cursor: pointer;
 
-    width: 100%;
+    transition: .25s;
 
-    transition:
-        transform 0.2s,
-        box-shadow 0.2s,
-        opacity 0.2s;
 }
 
 
@@ -437,95 +372,222 @@ button:hover {
         translateY(-2px);
 
     box-shadow:
-        0 5px 20px
-        rgba(0, 220, 255, 0.25);
-}
+        0 8px 25px
+        rgba(0,220,255,.25);
 
-
-button:active {
-
-    transform:
-        translateY(0);
 }
 
 
 button:disabled {
 
-    opacity: 0.5;
+    opacity: .5;
 
     cursor: not-allowed;
 
     transform: none;
+
 }
 
 
-/* ERROR */
+
+/* =================================
+   ERROR
+================================= */
 
 .error-message {
 
-    color: #ff6b91;
+    min-height: 25px;
+
+    margin-top: 14px;
+
+    color: #ff5075;
 
     font-weight: bold;
 
-    min-height: 20px;
+    text-shadow:
+        0 0 10px
+        rgba(255,50,100,.5);
 
-    margin-top: 15px;
 }
 
 
-/* QUESTION IMAGE */
 
-.question-image-box {
+/* =================================
+   QUIZ
+================================= */
+
+.quiz-page {
+
+    background:
+
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(0,220,255,.1),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(120,0,255,.1),
+            transparent 30%
+        ),
+
+        #06111b;
+
+}
+
+
+.quiz-card {
+
+    width: 100%;
+
+    max-width: 550px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    background:
+        rgba(5,20,31,.97);
+
+    border:
+        1px solid
+        rgba(0,220,255,.35);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.5);
+
+}
+
+
+.user-badge {
+
+    display: inline-block;
+
+    padding:
+        8px 16px;
+
+    border-radius: 30px;
+
+    color: #57eaff;
+
+    background:
+        rgba(0,220,255,.08);
+
+    border:
+        1px solid
+        rgba(0,220,255,.25);
+
+    font-family: monospace;
+
+}
+
+
+.question-number {
+
+    margin-top: 25px;
+
+    color: #4de7ff;
+
+    font-family: monospace;
+
+    font-weight: bold;
+
+}
+
+
+.quiz-card h2 {
+
+    line-height: 1.5;
+
+    font-size: 23px;
+
+}
+
+
+.question-image {
 
     display: none;
 
     width: 100%;
 
-    margin: 15px 0;
+    margin:
+        15px 0;
+
 }
 
 
-.question-image-box img {
+.question-image img {
 
     width: 100%;
 
-    max-height: 230px;
+    max-height: 280px;
 
     object-fit: contain;
 
-    border-radius: 10px;
-
-    border:
-        1px solid #28687a;
+    border-radius: 12px;
 
     background: #02070b;
+
+    border:
+        1px solid #24586a;
+
 }
 
 
-/* PHOTOBOOTH */
 
-.booth-title {
+/* =================================
+   CAMERA
+================================= */
+
+.camera-page {
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            rgba(0,220,255,.08),
+            transparent 50%
+        ),
+
+        #030b12;
+
+}
+
+
+.booth-header {
 
     text-align: center;
 
-    margin-bottom: 10px;
 }
 
 
-.booth-title h1 {
+.camera-icon {
 
-    font-size: 30px;
+    font-size: 45px;
+
+}
+
+
+.booth-header h1,
+.result-header h1 {
 
     margin:
-        5px 0 10px;
+        5px 0;
+
+    letter-spacing: 2px;
+
 }
 
 
-.booth-title p {
+.booth-header p,
+.result-header p {
 
-    color: #8db9c5;
+    color: #8eb8c3;
 
-    line-height: 1.5;
 }
 
 
@@ -536,73 +598,48 @@ button:disabled {
     padding:
         8px 18px;
 
-    margin-top: 5px;
-
-    border-radius: 20px;
+    border-radius: 30px;
 
     color: #00eaff;
 
+    background:
+        rgba(0,220,255,.08);
+
     border:
         1px solid
-        rgba(0, 220, 255, 0.3);
-
-    background:
-        rgba(0, 220, 255, 0.08);
+        rgba(0,220,255,.3);
 
     font-family: monospace;
 
     font-weight: bold;
+
 }
 
-
-/* CAMERA */
 
 .camera-container {
 
-    position: relative;
-
     width: 90%;
 
-    max-width: 600px;
+    max-width: 650px;
 
-    background: #02070b;
+    margin:
+        20px 0;
 
-    border:
-        2px solid #1c8095;
-
-    border-radius: 12px;
+    position: relative;
 
     overflow: hidden;
 
-    margin: 15px 0;
+    border-radius: 15px;
+
+    border:
+        2px solid #176d80;
+
+    background: #000;
 
     box-shadow:
-        0 0 30px
-        rgba(0, 200, 255, 0.12);
-}
+        0 0 35px
+        rgba(0,220,255,.15);
 
-
-.camera-label {
-
-    position: absolute;
-
-    top: 10px;
-
-    left: 10px;
-
-    z-index: 3;
-
-    padding:
-        5px 10px;
-
-    background:
-        rgba(0, 0, 0, 0.65);
-
-    color: #ff526f;
-
-    font-family: monospace;
-
-    font-size: 11px;
 }
 
 
@@ -615,9 +652,31 @@ button:disabled {
     transform:
         scaleX(-1);
 
-    min-height: 300px;
+}
 
-    object-fit: cover;
+
+.live-label {
+
+    position: absolute;
+
+    z-index: 5;
+
+    top: 12px;
+
+    left: 12px;
+
+    padding:
+        6px 10px;
+
+    background:
+        rgba(0,0,0,.7);
+
+    color: #ff526f;
+
+    font-family: monospace;
+
+    font-size: 12px;
+
 }
 
 
@@ -630,7 +689,7 @@ button:disabled {
     left: 50%;
 
     transform:
-        translate(-50%, -50%);
+        translate(-50%,-50%);
 
     font-size: 90px;
 
@@ -639,46 +698,52 @@ button:disabled {
     color: white;
 
     text-shadow:
-        0 0 20px #00d9ff,
-        0 0 50px #00d9ff;
+        0 0 20px #00eaff,
+        0 0 50px #00eaff;
+
 }
 
 
 #canvas {
 
     display: none;
+
 }
 
 
 .camera-button {
 
-    max-width: 600px;
+    max-width: 650px;
 
     font-size: 16px;
 
-    padding: 16px;
 }
 
 
-/* HASIL */
 
-.result-title {
+/* =================================
+   RESULT
+================================= */
+
+.result-page {
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            rgba(0,220,255,.08),
+            transparent 50%
+        ),
+
+        #06111b;
+
+}
+
+
+.result-header {
 
     text-align: center;
-}
 
-
-.result-title h1 {
-
-    margin-bottom: 5px;
-
-    font-size: 30px;
-}
-
-
-.result-title p {
-
-    color: #8db9c5;
 }
 
 
@@ -687,78 +752,93 @@ button:disabled {
     display: inline-block;
 
     padding:
-        7px 15px;
+        8px 16px;
 
-    border-radius: 20px;
+    color: #4ce8ff;
 
     border:
         1px solid
-        rgba(0, 220, 255, 0.3);
+        rgba(0,220,255,.3);
 
-    background:
-        rgba(0, 220, 255, 0.08);
-
-    color: #62eaff;
+    border-radius: 30px;
 
     font-family: monospace;
+
 }
 
 
-/* STRIP CONTAINER */
 
-.polaroid-container {
+/* =================================
+   PHOTO STRIPS
+================================= */
 
-    width: 100%;
+.strips-container {
 
     display: flex;
 
     justify-content: center;
 
+    align-items: flex-start;
+
     gap: 25px;
 
-    padding: 20px 10px;
+    width: 100%;
+
+    padding: 25px 10px;
 
     flex-wrap: wrap;
+
 }
 
 
-/* POLAROID */
+.photo-strip {
 
-.photostrip {
-
-    width: 220px;
+    width: 230px;
 
     padding: 12px;
 
-    background: white;
-
-    border-radius: 4px;
+    background: #fff;
 
     color: #111;
 
+    border-radius: 4px;
+
     box-shadow:
-        0 15px 40px
-        rgba(0, 0, 0, 0.4);
+        0 15px 45px
+        rgba(0,0,0,.5);
+
+    position: relative;
+
 }
 
 
-.photostrip-header {
+.strip-top {
 
-    text-align: center;
+    height: 38px;
 
-    background: #07151f;
+    display: flex;
 
-    padding: 7px;
+    justify-content: center;
+
+    align-items: center;
 
     color: white;
 
-    font-size: 13px;
+    background: #07151f;
+
+    font-size: 14px;
 
     font-weight: bold;
+
+    letter-spacing: 1px;
+
 }
 
 
-.photostrip-title {
+.strip-title {
+
+    padding:
+        10px 0;
 
     text-align: center;
 
@@ -766,26 +846,27 @@ button:disabled {
 
     font-weight: bold;
 
-    margin:
-        8px 0;
-
     font-size: 12px;
+
 }
 
 
-.photo-box {
+.strip-photo {
 
     width: 100%;
 
-    margin-bottom: 6px;
-
-    background: #eee;
+    margin-bottom: 7px;
 
     overflow: hidden;
+
+    background: #ddd;
+
 }
 
 
-.photo-box img {
+.strip-photo img {
+
+    display: block;
 
     width: 100%;
 
@@ -793,35 +874,38 @@ button:disabled {
 
     object-fit: cover;
 
-    display: block;
 }
 
 
-.photostrip-footer {
+.strip-footer {
+
+    padding:
+        9px 0 5px;
 
     text-align: center;
 
     font-family: monospace;
 
-    font-size: 12px;
+    font-size: 11px;
 
-    margin-top: 10px;
+    line-height: 1.5;
 
-    font-weight: bold;
 }
 
 
-.photostrip-date {
+.strip-footer span {
 
-    margin-top: 4px;
+    display: block;
 
-    font-size: 10px;
+    font-size: 9px;
 
-    font-weight: normal;
 }
 
 
-/* RESULT BUTTON */
+
+/* =================================
+   RESULT BUTTON
+================================= */
 
 .result-buttons {
 
@@ -831,75 +915,90 @@ button:disabled {
 
     display: flex;
 
-    gap: 10px;
+    gap: 12px;
 
-    margin-bottom: 30px;
 }
 
 
-.result-buttons button {
-
-    margin-top: 10px;
-}
-
-
-.save-button {
+.download-button {
 
     background:
         linear-gradient(
             135deg,
-            #087f5b,
-            #07553e
+            #087c59,
+            #064b38
         );
+
 }
 
 
-.retry-button {
+.restart-button {
 
     background:
         linear-gradient(
             135deg,
-            #6c3ca8,
-            #44206d
+            #713db0,
+            #422268
         );
+
 }
 
 
-/* MOBILE */
 
-@media (max-width: 600px) {
+/* =================================
+   MOBILE
+================================= */
 
-    .card {
-        padding: 25px 20px;
+@media(max-width:600px) {
+
+    .login-card,
+    .quiz-card {
+
+        padding:
+            28px 20px;
+
     }
 
-    .card h1 {
-        font-size: 26px;
+
+    .login-card h1 {
+
+        font-size: 27px;
+
     }
 
-    .booth-title h1 {
-        font-size: 25px;
-    }
 
     .circuit-decoration {
-        font-size: 12px;
-        letter-spacing: 1px;
+
+        font-size: 11px;
+
     }
 
-    #camera {
-        min-height: 250px;
+
+    .camera-container {
+
+        width: 100%;
+
     }
+
 
     #countdown {
+
         font-size: 65px;
+
     }
 
-    .photostrip {
-        width: 200px;
-    }
 
     .result-buttons {
+
         flex-direction: column;
+
+    }
+
+
+    .photo-strip {
+
+        width: 210px;
+
     }
 
 }
