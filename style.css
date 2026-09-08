@@ -1,12 +1,11 @@
-/* ================================
-   RESET
-================================ */
+/* =====================================================
+   RESET DAN VARIABEL
+===================================================== */
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 :root {
@@ -15,78 +14,89 @@
     --dark-blue: #061b2a;
     --orange: #ff9d00;
     --white: #ffffff;
+    --success: #4cffb0;
+    --danger: #ff4f73;
 }
 
-/* ================================
-   BODY & BACKGROUND
-================================ */
+html {
+    min-height: 100%;
+}
 
 body {
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow-x: hidden;
     padding: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow-x: hidden;
+    color: var(--white);
+
+    font-family:
+        "Segoe UI",
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
 
     background:
         linear-gradient(
-            rgba(1, 10, 18, 0.42),
-            rgba(1, 10, 18, 0.62)
+            rgba(1, 10, 18, 0.48),
+            rgba(1, 10, 18, 0.72)
         ),
-        url("foto.jpg") center center / cover no-repeat fixed;
-
-    color: var(--white);
+        url("foto.jpg") center / cover no-repeat fixed;
 }
 
-/* Shadow tambahan pada seluruh background */
 body::before {
     content: "";
     position: fixed;
     inset: 0;
-    pointer-events: none;
     z-index: -1;
+    pointer-events: none;
 
     background:
         radial-gradient(
             circle at center,
-            rgba(0, 229, 255, 0.06),
-            transparent 50%
+            rgba(0, 229, 255, 0.08),
+            transparent 55%
         ),
         linear-gradient(
             90deg,
-            rgba(0, 0, 0, 0.32),
+            rgba(0, 0, 0, 0.38),
             transparent 40%,
             transparent 60%,
-            rgba(0, 0, 0, 0.32)
+            rgba(0, 0, 0, 0.38)
         );
 }
 
-/* ================================
-   CONTAINER
-================================ */
+button,
+input {
+    font: inherit;
+}
+
+
+/* =====================================================
+   CONTAINER DAN HALAMAN
+===================================================== */
 
 .app-container {
     width: 100%;
-    max-width: 470px;
+    max-width: 520px;
     margin: auto;
 }
 
-/* ================================
-   PAGE
-================================ */
-
 .page {
     display: none;
-    animation: fadeIn 0.45s ease forwards;
+    width: 100%;
 }
 
 .page.active {
     display: block;
+    animation: fade-in 0.45s ease both;
 }
 
-@keyframes fadeIn {
+@keyframes fade-in {
     from {
         opacity: 0;
         transform: translateY(14px);
@@ -98,32 +108,49 @@ body::before {
     }
 }
 
-/* ================================
-   CARD GLASS
-================================ */
+
+/* =====================================================
+   DEKORASI
+===================================================== */
+
+.circuit-decoration {
+    width: 100%;
+    margin: 13px 0;
+
+    color: rgba(0, 229, 255, 0.92);
+    font-family: monospace;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.65);
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
 
 .card {
     position: relative;
-    padding: 35px 28px;
-    text-align: center;
-    overflow: hidden;
+    width: 100%;
+    padding: 34px 28px;
 
-    /*
-       Transparansi biru diturunkan agar foto background
-       lebih terlihat di balik card.
-    */
-    background:
-        linear-gradient(
-            135deg,
-            rgba(5, 33, 51, 0.62),
-            rgba(3, 17, 29, 0.48)
-        );
+    overflow: hidden;
+    text-align: center;
 
     border: 1px solid rgba(0, 229, 255, 0.38);
     border-radius: 24px;
 
-    backdrop-filter: blur(8px) saturate(135%);
-    -webkit-backdrop-filter: blur(8px) saturate(135%);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(5, 33, 51, 0.78),
+            rgba(3, 17, 29, 0.68)
+        );
+
+    backdrop-filter: blur(10px) saturate(135%);
+    -webkit-backdrop-filter: blur(10px) saturate(135%);
 
     box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.72),
@@ -131,7 +158,6 @@ body::before {
         inset 0 1px 0 rgba(255, 255, 255, 0.13);
 }
 
-/* Kilau tipis pada card */
 .card::before {
     content: "";
     position: absolute;
@@ -140,22 +166,25 @@ body::before {
     right: 12%;
     height: 1px;
 
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.55),
-        transparent
-    );
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.55),
+            transparent
+        );
 }
 
-/* ================================
-   TEXT
-================================ */
+
+/* =====================================================
+   TEKS
+===================================================== */
 
 .logo-icon {
     margin-bottom: 5px;
+
     color: var(--orange);
-    font-size: 34px;
+    font-size: 36px;
     text-shadow: 0 0 14px rgba(255, 157, 0, 0.8);
 }
 
@@ -167,43 +196,80 @@ body::before {
     border: 1px solid rgba(0, 229, 255, 0.8);
     border-radius: 5px;
 
+    background: rgba(0, 229, 255, 0.07);
     color: var(--cyan);
+
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 1.5px;
     text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
-    background: rgba(0, 229, 255, 0.07);
 }
 
 h1 {
-    margin-bottom: 7px;
-    font-size: 24px;
-    font-weight: 800;
+    margin-bottom: 8px;
+
+    font-size: clamp(24px, 7vw, 32px);
+    font-weight: 900;
+    line-height: 1.08;
     letter-spacing: 2px;
     text-shadow: 0 3px 12px rgba(0, 0, 0, 0.75);
 }
 
 h2 {
-    margin-bottom: 12px;
-    font-size: 21px;
-    letter-spacing: 1px;
+    margin-bottom: 18px;
+
+    font-size: clamp(19px, 5vw, 23px);
+    line-height: 1.35;
+    letter-spacing: 0.5px;
 }
 
 .subtitle {
-    margin-bottom: 26px;
+    margin-bottom: 25px;
+
     color: #b4d9ff;
     font-size: 13px;
+    line-height: 1.5;
 }
 
-.user-greeting {
-    margin-bottom: 10px;
-    color: #c3e1ff;
-    font-size: 14px;
+.user-badge,
+.result-user,
+.photo-counter,
+.question-number {
+    display: inline-block;
+    padding: 7px 12px;
+
+    border: 1px solid rgba(0, 229, 255, 0.34);
+    border-radius: 999px;
+
+    background: rgba(0, 229, 255, 0.08);
+    color: #ccecff;
+
+    font-size: 12px;
+    font-weight: 700;
 }
 
-/* ================================
+.user-badge {
+    margin-bottom: 13px;
+}
+
+.question-number {
+    display: block;
+    width: fit-content;
+    margin: 0 auto 15px;
+
+    color: var(--cyan);
+    letter-spacing: 1px;
+}
+
+.photo-counter,
+.result-user {
+    margin-bottom: 14px;
+}
+
+
+/* =====================================================
    FORM
-================================ */
+===================================================== */
 
 .input-group {
     margin-bottom: 18px;
@@ -228,12 +294,14 @@ input[type="text"] {
     border-radius: 10px;
     outline: none;
 
-    background: rgba(1, 16, 28, 0.58);
+    background: rgba(1, 16, 28, 0.66);
     color: #ffffff;
-    font-size: 14px;
 
-    backdrop-filter: blur(3px);
-    transition: 0.3s ease;
+    font-size: 14px;
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 input[type="text"]::placeholder {
@@ -242,29 +310,38 @@ input[type="text"]::placeholder {
 
 input[type="text"]:focus {
     border-color: var(--cyan);
-    background: rgba(1, 19, 33, 0.76);
+    background: rgba(1, 19, 33, 0.82);
+
     box-shadow:
         0 0 0 3px rgba(0, 229, 255, 0.08),
         0 0 16px rgba(0, 229, 255, 0.38);
 }
 
-/* ================================
-   ERROR
-================================ */
+
+/* =====================================================
+   PESAN
+===================================================== */
 
 .error-text {
-    min-height: 20px;
-    margin-bottom: 15px;
+    min-height: 22px;
+    margin: 4px 0 13px;
 
-    color: #ff6666;
+    color: var(--danger);
     font-size: 13px;
-    font-weight: 700;
-    text-shadow: 0 0 8px rgba(255, 70, 70, 0.65);
+    font-weight: 800;
+    line-height: 1.4;
+    text-shadow: 0 0 8px rgba(255, 70, 100, 0.4);
 }
 
-/* ================================
-   BUTTON
-================================ */
+.error-text.success {
+    color: var(--success);
+    text-shadow: 0 0 8px rgba(76, 255, 176, 0.45);
+}
+
+
+/* =====================================================
+   TOMBOL
+===================================================== */
 
 .btn-primary,
 .btn-secondary {
@@ -275,9 +352,14 @@ input[type="text"]:focus {
     cursor: pointer;
 
     font-size: 13px;
-    font-weight: 800;
+    font-weight: 900;
     letter-spacing: 1px;
-    transition: 0.3s ease;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        opacity 0.25s ease;
 }
 
 .btn-primary {
@@ -286,24 +368,25 @@ input[type="text"]:focus {
     background:
         linear-gradient(
             135deg,
-            rgba(0, 146, 214, 0.92),
-            rgba(0, 74, 123, 0.88)
+            rgba(0, 146, 214, 0.96),
+            rgba(0, 74, 123, 0.92)
         );
 
     color: #ffffff;
+
     box-shadow:
         0 5px 18px rgba(0, 125, 190, 0.38),
         inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
-.btn-primary:hover {
+.btn-primary:hover:not(:disabled) {
     transform: translateY(-2px);
 
     background:
         linear-gradient(
             135deg,
-            rgba(0, 181, 239, 0.96),
-            rgba(0, 100, 160, 0.94)
+            rgba(0, 181, 239, 0.98),
+            rgba(0, 100, 160, 0.96)
         );
 
     box-shadow:
@@ -312,9 +395,8 @@ input[type="text"]:focus {
 }
 
 .btn-primary:disabled {
-    opacity: 0.55;
+    opacity: 0.5;
     cursor: not-allowed;
-    transform: none;
 }
 
 .btn-secondary {
@@ -326,48 +408,62 @@ input[type="text"]:focus {
 }
 
 .btn-secondary:hover {
+    transform: translateY(-1px);
     background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 14px rgba(255, 255, 255, 0.12);
 }
 
-/* ================================
-   QUIZ IMAGE
-================================ */
+
+/* =====================================================
+   GAMBAR KUIS
+===================================================== */
 
 .quiz-image-container {
+    margin-bottom: 18px;
+}
+
+.quiz-image-container[hidden] {
     display: none;
-    margin-bottom: 15px;
 }
 
 .quiz-image-container img {
-    max-width: 100%;
-    max-height: 180px;
+    display: block;
+    width: 100%;
+    max-height: 260px;
 
     border: 2px solid rgba(0, 229, 255, 0.5);
     border-radius: 12px;
+
+    background: #07151f;
+    object-fit: contain;
+
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
 }
 
-/* ================================
-   CAMERA
-================================ */
+
+/* =====================================================
+   KAMERA
+===================================================== */
 
 .camera-wrapper {
     position: relative;
     width: 100%;
     aspect-ratio: 4 / 3;
-    margin: 15px 0;
+    margin: 5px 0 12px;
 
     overflow: hidden;
+
     border: 2px solid rgba(0, 229, 255, 0.42);
     border-radius: 14px;
+
     background: #000;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.55);
 }
 
 #camera {
+    display: block;
     width: 100%;
     height: 100%;
+
     object-fit: cover;
     transform: scaleX(-1);
 }
@@ -376,30 +472,44 @@ input[type="text"]:focus {
     display: none;
 }
 
+.live-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 3;
+
+    padding: 6px 9px;
+
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.62);
+
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.6px;
+}
+
 .countdown-overlay {
     position: absolute;
     top: 50%;
     left: 50%;
-    z-index: 2;
+    z-index: 4;
 
     transform: translate(-50%, -50%);
 
     color: #ffffff;
-    font-size: 72px;
+    font-size: 78px;
     font-weight: 900;
     pointer-events: none;
+
     text-shadow:
-        0 0 20px rgba(0, 0, 0, 0.9),
-        0 0 14px var(--cyan);
+        0 0 20px rgba(0, 0, 0, 0.95),
+        0 0 15px var(--cyan);
 }
 
-/* ================================
-   RESULT
-================================ */
 
-.result-card {
-    max-width: 100%;
-}
+/* =====================================================
+   HASIL FOTO
+===================================================== */
 
 .strips-preview {
     display: flex;
@@ -407,56 +517,54 @@ input[type="text"]:focus {
     gap: 14px;
 
     margin: 20px 0;
-    padding-bottom: 10px;
+    padding: 4px 2px 12px;
+
     overflow-x: auto;
 }
 
-.strip {
-    flex: 0 0 140px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    width: 140px;
+.photo-strip {
+    flex: 0 0 160px;
+    width: 160px;
     padding: 10px;
 
-    border-radius: 6px;
+    border-radius: 7px;
     background: #ffffff;
     color: #111111;
+
     box-shadow: 0 7px 20px rgba(0, 0, 0, 0.55);
 }
 
 .strip-header {
     width: 100%;
-    padding: 4px 0;
+    padding: 5px 0;
 
-    border-radius: 2px;
+    border-radius: 3px;
     background: #07151f;
     color: #ffffff;
 
     font-size: 10px;
-    font-weight: 800;
+    font-weight: 900;
     text-align: center;
 }
 
 .strip-title {
-    margin: 4px 0 6px;
+    margin: 5px 0 7px;
 
     font-family: monospace;
-    font-size: 8px;
-    font-weight: 800;
+    font-size: 9px;
+    font-weight: 900;
 }
 
 .strip-photos {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    width: 100%;
 }
 
 .strip-photos img {
+    display: block;
     width: 100%;
-    height: 85px;
+    height: 105px;
 
     border-radius: 2px;
     background: #dddddd;
@@ -464,26 +572,89 @@ input[type="text"]:focus {
 }
 
 .strip-date {
-    margin-top: 6px;
+    margin-top: 7px;
+
     font-family: monospace;
-    font-size: 7px;
+    font-size: 8px;
 }
 
 .strip-footer {
-    margin-top: 2px;
+    margin-top: 3px;
+
     font-family: monospace;
     font-size: 8px;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .action-buttons {
     width: 100%;
 }
 
-/* ================================
-   SHAKE EFFECT
-================================ */
+
+/* =====================================================
+   ANIMASI
+===================================================== */
 
 .shake {
     animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translateX(-2px);
+    }
+
+    20%,
+    80% {
+        transform: translateX(4px);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translateX(-7px);
+    }
+
+    40%,
+    60% {
+        transform: translateX(7px);
+    }
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 560px) {
+    body {
+        align-items: flex-start;
+        padding: 12px;
+        background-attachment: scroll;
+    }
+
+    .card {
+        padding: 27px 18px;
+        border-radius: 18px;
+    }
+
+    .circuit-decoration {
+        font-size: 10px;
+    }
+
+    .photo-strip {
+        flex-basis: 145px;
+        width: 145px;
+    }
+
+    .strip-photos img {
+        height: 94px;
+    }
+}
+
+@media (max-width: 350px) {
+    .strips-preview {
+        justify-content: flex-start;
+    }
 }
