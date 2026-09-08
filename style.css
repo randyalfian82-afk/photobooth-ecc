@@ -37,16 +37,13 @@ body {
 .login-page {
     position: relative;
     background:
-        linear-gradient(
-            rgba(2, 12, 20, .45),
-            rgba(2, 12, 20, .55)
-        ),
+        linear-gradient(rgba(2,12,20,.45), rgba(2,12,20,.55)),
         url("bgrnd.jpg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    box-shadow: inset 0 0 120px rgba(0,0,0,0.6);
+    box-shadow: inset 0 0 120px rgba(0,0,0,.6);
 }
 .login-overlay {
     position: absolute;
@@ -83,10 +80,7 @@ body {
     box-shadow: 0 0 30px rgba(0,220,255,.2), 0 25px 70px rgba(0,0,0,.7);
     backdrop-filter: blur(8px);
 }
-.electric-icon {
-    font-size: 55px;
-    text-shadow: 0 0 15px #00eaff;
-}
+.electric-icon { font-size: 55px; text-shadow: 0 0 15px #00eaff; }
 .chip {
     display: inline-flex;
     justify-content: center;
@@ -105,10 +99,7 @@ body {
     line-height: 1.1;
     letter-spacing: 2px;
 }
-.subtitle {
-    color: #91b9c4;
-    margin-bottom: 28px;
-}
+.subtitle { color: #91b9c4; margin-bottom: 28px; }
 /* =================================
    FORM
 ================================= */
@@ -151,11 +142,7 @@ button:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0,220,255,.25);
 }
-button:disabled {
-    opacity: .5;
-    cursor: not-allowed;
-    transform: none;
-}
+button:disabled { opacity: .5; cursor: not-allowed; transform: none; }
 .error-message {
     min-height: 25px;
     margin-top: 14px;
@@ -168,16 +155,13 @@ button:disabled {
 ================================= */
 .quiz-page {
     background:
-        linear-gradient(
-            rgba(2, 12, 20, .45),
-            rgba(2, 12, 20, .55)
-        ),
+        linear-gradient(rgba(2,12,20,.45), rgba(2,12,20,.55)),
         url("bgrnd.jpg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    box-shadow: inset 0 0 120px rgba(0,0,0,0.6);
+    box-shadow: inset 0 0 120px rgba(0,0,0,.6);
 }
 .quiz-card {
     width: 100%;
@@ -204,10 +188,7 @@ button:disabled {
     font-family: monospace;
     font-weight: bold;
 }
-.quiz-card h2 {
-    line-height: 1.5;
-    font-size: 23px;
-}
+.quiz-card h2 { line-height: 1.5; font-size: 23px; }
 .question-image {
     display: none;
     width: 100%;
@@ -247,7 +228,7 @@ button:disabled {
 .camera-container {
     width: 90%;
     max-width: 650px;
-    margin: 20px 0;
+    margin: 20px auto;
     position: relative;
     overflow: hidden;
     border-radius: 15px;
@@ -255,11 +236,7 @@ button:disabled {
     background: #000;
     box-shadow: 0 0 35px rgba(0,220,255,.15);
 }
-#camera {
-    width: 100%;
-    display: block;
-    transform: scaleX(-1);
-}
+#camera { width: 100%; display: block; transform: scaleX(-1); }
 .live-label {
     position: absolute;
     z-index: 5;
@@ -320,7 +297,6 @@ button:disabled {
     color: #111;
     border-radius: 4px;
     box-shadow: 0 15px 45px rgba(0,0,0,.5);
-    position: relative;
 }
 .strip-top {
     height: 38px;
@@ -359,10 +335,7 @@ button:disabled {
     font-size: 11px;
     line-height: 1.5;
 }
-.strip-footer span {
-    display: block;
-    font-size: 9px;
-}
+.strip-footer span { display: block; font-size: 9px; }
 /* =================================
    BUTTONS
 ================================= */
@@ -371,19 +344,14 @@ button:disabled {
     max-width: 500px;
     display: flex;
     gap: 12px;
+    margin: 0 auto;
 }
-.download-button {
-    background: linear-gradient(135deg, #087c59, #064b38);
-}
-.restart-button {
-    background: linear-gradient(135deg, #713db0, #422268);
-}
+.download-button { background: linear-gradient(135deg, #087c59, #064b38); }
+.restart-button { background: linear-gradient(135deg, #713db0, #422268); }
 /* =================================
    ANIMATION GETAR SALAH
 ================================= */
-.shake {
-    animation: shake 0.5s;
-}
+.shake { animation: shake 0.5s; }
 @keyframes shake {
     0%,100% { transform: translateX(0); }
     20% { transform: translateX(-8px); }
