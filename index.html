@@ -1,296 +1,714 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photobooth Quiz EC3C</title>
+    <style>
+        /* ==================================================
+           DASAR & BACKGROUND
+        ================================================== */
+        * {
+            box-sizing: border-box;
+        }
 
-    <title>Electronic Little Story ⚡</title>
+        html {
+            scroll-behavior: smooth;
+        }
 
-    <link rel="stylesheet" href="style.css">
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #d9faff;
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(0, 220, 255, 0.15),
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 85% 80%,
+                    rgba(120, 0, 255, 0.15),
+                    transparent 25%
+                ),
+                linear-gradient(
+                    135deg,
+                    #07111d,
+                    #0b1d2c 45%,
+                    #06101a
+                );
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.35;
+            background-image:
+                linear-gradient(
+                    90deg,
+                    transparent 48%,
+                    rgba(0, 220, 255, 0.12) 49%,
+                    rgba(0, 220, 255, 0.12) 51%,
+                    transparent 52%
+                ),
+                linear-gradient(
+                    transparent 48%,
+                    rgba(0, 220, 255, 0.12) 49%,
+                    rgba(0, 220, 255, 0.12) 51%,
+                    transparent 52%
+                );
+            background-size: 80px 80px;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "⚡ ━━━●━━━━━━━●━━━━ IC ━━━●━━━━━━●━━━ ⚡";
+            position: fixed;
+            left: 0;
+            top: 10%;
+            width: 100%;
+            color: rgba(70, 230, 255, 0.12);
+            font-size: 25px;
+            letter-spacing: 8px;
+            white-space: nowrap;
+            pointer-events: none;
+            animation: circuitMove 15s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes circuitMove {
+            from { transform: translateX(-20%); }
+            to { transform: translateX(20%); }
+        }
+
+        /* ==================================================
+           HALAMAN
+        ================================================== */
+        .page {
+            min-height: 100vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            position: relative;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        /* ==================================================
+           DEKORASI SIRKUIT & CARD
+        ================================================== */
+        .circuit-decoration {
+            color: #55e8ff;
+            font-family: monospace;
+            font-size: 18px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(50, 220, 255, 0.8);
+            opacity: 0.8;
+            margin: 15px;
+            text-align: center;
+        }
+
+        .card {
+            width: 90%;
+            max-width: 430px;
+            padding: 35px;
+            background: linear-gradient(
+                145deg,
+                rgba(12, 31, 47, 0.97),
+                rgba(7, 19, 31, 0.97)
+            );
+            border: 1px solid rgba(65, 225, 255, 0.35);
+            border-radius: 20px;
+            text-align: center;
+            box-shadow:
+                0 0 25px rgba(0, 210, 255, 0.12),
+                0 20px 50px rgba(0, 0, 0, 0.45);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                #55e8ff,
+                transparent
+            );
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .electronic-icon {
+            font-size: 50px;
+            margin-bottom: 5px;
+            filter: drop-shadow(0 0 12px rgba(0, 230, 255, 0.7));
+            animation: pulseElectronic 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseElectronic {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .card h1 {
+            margin: 5px 0 10px;
+            font-size: 32px;
+            color: #d9faff;
+            text-shadow: 0 0 12px rgba(70, 220, 255, 0.35);
+        }
+
+        .subtitle {
+            color: #8db9c5;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .user-info {
+            display: inline-block;
+            padding: 7px 14px;
+            margin-bottom: 10px;
+            border-radius: 20px;
+            background: rgba(50, 220, 255, 0.08);
+            border: 1px solid rgba(50, 220, 255, 0.25);
+            color: #64eaff;
+            font-size: 12px;
+            font-family: monospace;
+        }
+
+        /* ==================================================
+           FORM & BUTTON
+        ================================================== */
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 16px;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #9ed4df;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #285465;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #dffaff;
+            background: #081722;
+            transition: 0.25s;
+        }
+
+        input::placeholder {
+            color: #557783;
+        }
+
+        input:focus {
+            border-color: #4de8ff;
+            box-shadow: 0 0 15px rgba(50, 220, 255, 0.15);
+        }
+
+        button {
+            border: none;
+            padding: 14px 25px;
+            margin-top: 25px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #0c8ca8, #126078);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.25s;
+            box-shadow: 0 0 15px rgba(0, 220, 255, 0.15);
+            width: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 220, 255, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            color: #ff6b91;
+            font-weight: bold;
+            min-height: 20px;
+            margin-top: 15px;
+        }
+
+        .question-number {
+            color: #53dff5;
+            font-size: 13px;
+            font-family: monospace;
+        }
+
+        #judulPertanyaan {
+            font-size: 23px;
+            line-height: 1.4;
+            margin: 20px 0;
+            color: #dffaff;
+        }
+
+        /* ==================================================
+           PHOTOBOOTH & KAMERA
+        ================================================== */
+        #photobooth {
+            text-align: center;
+        }
+
+        .camera-container {
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+            background: #02070b;
+            border: 2px solid #1c8095;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 220, 255, 0.2);
+            margin: 20px auto;
+        }
+
+        .camera-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 3;
+            padding: 5px 10px;
+            background: rgba(0, 0, 0, 0.65);
+            color: #ff526f;
+            font-family: monospace;
+            font-size: 11px;
+        }
+
+        #camera {
+            width: 100%;
+            display: block;
+            transform: scaleX(-1);
+        }
+
+        #countdown {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 100px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 20px #00d9ff;
+        }
+
+        #canvas {
+            display: none;
+        }
+
+        .camera-button {
+            background: linear-gradient(135deg, #e04d72, #a83255);
+            padding: 15px 30px;
+            width: auto;
+        }
+
+        /* ==================================================
+           HASIL POLAROID
+        ================================================== */
+        #hasilPage {
+            justify-content: flex-start;
+            padding-top: 35px;
+            text-align: center;
+        }
+
+        .polaroid-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
+            padding: 25px 15px;
+        }
+
+        .photostrip {
+            width: 270px;
+            padding: 12px 12px 18px;
+            background: linear-gradient(180deg, #d8faff, #b9eaf2);
+            border-radius: 5px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .photostrip:nth-child(1) { transform: rotate(-3deg); }
+        .photostrip:nth-child(2) { transform: rotate(3deg); }
+
+        .photostrip-header {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #07151f;
+            margin-bottom: 10px;
+        }
+
+        .cat-decoration {
+            font-size: 30px;
+        }
+
+        .photostrip-title {
+            text-align: center;
+            color: #173c4a;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .photo-box {
+            width: 100%;
+            background: white;
+            padding: 4px;
+            margin-bottom: 8px;
+        }
+
+        .photo-box img {
+            width: 100%;
+            display: block;
+        }
+
+        .photostrip-footer {
+            text-align: center;
+            color: #173c4a;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .photostrip-date {
+            font-size: 10px;
+            color: #507482;
+            margin-top: 3px;
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .polaroid-container { gap: 10px; }
+            .photostrip { width: 45vw; padding: 8px; }
+        }
+    </style>
 </head>
-
 <body>
 
-    <!-- ==================================================
-         HALAMAN 1 - NAMA
-    ================================================== -->
-
-    <section id="opening" class="page active">
-
-        <div class="circuit-decoration circuit-top">
-            ⚡ ━━━●━━━━ ⚙ ━━━━━●━━━ ⚡
+    <!-- 1. HALAMAN REGISTRASI -->
+    <div id="registrasiPage" class="page active">
+        <div class="circuit-decoration">⚡ [ EC3C PHOTOBOOTH SYSTEM ] ⚡</div>
+        <div class="card">
+            <div class="electronic-icon">🔌</div>
+            <h1>Masukan Nama</h1>
+            <p class="subtitle">Isi nama kamu dulu sebelum mulai quiz!</p>
+            
+            <label for="inputNama">Nama Kamu:</label>
+            <input type="text" id="inputNama" placeholder="Ketik nama di sini..." autocomplete="off">
+            
+            <div id="errRegistrasi" class="error-message"></div>
+            <button onclick="submitRegistrasi()">LANJUT KE QUIZ ➔</button>
         </div>
+    </div>
 
-        <div class="card electronic-card">
-
-            <div class="electronic-icon">
-                ⚡
-            </div>
-
-            <div class="chip-icon">
-                IC
-            </div>
-
-            <h1>
-                Electronic Story
-            </h1>
-
-            <p class="subtitle">
-                Sebelum masuk, kenalan dulu ya...
-            </p>
-
-            <label>
-                Nama Kamu
-            </label>
-
-            <input
-                type="text"
-                id="nama"
-                placeholder="Contoh: Alfian Randy"
-                autocomplete="off"
-            >
-
-            <button onclick="lanjutNama()">
-                LANJUT ⚡
-            </button>
-
-            <p
-                id="pesanNama"
-                class="error-message"
-            ></p>
-
+    <!-- 2. HALAMAN PERTANYAAN -->
+    <div id="pertanyaanPage" class="page">
+        <div class="card">
+            <div id="displayNamaUser" class="user-info">User: -</div>
+            <div id="nomorPertanyaan" class="question-number">PERTANYAAN 1 / 3</div>
+            
+            <h2 id="judulPertanyaan">Fungsi resistor?</h2>
+            
+            <input type="text" id="inputJawaban" placeholder="Ketik jawabanmu di sini..." autocomplete="off">
+            <div id="errPertanyaan" class="error-message"></div>
+            
+            <button onclick="submitJawaban()">JAWAB ➔</button>
         </div>
+    </div>
 
-        <div class="circuit-decoration circuit-bottom">
-            ━━━●━━━╫╫━━━●━━━━ ⚡
-        </div>
-
-    </section>
-
-
-
-    <!-- ==================================================
-         HALAMAN 2 - NIM
-    ================================================== -->
-
-    <section id="nimPage" class="page">
-
-        <div class="circuit-decoration circuit-top">
-            ⚡ ━━━●━━━━━ IC ━━━━━●━━━ ⚡
-        </div>
-
-        <div class="card electronic-card">
-
-            <div class="electronic-icon">
-                🔌
-            </div>
-
-            <div class="chip-icon">
-                NIM
-            </div>
-
-            <h1>
-                Masukkan NIM
-            </h1>
-
-            <p class="subtitle">
-                Hai <span id="namaTampil"></span> 👋
-                <br>
-                Masukkan NIM kamu untuk melanjutkan.
-            </p>
-
-            <label>
-                NIM
-            </label>
-
-            <input
-                type="text"
-                id="nim"
-                placeholder="Contoh: 2503321092"
-                inputmode="numeric"
-                autocomplete="off"
-            >
-
-            <button onclick="lanjutNIM()">
-                LANJUT ⚡
-            </button>
-
-            <p
-                id="pesanNIM"
-                class="error-message"
-            ></p>
-
-        </div>
-
-        <div class="circuit-decoration circuit-bottom">
-            ━━ R ━━●━━━━ C ━━━●━━━━ L ━━
-        </div>
-
-    </section>
-
-
-
-    <!-- ==================================================
-         HALAMAN PERTANYAAN
-    ================================================== -->
-
-    <section id="questions" class="page">
-
-        <div class="card electronic-card">
-
-            <div class="electronic-icon">
-                🔧
-            </div>
-
-            <div class="user-info">
-                <span id="userNama"></span>
-                <span class="separator">•</span>
-                <span id="userNIM"></span>
-            </div>
-
-            <p
-                id="nomorPertanyaan"
-                class="question-number"
-            >
-                Pertanyaan 1 dari 7
-            </p>
-
-            <h2 id="judulPertanyaan"></h2>
-
-            <div id="areaJawaban"></div>
-
-            <p
-                id="pesanJawaban"
-                class="error-message"
-            ></p>
-
-            <button onclick="cekJawaban()">
-                JAWAB ⚡
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ==================================================
-         PHOTOBOOTH
-    ================================================== -->
-
-    <section id="photobooth" class="page">
-
-        <div class="booth-title">
-
-            <div class="electronic-icon">
-                📡
-            </div>
-
-            <h1>
-                Electronic Photobooth ⚡
-            </h1>
-
-            <p id="info">
-                3 foto untuk satu kenangan
-            </p>
-
-        </div>
-
-        <p
-            id="fotoKe"
-            class="photo-counter"
-        >
-            Foto 1 dari 3
-        </p>
+    <!-- 3. HALAMAN PHOTOBOOTH -->
+    <div id="photobooth" class="page">
+        <h1>📸 PHOTOBOOTH READY</h1>
+        <p>Sesi foto 6x snapshot otomatis!</p>
+        <div id="photoCounter" class="user-info">0 / 6 Foto</div>
 
         <div class="camera-container">
-
-            <div class="camera-label">
-                ● LIVE CAMERA
-            </div>
-
-            <video
-                id="camera"
-                autoplay
-                playsinline
-            ></video>
-
+            <div class="camera-label">● REC</div>
+            <video id="camera" autoplay playsinline></video>
             <div id="countdown"></div>
-
         </div>
 
-        <button
-            id="fotoBtn"
-            class="camera-button"
-            onclick="ambilFoto()"
-        >
-            📸 TAKE PHOTO
-        </button>
-
+        <button id="btnStartBooth" class="camera-button" onclick="mulaiPhotobooth()">MULAI FOTO (3 Detik)</button>
         <canvas id="canvas"></canvas>
+    </div>
 
-    </section>
+    <!-- 4. HALAMAN HASIL -->
+    <div id="hasilPage" class="page">
+        <h1>🎉 HASIL PHOTOSTRIP EC3C 🎉</h1>
+        <div id="hasilNamaUser" class="user-info">Subjek: -</div>
 
-
-
-    <!-- ==================================================
-         HALAMAN HASIL
-    ================================================== -->
-
-    <section id="hasilPage" class="page">
-
-        <div class="result-title">
-
-            <div class="electronic-icon">
-                ⚡
+        <div class="polaroid-container">
+            <!-- Strip 1 -->
+            <div class="photostrip">
+                <div class="photostrip-header"><span class="cat-decoration">⚡</span></div>
+                <div class="photostrip-title">EC3C MEMORIES</div>
+                <div id="fotoContainer1"></div>
+                <div class="photostrip-footer">
+                    <div>PART 1</div>
+                    <div id="tglPolaroid1" class="photostrip-date"></div>
+                </div>
             </div>
 
-            <h1>
-                Our Electronic Moment
-            </h1>
-
-            <p>
-                Kenangan kecil dalam satu rangkaian. ❤️
-            </p>
-
-            <div class="result-user">
-                <span id="hasilNama"></span>
-                <span> • </span>
-                <span id="hasilNIM"></span>
+            <!-- Strip 2 -->
+            <div class="photostrip">
+                <div class="photostrip-header"><span class="cat-decoration">⚡</span></div>
+                <div class="photostrip-title">EC3C MEMORIES</div>
+                <div id="fotoContainer2"></div>
+                <div class="photostrip-footer">
+                    <div>PART 2</div>
+                    <div id="tglPolaroid2" class="photostrip-date"></div>
+                </div>
             </div>
-
         </div>
 
-        <div
-            id="hasil"
-            class="polaroid-container"
-        ></div>
+        <button style="width: auto; margin-bottom: 40px;" onclick="ulangSemua()">🔄 Ulangi Dari Awal</button>
+    </div>
 
-        <div class="result-buttons">
+    <!-- JAVASCRIPT SYSTEM -->
+    <script>
+        // DAFTAR PERTANYAAN & LOGIKA ATURAN
+        const daftarPertanyaan = [
+            {
+                teks: "Apa fungsi resistor?",
+                validasi: (jawaban) => jawaban.includes("hambat"),
+                pesanSalah: "Tolol!"
+            },
+            {
+                teks: "Nama lengkap km?",
+                validasi: (jawaban) => jawaban.includes("yuan"),
+                pesanSalah: "Dongo!"
+            },
+            {
+                teks: "Siapa maskot di kelas EC3C?",
+                validasi: (jawaban) => jawaban.includes("cahya") || jawaban.includes("bule"),
+                pesanSalah: "Yah masa ga kenal sih!"
+            }
+        ];
 
-            <button
-                onclick="simpanFoto()"
-                class="save-button"
-            >
-                💾 SAVE PHOTO
-            </button>
+        let indeksPertanyaan = 0;
+        let namaUser = "";
+        let fotoTerambil = [];
+        let mediaStream = null;
 
-            <button
-                onclick="location.reload()"
-                class="retry-button"
-            >
-                ↻ ULANGI
-            </button>
+        // ELEMENT DOM
+        const registrasiPage = document.getElementById('registrasiPage');
+        const pertanyaanPage = document.getElementById('pertanyaanPage');
+        const photoboothPage = document.getElementById('photobooth');
+        const hasilPage = document.getElementById('hasilPage');
 
-        </div>
+        const inputNama = document.getElementById('inputNama');
+        const errRegistrasi = document.getElementById('errRegistrasi');
+        const displayNamaUser = document.getElementById('displayNamaUser');
 
-    </section>
+        const nomorPertanyaanEl = document.getElementById('nomorPertanyaan');
+        const judulPertanyaanEl = document.getElementById('judulPertanyaan');
+        const inputJawaban = document.getElementById('inputJawaban');
+        const errPertanyaan = document.getElementById('errPertanyaan');
 
+        const cameraVideo = document.getElementById('camera');
+        const canvasEl = document.getElementById('canvas');
+        const countdownEl = document.getElementById('countdown');
+        const photoCounterEl = document.getElementById('photoCounter');
+        const btnStartBooth = document.getElementById('btnStartBooth');
 
-    <script src="script.js"></script>
+        // 1. REGISTRASI
+        function submitRegistrasi() {
+            const val = inputNama.value.trim();
+            if (!val) {
+                errRegistrasi.textContent = "Nama tidak boleh kosong!";
+                return;
+            }
+            
+            namaUser = val;
+            errRegistrasi.textContent = "";
+            displayNamaUser.textContent = `User: ${namaUser}`;
+            
+            registrasiPage.classList.remove('active');
+            pertanyaanPage.classList.add('active');
+            muatPertanyaan();
+        }
 
+        // 2. TAMPILKAN PERTANYAAN
+        function muatPertanyaan() {
+            nomorPertanyaanEl.textContent = `PERTANYAAN ${indeksPertanyaan + 1} / ${daftarPertanyaan.length}`;
+            judulPertanyaanEl.textContent = daftarPertanyaan[indeksPertanyaan].teks;
+            inputJawaban.value = "";
+            errPertanyaan.textContent = "";
+        }
+
+        // 3. VALIDASI JAWABAN
+        function submitJawaban() {
+            const jawabanUser = inputJawaban.value.trim().toLowerCase();
+            const itemPertanyaan = daftarPertanyaan[indeksPertanyaan];
+
+            if (!jawabanUser) {
+                errPertanyaan.textContent = "Isi jawabanmu dulu!";
+                return;
+            }
+
+            if (itemPertanyaan.validasi(jawabanUser)) {
+                errPertanyaan.textContent = "";
+                indeksPertanyaan++;
+
+                if (indeksPertanyaan < daftarPertanyaan.length) {
+                    muatPertanyaan();
+                } else {
+                    // Semua pertanyaan terjawab benar -> Buka Photobooth
+                    pertanyaanPage.classList.remove('active');
+                    photoboothPage.classList.add('active');
+                    bukaKamera();
+                }
+            } else {
+                errPertanyaan.textContent = itemPertanyaan.pesanSalah;
+            }
+        }
+
+        // 4. KAMERA & PHOTOBOOTH
+        async function bukaKamera() {
+            try {
+                mediaStream = await navigator.mediaDevices.getUserMedia({
+                    video: { width: 1280, height: 720 },
+                    audio: false
+                });
+                cameraVideo.srcObject = mediaStream;
+            } catch (err) {
+                alert("Gagal mengakses kamera: " + err.message);
+            }
+        }
+
+        function mulaiPhotobooth() {
+            btnStartBooth.disabled = true;
+            fotoTerambil = [];
+            photoCounterEl.textContent = "0 / 6 Foto";
+            prosesFoto(0);
+        }
+
+        function prosesFoto(index) {
+            if (index >= 6) {
+                selesaiPhotobooth();
+                return;
+            }
+
+            let hitungan = 3;
+            countdownEl.textContent = hitungan;
+
+            const timer = setInterval(() => {
+                hitungan--;
+                if (hitungan > 0) {
+                    countdownEl.textContent = hitungan;
+                } else {
+                    clearInterval(timer);
+                    countdownEl.textContent = "";
+                    
+                    tangkapGambar();
+                    photoCounterEl.textContent = `${index + 1} / 6 Foto`;
+                    
+                    setTimeout(() => {
+                        prosesFoto(index + 1);
+                    }, 1000);
+                }
+            }, 1000);
+        }
+
+        function tangkapGambar() {
+            const ctx = canvasEl.getContext('2d');
+            canvasEl.width = cameraVideo.videoWidth;
+            canvasEl.height = cameraVideo.videoHeight;
+
+            ctx.translate(canvasEl.width, 0);
+            ctx.scale(-1, 1);
+            ctx.drawImage(cameraVideo, 0, 0, canvasEl.width, canvasEl.height);
+
+            const dataUrl = canvasEl.toDataURL('image/png');
+            fotoTerambil.push(dataUrl);
+        }
+
+        function selesaiPhotobooth() {
+            if (mediaStream) {
+                mediaStream.getTracks().forEach(track => track.stop());
+            }
+
+            photoboothPage.classList.remove('active');
+            tampilkanHasil();
+        }
+
+        // 5. TAMPILKAN HASIL
+        function tampilkanHasil() {
+            hasilPage.classList.add('active');
+            document.getElementById('hasilNamaUser').textContent = `Subjek: ${namaUser}`;
+
+            // Strip 1 (Foto 1-3)
+            const boxP1 = document.getElementById('fotoContainer1');
+            boxP1.innerHTML = "";
+            for (let i = 0; i < 3; i++) {
+                if (fotoTerambil[i]) {
+                    boxP1.innerHTML += `<div class="photo-box"><img src="${fotoTerambil[i]}"></div>`;
+                }
+            }
+
+            // Strip 2 (Foto 4-6)
+            const boxP2 = document.getElementById('fotoContainer2');
+            boxP2.innerHTML = "";
+            for (let i = 3; i < 6; i++) {
+                if (fotoTerambil[i]) {
+                    boxP2.innerHTML += `<div class="photo-box"><img src="${fotoTerambil[i]}"></div>`;
+                }
+            }
+
+            const skrg = new Date();
+            const tglStr = skrg.toLocaleDateString('id-ID', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            });
+            document.getElementById('tglPolaroid1').textContent = tglStr;
+            document.getElementById('tglPolaroid2').textContent = tglStr;
+        }
+
+        function ulangSemua() {
+            indeksPertanyaan = 0;
+            namaUser = "";
+            fotoTerambil = [];
+            btnStartBooth.disabled = false;
+            
+            hasilPage.classList.remove('active');
+            registrasiPage.classList.add('active');
+            inputNama.value = "";
+        }
+    </script>
 </body>
-
 </html>
