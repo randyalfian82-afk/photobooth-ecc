@@ -1,432 +1,1256 @@
-"use strict";
+/* ==========================================
+   EC3C PHOTOBOOTH
+========================================== */
 
-/* =====================================================
+
+/* ==========================================
    DATA MAHASISWA
-===================================================== */
+========================================== */
 
 const students = [
-    { nim: "2503321002", nama: "Abdul Fattah" },
-    { nim: "2503321073", nama: "Abyan Dwi Setiawan" },
-    { nim: "2503321092", nama: "Alfian Randy" },
-    { nim: "2503321094", nama: "Cahya Heryana" },
-    { nim: "2503321050", nama: "Danendra Althaf" },
-    { nim: "2503321058", nama: "Evan Okto Fahmi Romadhon" },
-    { nim: "2503321066", nama: "Fawwaz Faisal Alwan" },
-    { nim: "2503321067", nama: "Ghaisan Adiend Fathan Al Adli" },
-    { nim: "2503321005", nama: "Hanifa Na'ila Triya Sumantri" },
-    { nim: "2503321008", nama: "Intan Dhahy Arwa Admia Fernando" },
-    { nim: "2503321064", nama: "Jusriadi" },
-    { nim: "2503321013", nama: "Maulana Rafiy Abdullah" },
-    { nim: "2503321004", nama: "Muhammad Rizhan Faturahman" },
-    { nim: "2503321049", nama: "Muhammad Addien Fikrul Akbar" },
-    { nim: "2503321027", nama: "Muhammad Dzaki Hisyam" },
-    { nim: "2503321071", nama: "Muhammad Faiq Satia Prasaja" },
-    { nim: "2503321040", nama: "Muhammad Farrell Baddar Pamuji" },
-    { nim: "2503321084", nama: "Muhammad Rashya Erlangga" },
-    { nim: "2503321070", nama: "Muhammad Rizky Ramadhan" },
-    { nim: "2503321063", nama: "Najwa Sharfina Muswar" },
-    { nim: "2503321032", nama: "Reyvan Albaqiqi Fasya" },
-    { nim: "2503321025", nama: "Shafa Dhia Alya Jundanti" },
-    { nim: "2503321034", nama: "Teuku Naufal Abyan" },
-    { nim: "2503321077", nama: "Yuan Rizqy Pratama" }
+
+    {
+        nim: "2503321002",
+        nama: "Abdul Fattah"
+    },
+
+    {
+        nim: "2503321073",
+        nama: "Abyan Dwi Setiawan"
+    },
+
+    {
+        nim: "2503321092",
+        nama: "Alfian Randy"
+    },
+
+    {
+        nim: "2503321094",
+        nama: "Cahya Heryana"
+    },
+
+    {
+        nim: "2503321050",
+        nama: "Danendra Althaf"
+    },
+
+    {
+        nim: "2503321058",
+        nama: "Evan Okto Fahmi Romadhon"
+    },
+
+    {
+        nim: "2503321066",
+        nama: "Fawwaz Faisal Alwan"
+    },
+
+    {
+        nim: "2503321067",
+        nama: "Ghaisan Adiend Fathan Al Adli"
+    },
+
+    {
+        nim: "2503321005",
+        nama: "Hanifa Na'ila Triya Sumantri"
+    },
+
+    {
+        nim: "2503321008",
+        nama: "Intan Dhahy Arwa Admia Fernando"
+    },
+
+    {
+        nim: "2503321064",
+        nama: "Jusriadi"
+    },
+
+    {
+        nim: "2503321013",
+        nama: "Maulana Rafly Abdullah"
+    },
+
+    {
+        nim: "2503321004",
+        nama: "Muhamad Rizhan Faturahman"
+    },
+
+    {
+        nim: "2503321049",
+        nama: "Muhammad Addien Fikrul Akbar"
+    },
+
+    {
+        nim: "2503321027",
+        nama: "Muhammad Dzaki Hisyam"
+    },
+
+    {
+        nim: "2503321071",
+        nama: "Muhammad Faiq Satia Prasaja"
+    },
+
+    {
+        nim: "2503321040",
+        nama: "Muhammad Farrel Baddar Pamuji"
+    },
+
+    {
+        nim: "2503321084",
+        nama: "Muhammad Rashya Erlangga"
+    },
+
+    {
+        nim: "2503321070",
+        nama: "Muhammad Rizky Ramadhan"
+    },
+
+    {
+        nim: "2503321063",
+        nama: "Najwa Sharfina Muswar"
+    },
+
+    {
+        nim: "2503321032",
+        nama: "Reyvan Albaihaqi Fasya"
+    },
+
+    {
+        nim: "2503321025",
+        nama: "Shafa Dhia Alya Judanti"
+    },
+
+    {
+        nim: "2503321034",
+        nama: "Teuku Naufal Abyan"
+    },
+
+    {
+        nim: "2503321077",
+        nama: "Yuan Rizqy Pratama"
+    }
+
 ];
 
 
-/* =====================================================
+/* ==========================================
    DATA PERTANYAAN
-===================================================== */
+========================================== */
 
 const questions = [
+
     {
-        question: "Apa fungsi utama dari resistor?",
+        question:
+            "Apa fungsi utama dari resistor?",
+
         answers: [
             "hambatan",
-            "menghambat",
-            "menghambat arus",
-            "membatasi arus",
-            "penghambat arus"
+            "menghambat arus"
         ],
+
         image: "",
-        wrong: "Jawaban belum benar."
+
+        wrong:
+            "TOLOL!!"
     },
+
+
     {
-        question: "Maskot kelas EC 3C ini siapa? Siapa nama orang ini?",
+        question:
+            "Maskot kelas EC 3C ini siapa? Coba lihat orangnya!",
+
         answers: [
             "cahya",
-            "cahya heryana",
             "bule"
         ],
-        image: "cahya.jpg",
-        wrong: "Jawaban belum benar."
+
+        image:
+            "cahya.jpg",
+
+        wrong:
+            "DONGO!!"
     },
+
+
     {
-        question: "Siapa nama KM kita?",
+        question:
+            "Siapa nama KM kita?",
+
         answers: [
-            "yuan",
-            "yuan rizqy pratama",
-            "yuan rizky pratama"
+            "yuan rizky pratama",
+            "yuan"
         ],
-        image: "yuan.jpg",
-        wrong: "Yah, masa tidak tahu?"
+
+        image:
+            "",
+
+        wrong:
+            "YAHH MASA GATAU SIH!!"
     },
+
+
     {
-        question: "Siapa yang disuruh keluar sama Pa Isan?",
+        question:
+            "Siapa yang disuruh keluar sama Pa Isan?",
+
         answers: [
             "fawaz",
-            "fawwaz",
-            "fawwaz faisal alwan"
+            "fawwaz"
         ],
-        image: "",
-        wrong: "Jawaban belum benar."
+
+        image:
+            "",
+
+        wrong:
+            "POTONG RAMBUT LU WAZ!!"
     },
+
+
     {
-        question: "Dosen siapa yang jarang masuk di semester 3?",
+        question:
+            "Dosen siapa yang jarang masuk di semester 3?",
+
         answers: [
             "bu sri",
-            "ibu sri",
             "sri",
-            "endang",
-            "bu endang",
-            "ibu endang"
+            "endang"
         ],
-        image: "",
-        wrong: "Jawaban belum benar."
+
+        image:
+            "",
+
+        wrong:
+            "MASA DOSEN AJA GAK TAU!!"
     }
+
 ];
 
 
-/* =====================================================
-   KONSTANTA DAN STATE
-===================================================== */
 
-const TOTAL_PHOTOS = 6;
-const COUNTDOWN_SECONDS = 3;
-const DELAY_AFTER_PHOTO = 900;
+/* ==========================================
+   VARIABLE
+========================================== */
 
 let currentQuestion = 0;
+
 let currentStudent = null;
+
 let photos = [];
+
 let cameraStream = null;
+
 let takingPhotos = false;
-let activeTimer = null;
 
 
-/* =====================================================
-   ELEMEN DOM
-===================================================== */
 
-const loginPage = document.getElementById("loginPage");
-const quizPage = document.getElementById("quizPage");
-const cameraPage = document.getElementById("cameraPage");
-const resultPage = document.getElementById("resultPage");
+/* ==========================================
+   ELEMENT HTML
+========================================== */
 
-const loginForm = document.getElementById("loginForm");
-const quizForm = document.getElementById("quizForm");
+const loginPage =
+    document.getElementById(
+        "loginPage"
+    );
 
-const namaInput = document.getElementById("nama");
-const nimInput = document.getElementById("nim");
-const answerInput = document.getElementById("answer");
+const quizPage =
+    document.getElementById(
+        "quizPage"
+    );
 
-const loginError = document.getElementById("loginError");
-const quizError = document.getElementById("quizError");
-const cameraError = document.getElementById("cameraError");
+const cameraPage =
+    document.getElementById(
+        "cameraPage"
+    );
 
-const displayNama = document.getElementById("displayNama");
-const questionNumber = document.getElementById("questionNumber");
-const questionText = document.getElementById("questionText");
-const questionImage = document.getElementById("questionImage");
-const quizImage = document.getElementById("quizImage");
-
-const camera = document.getElementById("camera");
-const canvas = document.getElementById("canvas");
-const countdown = document.getElementById("countdown");
-const photoCounter = document.getElementById("photoCounter");
-
-const snapButton = document.getElementById("snapButton");
-const backToQuizButton = document.getElementById("backToQuizButton");
-const downloadButton = document.getElementById("downloadButton");
-const restartButton = document.getElementById("restartButton");
+const resultPage =
+    document.getElementById(
+        "resultPage"
+    );
 
 
-/* =====================================================
-   UTILITAS
-===================================================== */
+const loginForm =
+    document.getElementById(
+        "loginForm"
+    );
 
-function showPage(targetPage) {
-    document.querySelectorAll(".page").forEach((page) => {
-        page.classList.remove("active");
-    });
-
-    targetPage.classList.add("active");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function normalizeText(value) {
-    return String(value ?? "")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .replace(/[^a-z0-9\s]/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
-}
-
-function normalizeNim(value) {
-    return String(value ?? "").replace(/\D/g, "");
-}
-
-function setMessage(element, message, success = false) {
-    element.textContent = message;
-    element.classList.toggle("success", success);
-}
-
-function shakeElement(element) {
-    element.classList.remove("shake");
-
-    void element.offsetWidth;
-
-    element.classList.add("shake");
-
-    window.setTimeout(() => {
-        element.classList.remove("shake");
-    }, 500);
-}
-
-function wait(milliseconds) {
-    return new Promise((resolve) => {
-        window.setTimeout(resolve, milliseconds);
-    });
-}
-
-function safeFileName(value) {
-    return normalizeText(value)
-        .replace(/\s+/g, "-")
-        .replace(/[^a-z0-9-]/g, "");
-}
-
-function nameMatches(inputName, realName) {
-    const input = normalizeText(inputName);
-    const real = normalizeText(realName);
-
-    if (!input || !real) {
-        return false;
-    }
-
-    if (input === real) {
-        return true;
-    }
-
-    const inputParts = input.split(" ");
-    const realParts = real.split(" ");
-
-    /*
-     * Memperbolehkan:
-     * - nama lengkap
-     * - satu bagian nama, misalnya "Yuan"
-     * - beberapa bagian nama, misalnya "Rizqy Pratama"
-     *
-     * NIM tetap wajib cocok agar nama singkat tidak masuk
-     * ke mahasiswa yang salah.
-     */
-    return inputParts.every((part) => realParts.includes(part));
-}
-
-function answerMatches(inputAnswer, acceptedAnswers) {
-    const answer = normalizeText(inputAnswer);
-
-    return acceptedAnswers.some((acceptedAnswer) => {
-        return answer === normalizeText(acceptedAnswer);
-    });
-}
+const quizForm =
+    document.getElementById(
+        "quizForm"
+    );
 
 
-/* =====================================================
-   INPUT NIM
-===================================================== */
+const nimInput =
+    document.getElementById(
+        "nim"
+    );
 
-nimInput.addEventListener("input", () => {
-    nimInput.value = normalizeNim(nimInput.value);
-});
+const namaInput =
+    document.getElementById(
+        "nama"
+    );
+
+const answerInput =
+    document.getElementById(
+        "answer"
+    );
 
 
-/* =====================================================
-   LOGIN
-===================================================== */
+const loginError =
+    document.getElementById(
+        "loginError"
+    );
 
-loginForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+const quizError =
+    document.getElementById(
+        "quizError"
+    );
 
-    const nim = normalizeNim(nimInput.value);
-    const nama = namaInput.value.trim();
 
-    setMessage(loginError, "");
+const displayNama =
+    document.getElementById(
+        "displayNama"
+    );
 
-    if (!nama || !nim) {
-        setMessage(loginError, "Nama dan NIM wajib diisi.");
-        shakeElement(loginForm);
-        return;
-    }
 
-    const studentByNim = students.find((student) => {
-        return student.nim === nim;
-    });
+const questionNumber =
+    document.getElementById(
+        "questionNumber"
+    );
 
-    if (!studentByNim) {
-        setMessage(loginError, "NIM tidak ditemukan dalam data EC3C.");
-        shakeElement(loginForm);
-        nimInput.focus();
-        return;
-    }
+const questionText =
+    document.getElementById(
+        "questionText"
+    );
 
-    if (!nameMatches(nama, studentByNim.nama)) {
-        setMessage(
-            loginError,
-            "NIM ditemukan, tetapi nama tidak cocok. Coba nama lengkap atau salah satu bagian nama."
+
+const questionImage =
+    document.getElementById(
+        "questionImage"
+    );
+
+const quizImage =
+    document.getElementById(
+        "quizImage"
+    );
+
+
+const camera =
+    document.getElementById(
+        "camera"
+    );
+
+const canvas =
+    document.getElementById(
+        "canvas"
+    );
+
+const countdown =
+    document.getElementById(
+        "countdown"
+    );
+
+const photoCounter =
+    document.getElementById(
+        "photoCounter"
+    );
+
+const snapButton =
+    document.getElementById(
+        "snapButton"
+    );
+
+const cameraError =
+    document.getElementById(
+        "cameraError"
+    );
+
+
+
+/* ==========================================
+   SHOW PAGE
+========================================== */
+
+function showPage(page) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(
+            p =>
+                p.classList.remove(
+                    "active"
+                )
         );
 
-        shakeElement(loginForm);
-        namaInput.focus();
-        return;
-    }
+    page.classList.add(
+        "active"
+    );
 
-    currentStudent = studentByNim;
-    currentQuestion = 0;
-
-    displayNama.textContent = currentStudent.nama;
-    setMessage(loginError, "");
-
-    showPage(quizPage);
-    loadQuestion();
-});
-
-
-/* =====================================================
-   PERTANYAAN
-===================================================== */
-
-function loadQuestion() {
-    const question = questions[currentQuestion];
-
-    questionNumber.textContent =
-        `PERTANYAAN ${currentQuestion + 1} / ${questions.length}`;
-
-    questionText.textContent = question.question;
-
-    answerInput.value = "";
-    setMessage(quizError, "");
-
-    if (question.image) {
-        quizImage.src = question.image;
-        quizImage.alt = `Gambar untuk pertanyaan ${currentQuestion + 1}`;
-        questionImage.hidden = false;
-    } else {
-        quizImage.removeAttribute("src");
-        questionImage.hidden = true;
-    }
-
-    window.setTimeout(() => {
-        answerInput.focus();
-    }, 150);
 }
 
-quizImage.addEventListener("error", () => {
-    questionImage.hidden = true;
-
-    setMessage(
-        quizError,
-        "Gambar soal tidak ditemukan. Pastikan file gambarnya berada di folder yang sama."
-    );
-});
 
 
-/* =====================================================
-   VALIDASI KUIS
-===================================================== */
+/* ==========================================
+   NORMALISASI TEXT
+========================================== */
 
-quizForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+function normalize(text) {
 
-    const question = questions[currentQuestion];
-    const answer = answerInput.value.trim();
+    return text
+        .toLowerCase()
+        .trim()
+        .replace(
+            /\s+/g,
+            " "
+        );
 
-    if (!answer) {
-        setMessage(quizError, "Jawaban wajib diisi.");
-        shakeElement(quizForm);
-        return;
-    }
+}
 
-    if (!answerMatches(answer, question.answers)) {
-        setMessage(quizError, question.wrong);
-        shakeElement(quizForm);
-        answerInput.select();
-        return;
-    }
 
-    setMessage(quizError, "✓ BENAR!", true);
 
-    const submitButton = quizForm.querySelector('button[type="submit"]');
-    submitButton.disabled = true;
+/* ==========================================
+   LOGIN
+========================================== */
 
-    await wait(650);
+loginForm.addEventListener(
+    "submit",
+    function(event) {
 
-    currentQuestion += 1;
-    submitButton.disabled = false;
+        event.preventDefault();
 
-    if (currentQuestion < questions.length) {
+
+        const nim =
+            nimInput.value.trim();
+
+        const nama =
+            normalize(
+                namaInput.value
+            );
+
+
+        const student =
+            students.find(
+                student =>
+                    student.nim === nim &&
+                    normalize(
+                        student.nama
+                    ) === nama
+            );
+
+
+        if (!student) {
+
+            loginError.textContent =
+                "LO BUKAN ANAK EC";
+
+            return;
+
+        }
+
+
+        currentStudent =
+            student;
+
+
+        displayNama.textContent =
+            student.nama;
+
+
+        currentQuestion = 0;
+
+
+        loginError.textContent =
+            "";
+
+
+        showPage(
+            quizPage
+        );
+
+
         loadQuestion();
-        return;
+
+    }
+);
+
+
+
+/* ==========================================
+   LOAD QUESTION
+========================================== */
+
+function loadQuestion() {
+
+    const q =
+        questions[
+            currentQuestion
+        ];
+
+
+    questionNumber.textContent =
+        `PERTANYAAN ${
+            currentQuestion + 1
+        } / ${
+            questions.length
+        }`;
+
+
+    questionText.textContent =
+        q.question;
+
+
+    answerInput.value = "";
+
+    quizError.textContent = "";
+
+
+    if (q.image) {
+
+        quizImage.src =
+            q.image;
+
+        questionImage.style.display =
+            "block";
+
+    } else {
+
+        quizImage.src = "";
+
+        questionImage.style.display =
+            "none";
+
     }
 
-    showPage(cameraPage);
-    await startCamera();
-});
+
+    setTimeout(
+        () => answerInput.focus(),
+        100
+    );
+
+}
 
 
-/* =====================================================
-   KAMERA
-===================================================== */
+
+/* ==========================================
+   QUIZ CHECK
+========================================== */
+
+quizForm.addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+
+        const userAnswer =
+            normalize(
+                answerInput.value
+            );
+
+
+        const q =
+            questions[
+                currentQuestion
+            ];
+
+
+        const correct =
+            q.answers.some(
+                answer =>
+                    userAnswer.includes(
+                        normalize(answer)
+                    )
+            );
+
+
+        if (!correct) {
+
+            quizError.textContent =
+                q.wrong;
+
+
+            /* efek getar */
+
+            quizForm.classList.add(
+                "shake"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    quizForm.classList.remove(
+                        "shake"
+                    );
+
+                },
+                500
+            );
+
+
+            return;
+
+        }
+
+
+        /* Jawaban benar */
+
+        quizError.style.color =
+            "#4cffb0";
+
+        quizError.textContent =
+            "✓ BENAR!";
+
+
+        currentQuestion++;
+
+
+        setTimeout(
+            () => {
+
+                quizError.style.color =
+                    "";
+
+
+                if (
+                    currentQuestion <
+                    questions.length
+                ) {
+
+                    loadQuestion();
+
+                } else {
+
+                    showPage(
+                        cameraPage
+                    );
+
+                    startCamera();
+
+                }
+
+            },
+            600
+        );
+
+    }
+);
+
+
+
+/* ==========================================
+   START CAMERA
+========================================== */
 
 async function startCamera() {
-    stopCamera();
 
-    setMessage(cameraError, "");
-    snapButton.disabled = true;
-    snapButton.textContent = "MEMUAT KAMERA...";
+    cameraError.textContent = "";
+
 
     if (
         !navigator.mediaDevices ||
-        typeof navigator.mediaDevices.getUserMedia !== "function"
+        !navigator.mediaDevices.getUserMedia
     ) {
-        setMessage(
-            cameraError,
-            "Browser ini tidak mendukung kamera. Gunakan Chrome atau Edge terbaru."
-        );
 
-        snapButton.textContent = "KAMERA TIDAK TERSEDIA";
+        cameraError.textContent =
+            "Browser tidak mendukung kamera.";
+
         return;
+
     }
 
-    if (!window.isSecureContext) {
-        setMessage(
-            cameraError,
-            "Kamera hanya dapat diakses melalui HTTPS atau localhost. Jangan membuka HTML langsung dengan alamat file://."
-        );
-
-        snapButton.textContent = "KAMERA MEMERLUKAN HTTPS";
-        return;
-    }
 
     try {
-        cameraStream = await navigator.mediaDevices.getUserMedia({
-            video: {
-                facingMode: "user",
-                width: { ideal: 1280 },
-                height: { ideal: 720 }
+
+        cameraStream =
+            await navigator
+                .mediaDevices
+                .getUserMedia({
+
+                    video: {
+
+                        width: {
+                            ideal: 1280
+                        },
+
+                        height: {
+                            ideal: 720
+                        },
+
+                        facingMode:
+                            "user"
+
+                    },
+
+                    audio: false
+
+                });
+
+
+        camera.srcObject =
+            cameraStream;
+
+
+        await camera.play();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        cameraError.textContent =
+            "KAMERA GAGAL DIAKSES. Izinkan kamera pada browser.";
+
+    }
+
+}
+
+
+
+/* ==========================================
+   STOP CAMERA
+========================================== */
+
+function stopCamera() {
+
+    if (!cameraStream)
+        return;
+
+
+    cameraStream
+        .getTracks()
+        .forEach(
+            track =>
+                track.stop()
+        );
+
+
+    cameraStream = null;
+
+}
+
+
+
+/* ==========================================
+   TOMBOL FOTO
+========================================== */
+
+snapButton.addEventListener(
+    "click",
+    function() {
+
+        if (takingPhotos)
+            return;
+
+
+        if (!cameraStream) {
+
+            cameraError.textContent =
+                "Kamera belum aktif.";
+
+            return;
+
+        }
+
+
+        photos = [];
+
+        photoCounter.textContent =
+            "0 / 6 FOTO";
+
+
+        takingPhotos = true;
+
+        snapButton.disabled = true;
+
+
+        takePhoto(0);
+
+    }
+);
+
+
+
+/* ==========================================
+   FOTO 1 - 6
+========================================== */
+
+function takePhoto(index) {
+
+    if (index >= 6) {
+
+        stopCamera();
+
+
+        renderResults();
+
+
+        showPage(
+            resultPage
+        );
+
+
+        takingPhotos = false;
+
+
+        return;
+
+    }
+
+
+    let count = 3;
+
+
+    countdown.textContent =
+        count;
+
+
+    const timer =
+        setInterval(
+            () => {
+
+                count--;
+
+
+                if (count > 0) {
+
+                    countdown.textContent =
+                        count;
+
+                } else {
+
+                    clearInterval(
+                        timer
+                    );
+
+
+                    countdown.textContent =
+                        "📸";
+
+
+                    capturePhoto();
+
+
+                    setTimeout(
+                        () => {
+
+                            countdown.textContent =
+                                "";
+
+
+                            takePhoto(
+                                index + 1
+                            );
+
+                        },
+                        1000
+                    );
+
+                }
+
             },
-            audio: false
-        });
+            1000
+        );
 
-        camera.srcObject = cameraStream;
+}
 
-        await new Promise((resolve) => {
-            if (camera.ready
+
+
+/* ==========================================
+   CAPTURE PHOTO
+========================================== */
+
+function capturePhoto() {
+
+    const width =
+        camera.videoWidth || 1280;
+
+    const height =
+        camera.videoHeight || 720;
+
+
+    canvas.width =
+        width;
+
+    canvas.height =
+        height;
+
+
+    const ctx =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    /* Mirror foto */
+
+    ctx.save();
+
+    ctx.translate(
+        width,
+        0
+    );
+
+    ctx.scale(
+        -1,
+        1
+    );
+
+
+    ctx.drawImage(
+        camera,
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    ctx.restore();
+
+
+    const image =
+        canvas.toDataURL(
+            "image/jpeg",
+            0.92
+        );
+
+
+    photos.push(
+        image
+    );
+
+
+    photoCounter.textContent =
+        `${photos.length} / 6 FOTO`;
+
+}
+
+
+
+/* ==========================================
+   RENDER RESULTS
+========================================== */
+
+function renderResults() {
+
+    const date =
+        new Date()
+            .toLocaleDateString(
+                "id-ID",
+                {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                }
+            );
+
+
+    document.getElementById(
+        "resultName"
+    ).textContent =
+        "User: " +
+        currentStudent.nama;
+
+
+    document.getElementById(
+        "date1"
+    ).textContent =
+        date;
+
+
+    document.getElementById(
+        "date2"
+    ).textContent =
+        date;
+
+
+    for (
+        let i = 0;
+        i < 6;
+        i++
+    ) {
+
+        const img =
+            document.getElementById(
+                `result${i}`
+            );
+
+
+        img.src =
+            photos[i];
+
+    }
+
+}
+
+
+
+/* ==========================================
+   DOWNLOAD STRIP
+========================================== */
+
+document
+    .getElementById(
+        "downloadButton"
+    )
+    .addEventListener(
+        "click",
+        downloadResult
+    );
+
+
+
+async function downloadResult() {
+
+    if (
+        photos.length !== 6
+    ) {
+
+        alert(
+            "Foto belum lengkap."
+        );
+
+        return;
+
+    }
+
+
+    const stripWidth = 460;
+
+    const stripHeight = 1180;
+
+    const finalWidth =
+        stripWidth * 2 + 60;
+
+
+    const output =
+        document.createElement(
+            "canvas"
+        );
+
+
+    output.width =
+        finalWidth;
+
+    output.height =
+        stripHeight + 40;
+
+
+    const ctx =
+        output.getContext(
+            "2d"
+        );
+
+
+    /* Background */
+
+    ctx.fillStyle =
+        "#dcdcdc";
+
+    ctx.fillRect(
+        0,
+        0,
+        output.width,
+        output.height
+    );
+
+
+    drawStrip(
+        ctx,
+        20,
+        20,
+        0
+    );
+
+
+    drawStrip(
+        ctx,
+        stripWidth + 40,
+        20,
+        3
+    );
+
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+
+    link.download =
+        `EC3C-${currentStudent.nama}.jpg`;
+
+
+    link.href =
+        output.toDataURL(
+            "image/jpeg",
+            0.95
+        );
+
+
+    link.click();
+
+
+
+    function drawStrip(
+        ctx,
+        x,
+        y,
+        start
+    ) {
+
+        /* Kertas */
+
+        ctx.fillStyle =
+            "#ffffff";
+
+        ctx.fillRect(
+            x,
+            y,
+            stripWidth,
+            stripHeight
+        );
+
+
+        /* Header */
+
+        ctx.fillStyle =
+            "#07151f";
+
+        ctx.fillRect(
+            x + 20,
+            y + 20,
+            stripWidth - 40,
+            55
+        );
+
+
+        ctx.fillStyle =
+            "#ffffff";
+
+        ctx.textAlign =
+            "center";
+
+        ctx.font =
+            "bold 22px Arial";
+
+
+        ctx.fillText(
+            "⚡ EC3C ⚡",
+            x + stripWidth / 2,
+            y + 55
+        );
+
+
+        /* Title */
+
+        ctx.fillStyle =
+            "#111111";
+
+        ctx.font =
+            "bold 17px monospace";
+
+
+        ctx.fillText(
+            "EC3C PHOTOBOOTH",
+            x + stripWidth / 2,
+            y + 105
+        );
+
+
+        /* FOTO */
+
+        let imageY =
+            y + 125;
+
+
+        for (
+            let i = 0;
+            i < 3;
+            i++
+        ) {
+
+            const img =
+                new Image();
+
+
+            img.src =
+                photos[start + i];
+
+
+            const photoWidth =
+                stripWidth - 40;
+
+            const photoHeight =
+                320;
+
+
+            ctx.drawImage(
+                img,
+                x + 20,
+                imageY,
+                photoWidth,
+                photoHeight
+            );
+
+
+            imageY +=
+                photoHeight + 10;
+
+        }
+
+
+        /* Footer */
+
+        ctx.fillStyle =
+            "#111111";
+
+        ctx.font =
+            "bold 15px monospace";
+
+
+        ctx.fillText(
+            "CLASS OF EC3C",
+            x + stripWidth / 2,
+            y + stripHeight - 35
+        );
+
+    }
+
+}
+
+
+
+/* ==========================================
+   RESTART
+========================================== */
+
+document
+    .getElementById(
+        "restartButton"
+    )
+    .addEventListener(
+        "click",
+        function() {
+
+            stopCamera();
+
+            location.reload();
+
+        }
+    );
+
+
+
+/* ==========================================
+   PAGE DITUTUP
+========================================== */
+
+window.addEventListener(
+    "beforeunload",
+    function() {
+
+        stopCamera();
+
+    }
+);
