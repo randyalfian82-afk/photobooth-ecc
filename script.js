@@ -41,25 +41,25 @@ const questions = [
         wrong: "TOLOL!!"
     },
     {
-        question: "Maskot kelas EC 3C ini siapa? Coba lihat orangnya!",
+        question: "Ini Maskot EC 3C, Siapa Nama Dia?",
         answers: ["cahya", "bule"],
         image: "cahya.jpg",
-        wrong: "DONGO!!"
+        wrong: "MASA GA TAU SIHH!!"
     },
     {
-        question: "Siapa nama KM kita?",
+        question: "Siapa Nama KM EC 3C?",
         answers: ["yuan rizky pratama", "yuan"],
         image: "yuan.jpg",
-        wrong: "YAHH MASA GATAU SIH!!"
+        wrong: "BUKAN DONG!!"
     },
     {
-        question: "Siapa yang disuruh keluar sama Pa Isan?",
+        question: "Siapa yang di suruh keluar sama Pak Isan?",
         answers: ["fawaz", "fawwaz"],
         image: "",
-        wrong: "POTONG RAMBUT LU WAZ!!"
+        wrong: "SIAPA YANG RAMBUTNYA GONDRONG!!"
     },
     {
-        question: "Dosen siapa yang jarang masuk di semester 3?",
+        question: "Dosen yang jarang masuk di semester 3?",
         answers: ["bu sri", "sri", "endang"],
         image: "",
         wrong: "MASA DOSEN AJA GAK TAU!!"
