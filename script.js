@@ -1,252 +1,191 @@
-/* ==================================================
-   VARIABEL & DAFTAR PERTANYAAN
-================================================== */
+let currentStep = 0;
+let userName = "";
+let photos = [];
+let stream = null;
 
-// Jalur file gambar pertanyaan ke-2 & ke-3 (Sesuaikan nama file jika berbeda)
-const imgYuan = "yuan.jpg";
-const imgCahya = "cahya.jpg";
-
-// Daftar Pertanyaan
-const daftarPertanyaan = [
+const quizData = [
     {
-        teks: "Apa fungsi resistor?",
-        gambar: null, // Soal 1 tanpa gambar
-        validasi: (jawaban) => jawaban.includes("hambat") || jawaban.includes("tahan") || jawaban.includes("arus"),
-        pesanSalah: "Tolol!"
+        pertanyaan: "Apa fungsi utama dari Resistor?",
+        jawaban: ["hambat", "menghambat", "hambatan", "membatasi arus", "menahan arus"],
+        gambar: ""
     },
     {
-        teks: "Siapa Nama Lengkap orang di bawah ini?",
-        gambar: imgYuan, // Soal 2 menggunakan gambar Yuan
-        validasi: (jawaban) => jawaban.includes("yuan"),
-        pesanSalah: "Dongo!"
+        pertanyaan: "Sebutkan nama komponen elektronika pada gambar ini!",
+        jawaban: ["kapasitor", "capacitor"],
+        gambar: "cahya.jpg"
     },
     {
-        teks: "Siapa maskot di kelas EC3C pada gambar di bawah?",
-        gambar: imgCahya, // Soal 3 menggunakan gambar Cahya
-        validasi: (jawaban) => jawaban.includes("cahya") || jawaban.includes("bule"),
-        pesanSalah: "Yah masa ga kenal sih!"
+        pertanyaan: "Komponen apa yang berfungsi sebagai saklar elektronik / penguat sinyal?",
+        jawaban: ["transistor"],
+        gambar: "yuan.jpg"
     }
 ];
 
-let indeksPertanyaan = 0;
-let namaUser = "";
-let fotoTerambil = [];
-let mediaStream = null;
+// Inisialisasi Elemen
+const verifikasiPage = document.getElementById("verifikasiPage");
+const quizPage = document.getElementById("quizPage");
+const photoboothPage = document.getElementById("photoboothPage");
+const hasilPage = document.getElementById("hasilPage");
 
-/* ==================================================
-   ELEMEN DOM
-================================================== */
+const verifikasiForm = document.getElementById("verifikasiForm");
+const quizForm = document.getElementById("quizForm");
+const namaInput = document.getElementById("namaUser");
+const jawabanInput = document.getElementById("jawabanQuiz");
 
-const registrasiPage = document.getElementById('registrasiPage');
-const pertanyaanPage = document.getElementById('pertanyaanPage');
-const photoboothPage = document.getElementById('photobooth');
-const hasilPage = document.getElementById('hasilPage');
+const displayNamaQuiz = document.getElementById("displayNamaQuiz");
+const displayNamaHasil = document.getElementById("displayNamaHasil");
 
-const inputNama = document.getElementById('inputNama');
-const errRegistrasi = document.getElementById('errRegistrasi');
-const displayNamaUser = document.getElementById('displayNamaUser');
+const nomorSoal = document.getElementById("nomorSoal");
+const judulPertanyaan = document.getElementById("judulPertanyaan");
+const gambarSoalBox = document.getElementById("gambarSoalBox");
+const gambarSoal = document.getElementById("gambarSoal");
 
-const nomorPertanyaanEl = document.getElementById('nomorPertanyaan');
-const judulPertanyaanEl = document.getElementById('judulPertanyaan');
-const boxGambar = document.getElementById('boxGambar');
-const gambarPertanyaan = document.getElementById('gambarPertanyaan');
-const inputJawaban = document.getElementById('inputJawaban');
-const errPertanyaan = document.getElementById('errPertanyaan');
+const errorNama = document.getElementById("errorNama");
+const errorQuiz = document.getElementById("errorQuiz");
 
-const cameraVideo = document.getElementById('camera');
-const canvasEl = document.getElementById('canvas');
-const countdownEl = document.getElementById('countdown');
-const photoCounterEl = document.getElementById('photoCounter');
-const btnStartBooth = document.getElementById('btnStartBooth');
+const video = document.getElementById("camera");
+const canvas = document.getElementById("canvas");
+const snapBtn = document.getElementById("snapBtn");
+const countdownEl = document.getElementById("countdown");
+const photoCounter = document.getElementById("photoCounter");
 
-/* ==================================================
-   LOGIKA ALUR APLIKASI
-================================================== */
-
-// 1. Registrasi
-function submitRegistrasi() {
-    const val = inputNama.value.trim();
-    if (!val) {
-        errRegistrasi.textContent = "Nama tidak boleh kosong!";
+// Step 1: Form Nama
+verifikasiForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const input = namaInput.value.trim();
+    if (input === "") {
+        errorNama.textContent = "Silakan masukkan nama terlebih dahulu!";
         return;
     }
+    userName = input;
+    displayNamaQuiz.textContent = userName;
+    displayNamaHasil.textContent = "User: " + userName;
     
-    namaUser = val;
-    errRegistrasi.textContent = "";
-    displayNamaUser.textContent = `User: ${namaUser}`;
-    
-    registrasiPage.classList.remove('active');
-    pertanyaanPage.classList.add('active');
-    muatPertanyaan();
-}
+    verifikasiPage.classList.remove("active");
+    quizPage.classList.add("active");
+    loadQuiz();
+});
 
-// 2. Tampilkan Pertanyaan (Termasuk logika Gambar)
-function muatPertanyaan() {
-    const soal = daftarPertanyaan[indeksPertanyaan];
+// Step 2: Quiz
+function loadQuiz() {
+    errorQuiz.textContent = "";
+    jawabanInput.value = "";
     
-    nomorPertanyaanEl.textContent = `PERTANYAAN ${indeksPertanyaan + 1} / ${daftarPertanyaan.length}`;
-    judulPertanyaanEl.textContent = soal.teks;
-    inputJawaban.value = "";
-    errPertanyaan.textContent = "";
+    const data = quizData[currentStep];
+    nomorSoal.textContent = `PERTANYAAN ${currentStep + 1} / ${quizData.length}`;
+    judulPertanyaan.textContent = data.pertanyaan;
 
-    // Kontrol Tampilan Gambar (Soal 2 & 3)
-    if (soal.gambar) {
-        gambarPertanyaan.src = soal.gambar;
-        boxGambar.style.display = "block";
+    if (data.gambar) {
+        gambarSoal.src = data.gambar;
+        gambarSoalBox.style.display = "block";
     } else {
-        boxGambar.style.display = "none";
-        gambarPertanyaan.src = "";
+        gambarSoalBox.style.display = "none";
     }
 }
 
-// 3. Submit & Cek Jawaban
-function submitJawaban() {
-    const jawabanUser = inputJawaban.value.trim().toLowerCase();
-    const itemPertanyaan = daftarPertanyaan[indeksPertanyaan];
+quizForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const userAns = jawabanInput.value.trim().toLowerCase();
+    const validAns = quizData[currentStep].jawaban;
 
-    if (!jawabanUser) {
-        errPertanyaan.textContent = "Isi jawabanmu dulu!";
-        return;
-    }
+    const isCorrect = validAns.some(ans => userAns.includes(ans));
 
-    // Validasi Jawaban
-    if (itemPertanyaan.validasi(jawabanUser)) {
-        errPertanyaan.textContent = "";
-        indeksPertanyaan++;
-
-        if (indeksPertanyaan < daftarPertanyaan.length) {
-            muatPertanyaan();
+    if (isCorrect) {
+        currentStep++;
+        if (currentStep < quizData.length) {
+            loadQuiz();
         } else {
-            // Lanjut ke Photobooth jika semua benar
-            pertanyaanPage.classList.remove('active');
-            photoboothPage.classList.add('active');
-            bukaKamera();
+            quizPage.classList.remove("active");
+            photoboothPage.classList.add("active");
+            startCamera();
         }
     } else {
-        // Pesan Salah
-        errPertanyaan.textContent = itemPertanyaan.pesanSalah;
+        errorQuiz.textContent = "Jawaban kurang tepat. Coba lagi!";
     }
-}
+});
 
-/* ==================================================
-   LOGIKA KAMERA & PHOTOBOOTH
-================================================== */
-
-async function bukaKamera() {
+// Step 3: Camera
+async function startCamera() {
     try {
-        mediaStream = await navigator.mediaDevices.getUserMedia({
-            video: { width: 1280, height: 720 },
-            audio: false
-        });
-        cameraVideo.srcObject = mediaStream;
+        stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        video.srcObject = stream;
     } catch (err) {
-        alert("Gagal mengakses kamera: " + err.message);
+        alert("Kamera tidak dapat diakses! Pastikan izin kamera diberikan.");
     }
 }
 
-function mulaiPhotobooth() {
-    btnStartBooth.disabled = true;
-    fotoTerambil = [];
-    photoCounterEl.textContent = "0 / 6 Foto";
-    prosesFoto(0);
-}
+snapBtn.addEventListener("click", () => {
+    snapBtn.disabled = true;
+    photos = [];
+    takePhotoSeries(0);
+});
 
-function prosesFoto(index) {
+function takePhotoSeries(index) {
     if (index >= 6) {
-        selesaiPhotobooth();
+        stopCamera();
+        renderResults();
+        photoboothPage.classList.remove("active");
+        hasilPage.classList.add("active");
         return;
     }
 
-    let hitungan = 3;
-    countdownEl.textContent = hitungan;
+    let count = 3;
+    countdownEl.textContent = count;
 
     const timer = setInterval(() => {
-        hitungan--;
-        if (hitungan > 0) {
-            countdownEl.textContent = hitungan;
+        count--;
+        if (count > 0) {
+            countdownEl.textContent = count;
         } else {
             clearInterval(timer);
             countdownEl.textContent = "";
             
-            // Ambil Foto
-            tangkapGambar();
-            photoCounterEl.textContent = `${index + 1} / 6 Foto`;
+            // Ambil gambar
+            canvas.width = video.videoWidth || 640;
+            canvas.height = video.videoHeight || 480;
+            const ctx = canvas.getContext("2d");
             
+            // Mirror efek agar sama seperti tampilan video
+            ctx.translate(canvas.width, 0);
+            ctx.scale(-1, 1);
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            const dataUrl = canvas.toDataURL("image/jpeg");
+            photos.push(dataUrl);
+
+            photoCounter.textContent = `${photos.length} / 6 Foto`;
+
             setTimeout(() => {
-                prosesFoto(index + 1);
+                takePhotoSeries(index + 1);
             }, 1000);
         }
     }, 1000);
 }
 
-function tangkapGambar() {
-    const ctx = canvasEl.getContext('2d');
-    canvasEl.width = cameraVideo.videoWidth;
-    canvasEl.height = cameraVideo.videoHeight;
-
-    // Flip horizontal agar tidak cermin saat disimpan
-    ctx.translate(canvasEl.width, 0);
-    ctx.scale(-1, 1);
-    ctx.drawImage(cameraVideo, 0, 0, canvasEl.width, canvasEl.height);
-
-    const dataUrl = canvasEl.toDataURL('image/png');
-    fotoTerambil.push(dataUrl);
-}
-
-function selesaiPhotobooth() {
-    // Matikan Kamera
-    if (mediaStream) {
-        mediaStream.getTracks().forEach(track => track.stop());
+function stopCamera() {
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
     }
-
-    photoboothPage.classList.remove('active');
-    tampilkanHasil();
 }
 
-/* ==================================================
-   LOGIKA HASIL (2 POLAROID STRIP)
-================================================== */
+// Step 4: Display Results
+function renderResults() {
+    const today = new Date().toLocaleDateString('id-ID');
+    document.getElementById("date1").textContent = today;
+    document.getElementById("date2").textContent = today;
 
-function tampilkanHasil() {
-    hasilPage.classList.add('active');
-    document.getElementById('hasilNamaUser').textContent = `Subjek: ${namaUser}`;
-
-    // Polaroid 1 (Foto 1, 2, 3)
-    const boxP1 = document.getElementById('fotoContainer1');
-    boxP1.innerHTML = "";
-    for (let i = 0; i < 3; i++) {
-        if (fotoTerambil[i]) {
-            boxP1.innerHTML += `<div class="photo-box"><img src="${fotoTerambil[i]}"></div>`;
+    for (let i = 0; i < 6; i++) {
+        const img = document.getElementById(`res${i}`);
+        if (img && photos[i]) {
+            img.src = photos[i];
         }
     }
-
-    // Polaroid 2 (Foto 4, 5, 6)
-    const boxP2 = document.getElementById('fotoContainer2');
-    boxP2.innerHTML = "";
-    for (let i = 3; i < 6; i++) {
-        if (fotoTerambil[i]) {
-            boxP2.innerHTML += `<div class="photo-box"><img src="${fotoTerambil[i]}"></div>`;
-        }
-    }
-
-    // Set Tanggal
-    const skrg = new Date();
-    const tglStr = skrg.toLocaleDateString('id-ID', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric'
-    });
-    document.getElementById('tglPolaroid1').textContent = tglStr;
-    document.getElementById('tglPolaroid2').textContent = tglStr;
 }
 
-function ulangSemua() {
-    indeksPertanyaan = 0;
-    namaUser = "";
-    fotoTerambil = [];
-    btnStartBooth.disabled = false;
-    
-    hasilPage.classList.remove('active');
-    registrasiPage.classList.add('active');
-    inputNama.value = "";
-}
+document.getElementById("restartBtn").addEventListener("click", () => {
+    location.reload();
+});
+
+document.getElementById("downloadBtn").addEventListener("click", () => {
+    alert("Tekan kombinasi tombol 'Win + Shift + S' atau Screenshot layar untuk menyimpan strip foto kamu!");
+});
