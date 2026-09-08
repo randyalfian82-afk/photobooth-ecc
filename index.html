@@ -2,77 +2,130 @@
 <html lang="id">
 
 <head>
-
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Our Little Story ♡</title>
+    <title>Electronic Little Story ⚡</title>
 
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 
 <body>
 
-
     <!-- ==================================================
-         HALAMAN AWAL
-    =================================================== -->
+         HALAMAN 1 - NAMA
+    ================================================== -->
 
     <section id="opening" class="page active">
 
-        <div class="card">
+        <div class="circuit-decoration circuit-top">
+            ⚡ ━━━●━━━━ ⚙ ━━━━━●━━━ ⚡
+        </div>
 
-            <div class="cat-icon">
-                🐱
+        <div class="card electronic-card">
+
+            <div class="electronic-icon">
+                ⚡
+            </div>
+
+            <div class="chip-icon">
+                IC
             </div>
 
             <h1>
-                Our Little Story ♡
+                Electronic Story
             </h1>
 
             <p class="subtitle">
-                Sebelum masuk, jawab dulu ya...
+                Sebelum masuk, kenalan dulu ya...
             </p>
 
-
             <label>
-                Nama kamu
+                Nama Kamu
             </label>
 
             <input
                 type="text"
                 id="nama"
-                placeholder="Tulis nama kamu..."
+                placeholder="Contoh: Alfian Randy"
+                autocomplete="off"
             >
 
+            <button onclick="lanjutNama()">
+                LANJUT ⚡
+            </button>
+
+            <p
+                id="pesanNama"
+                class="error-message"
+            ></p>
+
+        </div>
+
+        <div class="circuit-decoration circuit-bottom">
+            ━━━●━━━╫╫━━━●━━━━ ⚡
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         HALAMAN 2 - NIM
+    ================================================== -->
+
+    <section id="nimPage" class="page">
+
+        <div class="circuit-decoration circuit-top">
+            ⚡ ━━━●━━━━━ IC ━━━━━●━━━ ⚡
+        </div>
+
+        <div class="card electronic-card">
+
+            <div class="electronic-icon">
+                🔌
+            </div>
+
+            <div class="chip-icon">
+                NIM
+            </div>
+
+            <h1>
+                Masukkan NIM
+            </h1>
+
+            <p class="subtitle">
+                Hai <span id="namaTampil"></span> 👋
+                <br>
+                Masukkan NIM kamu untuk melanjutkan.
+            </p>
 
             <label>
-                Tanggal Jadian
+                NIM
             </label>
 
             <input
                 type="text"
-                id="tanggalJadian"
-                placeholder="26 Desember 2024"
+                id="nim"
+                placeholder="Contoh: 2503321092"
+                inputmode="numeric"
+                autocomplete="off"
             >
 
-
-            <button onclick="cekTanggal()">
-                LANJUT ♡
+            <button onclick="lanjutNIM()">
+                LANJUT ⚡
             </button>
 
-
             <p
-                id="salahTanggal"
+                id="pesanNIM"
                 class="error-message"
             ></p>
 
+        </div>
+
+        <div class="circuit-decoration circuit-bottom">
+            ━━ R ━━●━━━━ C ━━━●━━━━ L ━━
         </div>
 
     </section>
@@ -81,16 +134,21 @@
 
     <!-- ==================================================
          HALAMAN PERTANYAAN
-    =================================================== -->
+    ================================================== -->
 
     <section id="questions" class="page">
 
-        <div class="card">
+        <div class="card electronic-card">
 
-            <div class="cat-icon">
-                🐱
+            <div class="electronic-icon">
+                🔧
             </div>
 
+            <div class="user-info">
+                <span id="userNama"></span>
+                <span class="separator">•</span>
+                <span id="userNIM"></span>
+            </div>
 
             <p
                 id="nomorPertanyaan"
@@ -99,23 +157,17 @@
                 Pertanyaan 1 dari 7
             </p>
 
+            <h2 id="judulPertanyaan"></h2>
 
-            <h2 id="judulPertanyaan">
-            </h2>
-
-
-            <div id="areaJawaban">
-            </div>
-
+            <div id="areaJawaban"></div>
 
             <p
                 id="pesanJawaban"
                 class="error-message"
             ></p>
 
-
             <button onclick="cekJawaban()">
-                JAWAB ♡
+                JAWAB ⚡
             </button>
 
         </div>
@@ -126,18 +178,18 @@
 
     <!-- ==================================================
          PHOTOBOOTH
-    =================================================== -->
+    ================================================== -->
 
     <section id="photobooth" class="page">
 
         <div class="booth-title">
 
-            <div class="cat-icon small">
-                🐱
+            <div class="electronic-icon">
+                📡
             </div>
 
             <h1>
-                Photobooth ♡
+                Electronic Photobooth ⚡
             </h1>
 
             <p id="info">
@@ -146,7 +198,6 @@
 
         </div>
 
-
         <p
             id="fotoKe"
             class="photo-counter"
@@ -154,8 +205,11 @@
             Foto 1 dari 3
         </p>
 
-
         <div class="camera-container">
+
+            <div class="camera-label">
+                ● LIVE CAMERA
+            </div>
 
             <video
                 id="camera"
@@ -163,11 +217,9 @@
                 playsinline
             ></video>
 
-
             <div id="countdown"></div>
 
         </div>
-
 
         <button
             id="fotoBtn"
@@ -177,7 +229,6 @@
             📸 TAKE PHOTO
         </button>
 
-
         <canvas id="canvas"></canvas>
 
     </section>
@@ -186,32 +237,36 @@
 
     <!-- ==================================================
          HALAMAN HASIL
-    =================================================== -->
+    ================================================== -->
 
     <section id="hasilPage" class="page">
 
         <div class="result-title">
 
-            <div class="cat-icon">
-                🐱
+            <div class="electronic-icon">
+                ⚡
             </div>
 
             <h1>
-                Our Little Moment ♡
+                Our Electronic Moment
             </h1>
 
             <p>
-                Ini kenangan kecil kita.
+                Kenangan kecil dalam satu rangkaian. ❤️
             </p>
 
-        </div>
+            <div class="result-user">
+                <span id="hasilNama"></span>
+                <span> • </span>
+                <span id="hasilNIM"></span>
+            </div>
 
+        </div>
 
         <div
             id="hasil"
             class="polaroid-container"
         ></div>
-
 
         <div class="result-buttons">
 
@@ -221,7 +276,6 @@
             >
                 💾 SAVE PHOTO
             </button>
-
 
             <button
                 onclick="location.reload()"
@@ -233,7 +287,6 @@
         </div>
 
     </section>
-
 
 
     <script src="script.js"></script>
