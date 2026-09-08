@@ -1,1004 +1,341 @@
+/* ==========================================
+   RESET & BASE STYLES
+========================================== */
 * {
     box-sizing: border-box;
-}
-
-
-html,
-body {
     margin: 0;
     padding: 0;
-    min-height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
 
 body {
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    color: #e8fbff;
-
-    background:
-        #06111b;
-
-    overflow-x: hidden;
-
-}
-
-
-/* =================================
-   GENERAL PAGE
-================================= */
-
-.page {
-
     min-height: 100vh;
-
-    display: none;
-
+    display: flex;
     justify-content: center;
-
     align-items: center;
-
-    flex-direction: column;
-
-    padding: 25px;
-
+    /* Ganti bg.jpg sesuai nama file background kamu */
+    background: url('bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
+    overflow-x: hidden;
 }
 
+/* Overlay kegelapan tipis di atas background gambar */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(3, 10, 16, 0.45);
+    z-index: -1;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+/* ==========================================
+   PAGE MANAGEMENT
+========================================== */
+.page {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out forwards;
+}
 
 .page.active {
-
-    display: flex;
-
-    animation:
-        pageIn .6s ease;
-
+    display: block;
 }
 
-
-@keyframes pageIn {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(20px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0);
-
-    }
-
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-
-
-/* =================================
-   HALAMAN LOGIN
-================================= */
-
-.login-page {
-
-    position: relative;
-
-    background:
-
-        linear-gradient(
-            rgba(2, 12, 20, .72),
-            rgba(2, 12, 20, .88)
-        ),
-
-        url("foto.jpg");
-
-    background-size: cover;
-
-    background-position: center;
-
-    background-attachment: fixed;
-
-}
-
-
-.login-overlay {
-
-    position: absolute;
-
-    inset: 0;
-
-    background:
-
-        radial-gradient(
-            circle at center,
-            transparent 10%,
-            rgba(0,0,0,.55) 90%
-        );
-
-    pointer-events: none;
-
-}
-
-
-/* =================================
-   CIRCUIT
-================================= */
-
-.circuit-decoration {
-
-    color: #45e9ff;
-
-    font-family: monospace;
-
-    font-size: 16px;
-
-    letter-spacing: 2px;
-
-    text-shadow:
-        0 0 8px #00eaff,
-        0 0 20px #00eaff;
-
-    z-index: 2;
-
-}
-
-
-.circuit-decoration.top {
-
-    margin-bottom: 18px;
-
-}
-
-
-.circuit-decoration.bottom {
-
-    margin-top: 18px;
-
-}
-
-
-
-/* =================================
-   LOGIN CARD
-================================= */
-
-.login-card {
-
-    width: 100%;
-
-    max-width: 430px;
-
-    padding: 38px;
-
+/* ==========================================
+   CARD & GLASSMORPHISM
+========================================== */
+.card {
+    /* Background transparan bernuansa dark cyan */
+    background: rgba(7, 21, 31, 0.65); 
+    
+    /* Efek Blur pada Background */
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    
+    /* Border halus & glowing */
+    border: 1px solid rgba(0, 229, 255, 0.25);
+    border-radius: 24px;
+    
+    /* Shadow lembut */
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6),
+                0 0 20px rgba(0, 229, 255, 0.15);
+    
+    padding: 35px 28px;
     text-align: center;
-
     position: relative;
-
-    z-index: 2;
-
-    background:
-
-        linear-gradient(
-            145deg,
-            rgba(7,25,38,.96),
-            rgba(3,13,22,.97)
-        );
-
-    border:
-        1px solid
-        rgba(0,225,255,.45);
-
-    border-radius: 22px;
-
-    box-shadow:
-
-        0 0 30px
-        rgba(0,220,255,.2),
-
-        0 25px 70px
-        rgba(0,0,0,.7);
-
-    backdrop-filter:
-        blur(8px);
-
 }
 
-
-.electric-icon {
-
-    font-size: 55px;
-
-    text-shadow:
-        0 0 15px #00eaff;
-
-}
-
-
-.chip {
-
-    display: inline-flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    width: 75px;
-
-    height: 32px;
-
-    margin:
-        8px 0 12px;
-
-    border:
-        1px solid #00eaff;
-
-    color: #00eaff;
-
-    background: #08141e;
-
-    font-family: monospace;
-
-}
-
-
-.login-card h1 {
-
-    margin:
-        5px 0 10px;
-
+.logo-icon {
     font-size: 32px;
-
-    line-height: 1.1;
-
-    letter-spacing: 2px;
-
+    color: #ff9d00;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px rgba(255, 157, 0, 0.6);
 }
 
+.badge {
+    display: inline-block;
+    border: 1px solid #00e5ff;
+    color: #00e5ff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
 
 .subtitle {
-
-    color: #91b9c4;
-
-    margin-bottom: 28px;
-
+    font-size: 13px;
+    color: #8ab4f8;
+    margin-bottom: 25px;
 }
 
-
-
-/* =================================
-   FORM
-================================= */
-
-label {
-
-    display: block;
-
-    text-align: left;
-
-    margin:
-        15px 0 7px;
-
-    color: #9edbe5;
-
-    font-weight: bold;
-
+.user-greeting {
     font-size: 14px;
-
+    color: #a0c4ff;
+    margin-bottom: 10px;
 }
 
+.question-title {
+    font-size: 18px;
+    line-height: 1.4;
+    margin: 15px 0 20px;
+}
 
-input {
+/* ==========================================
+   FORM & INPUTS
+========================================== */
+.input-group {
+    text-align: left;
+    margin-bottom: 18px;
+}
 
+.input-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #8ab4f8;
+    margin-bottom: 8px;
+}
+
+input[type="text"] {
     width: 100%;
-
-    padding: 14px;
-
+    background: rgba(10, 25, 38, 0.65);
+    border: 1px solid rgba(0, 229, 255, 0.3);
     border-radius: 10px;
-
-    border:
-        1px solid #285565;
-
-    background:
-        rgba(2,14,22,.95);
-
-    color: white;
-
+    padding: 14px 16px;
+    color: #ffffff;
+    font-size: 14px;
     outline: none;
-
-    font-size: 16px;
-
-    transition: .25s;
-
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
 }
 
-
-input:focus {
-
-    border-color: #00eaff;
-
-    box-shadow:
-        0 0 15px
-        rgba(0,220,255,.2);
-
+input[type="text"]:focus {
+    border-color: #00e5ff;
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+    background: rgba(10, 25, 38, 0.85);
 }
 
+.error-text {
+    color: #ff4d4d;
+    font-size: 13px;
+    font-weight: 700;
+    min-height: 20px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 8px rgba(255, 77, 77, 0.5);
+}
 
-
-/* =================================
-   BUTTON
-================================= */
-
-button {
-
+/* ==========================================
+   BUTTONS
+========================================== */
+.btn-primary, .btn-secondary {
     width: 100%;
-
-    padding: 15px;
-
-    margin-top: 22px;
-
-    border: 0;
-
+    padding: 14px;
+    border: none;
     border-radius: 10px;
-
-    color: white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #078ca8,
-            #12536b
-        );
-
-    font-weight: bold;
-
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
     cursor: pointer;
-
-    transition: .25s;
-
+    transition: all 0.3s ease;
 }
 
-
-button:hover {
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 8px 25px
-        rgba(0,220,255,.25);
-
+.btn-primary {
+    background: linear-gradient(135deg, #0088cc, #005588);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
 }
 
-
-button:disabled {
-
-    opacity: .5;
-
-    cursor: not-allowed;
-
-    transform: none;
-
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0099ee, #0066aa);
+    box-shadow: 0 4px 20px rgba(0, 229, 255, 0.6);
+    transform: translateY(-2px);
 }
 
-
-
-/* =================================
-   ERROR
-================================= */
-
-.error-message {
-
-    min-height: 25px;
-
-    margin-top: 14px;
-
-    color: #ff5075;
-
-    font-weight: bold;
-
-    text-shadow:
-        0 0 10px
-        rgba(255,50,100,.5);
-
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 10px;
 }
 
-
-
-/* =================================
-   QUIZ
-================================= */
-
-.quiz-page {
-
-    background:
-
-        radial-gradient(
-            circle at 20% 20%,
-            rgba(0,220,255,.1),
-            transparent 30%
-        ),
-
-        radial-gradient(
-            circle at 80% 80%,
-            rgba(120,0,255,.1),
-            transparent 30%
-        ),
-
-        #06111b;
-
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
-
-.quiz-card {
-
-    width: 100%;
-
-    max-width: 550px;
-
-    padding: 35px;
-
-    text-align: center;
-
-    background:
-        rgba(5,20,31,.97);
-
-    border:
-        1px solid
-        rgba(0,220,255,.35);
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 20px 60px
-        rgba(0,0,0,.5);
-
+/* ==========================================
+   QUIZ IMAGE
+========================================== */
+.quiz-image-container {
+    margin-bottom: 15px;
 }
 
-
-.user-badge {
-
-    display: inline-block;
-
-    padding:
-        8px 16px;
-
-    border-radius: 30px;
-
-    color: #57eaff;
-
-    background:
-        rgba(0,220,255,.08);
-
-    border:
-        1px solid
-        rgba(0,220,255,.25);
-
-    font-family: monospace;
-
-}
-
-
-.question-number {
-
-    margin-top: 25px;
-
-    color: #4de7ff;
-
-    font-family: monospace;
-
-    font-weight: bold;
-
-}
-
-
-.quiz-card h2 {
-
-    line-height: 1.5;
-
-    font-size: 23px;
-
-}
-
-
-.question-image {
-
-    display: none;
-
-    width: 100%;
-
-    margin:
-        15px 0;
-
-}
-
-
-.question-image img {
-
-    width: 100%;
-
-    max-height: 280px;
-
-    object-fit: contain;
-
+.quiz-image-container img {
+    max-width: 100%;
+    max-height: 180px;
     border-radius: 12px;
-
-    background: #02070b;
-
-    border:
-        1px solid #24586a;
-
+    border: 2px solid rgba(0, 229, 255, 0.4);
 }
 
-
-
-/* =================================
-   CAMERA
-================================= */
-
-.camera-page {
-
-    background:
-
-        radial-gradient(
-            circle at center,
-            rgba(0,220,255,.08),
-            transparent 50%
-        ),
-
-        #030b12;
-
-}
-
-
-.booth-header {
-
-    text-align: center;
-
-}
-
-
-.camera-icon {
-
-    font-size: 45px;
-
-}
-
-
-.booth-header h1,
-.result-header h1 {
-
-    margin:
-        5px 0;
-
-    letter-spacing: 2px;
-
-}
-
-
-.booth-header p,
-.result-header p {
-
-    color: #8eb8c3;
-
-}
-
-
-.photo-counter {
-
-    display: inline-block;
-
-    padding:
-        8px 18px;
-
-    border-radius: 30px;
-
-    color: #00eaff;
-
-    background:
-        rgba(0,220,255,.08);
-
-    border:
-        1px solid
-        rgba(0,220,255,.3);
-
-    font-family: monospace;
-
-    font-weight: bold;
-
-}
-
-
-.camera-container {
-
-    width: 90%;
-
-    max-width: 650px;
-
-    margin:
-        20px 0;
-
+/* ==========================================
+   CAMERA & DISPLAY
+========================================== */
+.camera-wrapper {
     position: relative;
-
-    overflow: hidden;
-
-    border-radius: 15px;
-
-    border:
-        2px solid #176d80;
-
+    width: 100%;
+    aspect-ratio: 4/3;
     background: #000;
-
-    box-shadow:
-        0 0 35px
-        rgba(0,220,255,.15);
-
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 15px 0;
+    border: 2px solid rgba(0, 229, 255, 0.3);
 }
-
 
 #camera {
-
     width: 100%;
-
-    display: block;
-
-    transform:
-        scaleX(-1);
-
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1); /* Mirror camera */
 }
 
-
-.live-label {
-
+.countdown-overlay {
     position: absolute;
-
-    z-index: 5;
-
-    top: 12px;
-
-    left: 12px;
-
-    padding:
-        6px 10px;
-
-    background:
-        rgba(0,0,0,.7);
-
-    color: #ff526f;
-
-    font-family: monospace;
-
-    font-size: 12px;
-
-}
-
-
-#countdown {
-
-    position: absolute;
-
     top: 50%;
-
     left: 50%;
-
-    transform:
-        translate(-50%,-50%);
-
-    font-size: 90px;
-
-    font-weight: bold;
-
-    color: white;
-
-    text-shadow:
-        0 0 20px #00eaff,
-        0 0 50px #00eaff;
-
+    transform: translate(-50%, -50%);
+    font-size: 72px;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 10px #00e5ff;
+    pointer-events: none;
 }
 
-
-#canvas {
-
-    display: none;
-
+/* ==========================================
+   RESULTS & STRIPS PREVIEW
+========================================== */
+.result-card {
+    max-width: 100%;
 }
 
-
-.camera-button {
-
-    max-width: 650px;
-
-    font-size: 16px;
-
-}
-
-
-
-/* =================================
-   RESULT
-================================= */
-
-.result-page {
-
-    background:
-
-        radial-gradient(
-            circle at center,
-            rgba(0,220,255,.08),
-            transparent 50%
-        ),
-
-        #06111b;
-
-}
-
-
-.result-header {
-
-    text-align: center;
-
-}
-
-
-.result-user {
-
-    display: inline-block;
-
-    padding:
-        8px 16px;
-
-    color: #4ce8ff;
-
-    border:
-        1px solid
-        rgba(0,220,255,.3);
-
-    border-radius: 30px;
-
-    font-family: monospace;
-
-}
-
-
-
-/* =================================
-   PHOTO STRIPS
-================================= */
-
-.strips-container {
-
+.strips-preview {
     display: flex;
-
     justify-content: center;
-
-    align-items: flex-start;
-
-    gap: 25px;
-
-    width: 100%;
-
-    padding: 25px 10px;
-
-    flex-wrap: wrap;
-
+    gap: 15px;
+    margin: 20px 0;
+    overflow-x: auto;
+    padding-bottom: 10px;
 }
 
-
-.photo-strip {
-
-    width: 230px;
-
-    padding: 12px;
-
-    background: #fff;
-
-    color: #111;
-
-    border-radius: 4px;
-
-    box-shadow:
-        0 15px 45px
-        rgba(0,0,0,.5);
-
-    position: relative;
-
-}
-
-
-.strip-top {
-
-    height: 38px;
-
+.strip {
+    background: #ffffff;
+    color: #111111;
+    width: 140px;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     display: flex;
-
-    justify-content: center;
-
+    flex-direction: column;
     align-items: center;
-
-    color: white;
-
-    background: #07151f;
-
-    font-size: 14px;
-
-    font-weight: bold;
-
-    letter-spacing: 1px;
-
 }
 
+.strip-header {
+    background: #07151f;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 4px 0;
+    border-radius: 2px;
+}
 
 .strip-title {
-
-    padding:
-        10px 0;
-
-    text-align: center;
-
     font-family: monospace;
-
+    font-size: 8px;
     font-weight: bold;
-
-    font-size: 12px;
-
+    margin: 4px 0 6px;
 }
 
-
-.strip-photo {
-
+.strip-photos {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     width: 100%;
-
-    margin-bottom: 7px;
-
-    overflow: hidden;
-
-    background: #ddd;
-
 }
 
-
-.strip-photo img {
-
-    display: block;
-
+.strip-photos img {
     width: 100%;
-
-    aspect-ratio: 4 / 3;
-
+    height: 85px;
     object-fit: cover;
-
+    border-radius: 2px;
+    background: #ddd;
 }
 
+.strip-date {
+    font-size: 7px;
+    font-family: monospace;
+    margin-top: 6px;
+}
 
 .strip-footer {
-
-    padding:
-        9px 0 5px;
-
-    text-align: center;
-
     font-family: monospace;
-
-    font-size: 11px;
-
-    line-height: 1.5;
-
+    font-size: 8px;
+    font-weight: bold;
+    margin-top: 2px;
 }
 
-
-.strip-footer span {
-
-    display: block;
-
-    font-size: 9px;
-
+/* Efek Getar (Wrong Answer) */
+.shake {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
 }
 
-
-
-/* =================================
-   RESULT BUTTON
-================================= */
-
-.result-buttons {
-
-    width: 90%;
-
-    max-width: 500px;
-
-    display: flex;
-
-    gap: 12px;
-
-}
-
-
-.download-button {
-
-    background:
-        linear-gradient(
-            135deg,
-            #087c59,
-            #064b38
-        );
-
-}
-
-
-.restart-button {
-
-    background:
-        linear-gradient(
-            135deg,
-            #713db0,
-            #422268
-        );
-
-}
-
-
-
-/* =================================
-   MOBILE
-================================= */
-
-@media(max-width:600px) {
-
-    .login-card,
-    .quiz-card {
-
-        padding:
-            28px 20px;
-
-    }
-
-
-    .login-card h1 {
-
-        font-size: 27px;
-
-    }
-
-
-    .circuit-decoration {
-
-        font-size: 11px;
-
-    }
-
-
-    .camera-container {
-
-        width: 100%;
-
-    }
-
-
-    #countdown {
-
-        font-size: 65px;
-
-    }
-
-
-    .result-buttons {
-
-        flex-direction: column;
-
-    }
-
-
-    .photo-strip {
-
-        width: 210px;
-
-    }
-
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
 }
