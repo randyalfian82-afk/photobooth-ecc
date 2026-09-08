@@ -1,1004 +1,551 @@
 * {
     box-sizing: border-box;
 }
-
-
 html,
 body {
     margin: 0;
     padding: 0;
     min-height: 100%;
 }
-
-
 body {
-
     font-family:
         Arial,
         Helvetica,
         sans-serif;
-
     color: #e8fbff;
-
     background:
         #06111b;
-
     overflow-x: hidden;
-
 }
-
-
 /* =================================
    GENERAL PAGE
 ================================= */
-
 .page {
-
     min-height: 100vh;
-
     display: none;
-
     justify-content: center;
-
     align-items: center;
-
     flex-direction: column;
-
     padding: 25px;
-
 }
-
-
 .page.active {
-
     display: flex;
-
     animation:
         pageIn .6s ease;
-
 }
-
-
 @keyframes pageIn {
-
     from {
-
         opacity: 0;
-
         transform:
             translateY(20px);
-
     }
-
     to {
-
         opacity: 1;
-
         transform:
             translateY(0);
-
     }
-
 }
-
-
-
 /* =================================
    HALAMAN LOGIN
 ================================= */
-
 .login-page {
-
     position: relative;
-
     background:
-
         linear-gradient(
-            rgba(2, 12, 20, .72),
-            rgba(2, 12, 20, .88)
+            rgba(2, 12, 20, .45),
+            rgba(2, 12, 20, .55)
         ),
-
         url("foto.jpg");
-
     background-size: cover;
-
     background-position: center;
-
     background-attachment: fixed;
-
+    background-repeat: no-repeat;
+    box-shadow: inset 0 0 120px rgba(0,0,0,0.6);
 }
-
-
 .login-overlay {
-
     position: absolute;
-
     inset: 0;
-
     background:
-
         radial-gradient(
             circle at center,
             transparent 10%,
             rgba(0,0,0,.55) 90%
         );
-
     pointer-events: none;
-
 }
-
-
 /* =================================
    CIRCUIT
 ================================= */
-
 .circuit-decoration {
-
     color: #45e9ff;
-
     font-family: monospace;
-
     font-size: 16px;
-
     letter-spacing: 2px;
-
     text-shadow:
         0 0 8px #00eaff,
         0 0 20px #00eaff;
-
     z-index: 2;
-
 }
-
-
 .circuit-decoration.top {
-
     margin-bottom: 18px;
-
 }
-
-
 .circuit-decoration.bottom {
-
     margin-top: 18px;
-
 }
-
-
-
 /* =================================
    LOGIN CARD
 ================================= */
-
 .login-card {
-
     width: 100%;
-
     max-width: 430px;
-
     padding: 38px;
-
     text-align: center;
-
     position: relative;
-
     z-index: 2;
-
     background:
-
         linear-gradient(
             145deg,
             rgba(7,25,38,.96),
             rgba(3,13,22,.97)
         );
-
     border:
         1px solid
         rgba(0,225,255,.45);
-
     border-radius: 22px;
-
     box-shadow:
-
         0 0 30px
         rgba(0,220,255,.2),
-
         0 25px 70px
         rgba(0,0,0,.7);
-
     backdrop-filter:
         blur(8px);
-
 }
-
-
 .electric-icon {
-
     font-size: 55px;
-
     text-shadow:
         0 0 15px #00eaff;
-
 }
-
-
 .chip {
-
     display: inline-flex;
-
     justify-content: center;
-
     align-items: center;
-
     width: 75px;
-
     height: 32px;
-
     margin:
         8px 0 12px;
-
     border:
         1px solid #00eaff;
-
     color: #00eaff;
-
     background: #08141e;
-
     font-family: monospace;
-
 }
-
-
 .login-card h1 {
-
     margin:
         5px 0 10px;
-
     font-size: 32px;
-
     line-height: 1.1;
-
     letter-spacing: 2px;
-
 }
-
-
 .subtitle {
-
     color: #91b9c4;
-
     margin-bottom: 28px;
-
 }
-
-
-
 /* =================================
    FORM
 ================================= */
-
 label {
-
     display: block;
-
     text-align: left;
-
     margin:
         15px 0 7px;
-
     color: #9edbe5;
-
     font-weight: bold;
-
     font-size: 14px;
-
 }
-
-
 input {
-
     width: 100%;
-
     padding: 14px;
-
     border-radius: 10px;
-
     border:
         1px solid #285565;
-
     background:
         rgba(2,14,22,.95);
-
     color: white;
-
     outline: none;
-
     font-size: 16px;
-
     transition: .25s;
-
 }
-
-
 input:focus {
-
     border-color: #00eaff;
-
     box-shadow:
         0 0 15px
         rgba(0,220,255,.2);
-
 }
-
-
-
 /* =================================
    BUTTON
 ================================= */
-
 button {
-
     width: 100%;
-
     padding: 15px;
-
     margin-top: 22px;
-
     border: 0;
-
     border-radius: 10px;
-
     color: white;
-
     background:
         linear-gradient(
             135deg,
             #078ca8,
             #12536b
         );
-
     font-weight: bold;
-
     cursor: pointer;
-
     transition: .25s;
-
 }
-
-
 button:hover {
-
     transform:
         translateY(-2px);
-
     box-shadow:
         0 8px 25px
         rgba(0,220,255,.25);
-
 }
-
-
 button:disabled {
-
     opacity: .5;
-
     cursor: not-allowed;
-
     transform: none;
-
 }
-
-
-
 /* =================================
    ERROR
 ================================= */
-
 .error-message {
-
     min-height: 25px;
-
     margin-top: 14px;
-
     color: #ff5075;
-
     font-weight: bold;
-
     text-shadow:
         0 0 10px
         rgba(255,50,100,.5);
-
 }
-
-
-
 /* =================================
    QUIZ
 ================================= */
-
 .quiz-page {
-
     background:
-
         radial-gradient(
             circle at 20% 20%,
             rgba(0,220,255,.1),
             transparent 30%
         ),
-
         radial-gradient(
             circle at 80% 80%,
             rgba(120,0,255,.1),
             transparent 30%
         ),
-
         #06111b;
-
 }
-
-
 .quiz-card {
-
     width: 100%;
-
     max-width: 550px;
-
     padding: 35px;
-
     text-align: center;
-
     background:
         rgba(5,20,31,.97);
-
     border:
         1px solid
         rgba(0,220,255,.35);
-
     border-radius: 20px;
-
     box-shadow:
         0 20px 60px
         rgba(0,0,0,.5);
-
 }
-
-
 .user-badge {
-
     display: inline-block;
-
     padding:
         8px 16px;
-
     border-radius: 30px;
-
     color: #57eaff;
-
     background:
         rgba(0,220,255,.08);
-
     border:
         1px solid
         rgba(0,220,255,.25);
-
     font-family: monospace;
-
 }
-
-
 .question-number {
-
     margin-top: 25px;
-
     color: #4de7ff;
-
     font-family: monospace;
-
     font-weight: bold;
-
 }
-
-
 .quiz-card h2 {
-
     line-height: 1.5;
-
     font-size: 23px;
-
 }
-
-
 .question-image {
-
     display: none;
-
     width: 100%;
-
     margin:
         15px 0;
-
 }
-
-
 .question-image img {
-
     width: 100%;
-
     max-height: 280px;
-
     object-fit: contain;
-
     border-radius: 12px;
-
     background: #02070b;
-
     border:
         1px solid #24586a;
-
 }
-
-
-
 /* =================================
    CAMERA
 ================================= */
-
 .camera-page {
-
     background:
-
         radial-gradient(
             circle at center,
             rgba(0,220,255,.08),
             transparent 50%
         ),
-
         #030b12;
-
 }
-
-
 .booth-header {
-
     text-align: center;
-
 }
-
-
 .camera-icon {
-
     font-size: 45px;
-
 }
-
-
 .booth-header h1,
 .result-header h1 {
-
     margin:
         5px 0;
-
     letter-spacing: 2px;
-
 }
-
-
 .booth-header p,
 .result-header p {
-
     color: #8eb8c3;
-
 }
-
-
 .photo-counter {
-
     display: inline-block;
-
     padding:
         8px 18px;
-
     border-radius: 30px;
-
     color: #00eaff;
-
     background:
         rgba(0,220,255,.08);
-
     border:
         1px solid
         rgba(0,220,255,.3);
-
     font-family: monospace;
-
     font-weight: bold;
-
 }
-
-
 .camera-container {
-
     width: 90%;
-
     max-width: 650px;
-
     margin:
         20px 0;
-
     position: relative;
-
     overflow: hidden;
-
     border-radius: 15px;
-
     border:
         2px solid #176d80;
-
     background: #000;
-
     box-shadow:
         0 0 35px
         rgba(0,220,255,.15);
-
 }
-
-
 #camera {
-
     width: 100%;
-
     display: block;
-
     transform:
         scaleX(-1);
-
 }
-
-
 .live-label {
-
     position: absolute;
-
     z-index: 5;
-
     top: 12px;
-
     left: 12px;
-
     padding:
         6px 10px;
-
     background:
         rgba(0,0,0,.7);
-
     color: #ff526f;
-
     font-family: monospace;
-
     font-size: 12px;
-
 }
-
-
 #countdown {
-
     position: absolute;
-
     top: 50%;
-
     left: 50%;
-
     transform:
         translate(-50%,-50%);
-
     font-size: 90px;
-
     font-weight: bold;
-
     color: white;
-
     text-shadow:
         0 0 20px #00eaff,
         0 0 50px #00eaff;
-
 }
-
-
 #canvas {
-
     display: none;
-
 }
-
-
 .camera-button {
-
     max-width: 650px;
-
     font-size: 16px;
-
 }
-
-
-
 /* =================================
    RESULT
 ================================= */
-
 .result-page {
-
     background:
-
         radial-gradient(
             circle at center,
             rgba(0,220,255,.08),
             transparent 50%
         ),
-
         #06111b;
-
 }
-
-
 .result-header {
-
     text-align: center;
-
 }
-
-
 .result-user {
-
     display: inline-block;
-
     padding:
         8px 16px;
-
     color: #4ce8ff;
-
     border:
         1px solid
         rgba(0,220,255,.3);
-
     border-radius: 30px;
-
     font-family: monospace;
-
 }
-
-
-
 /* =================================
    PHOTO STRIPS
 ================================= */
-
 .strips-container {
-
     display: flex;
-
     justify-content: center;
-
     align-items: flex-start;
-
     gap: 25px;
-
     width: 100%;
-
     padding: 25px 10px;
-
     flex-wrap: wrap;
-
 }
-
-
 .photo-strip {
-
     width: 230px;
-
     padding: 12px;
-
     background: #fff;
-
     color: #111;
-
     border-radius: 4px;
-
     box-shadow:
         0 15px 45px
         rgba(0,0,0,.5);
-
     position: relative;
-
 }
-
-
 .strip-top {
-
     height: 38px;
-
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
     color: white;
-
     background: #07151f;
-
     font-size: 14px;
-
     font-weight: bold;
-
     letter-spacing: 1px;
-
 }
-
-
 .strip-title {
-
     padding:
         10px 0;
-
     text-align: center;
-
     font-family: monospace;
-
     font-weight: bold;
-
     font-size: 12px;
-
 }
-
-
 .strip-photo {
-
     width: 100%;
-
     margin-bottom: 7px;
-
     overflow: hidden;
-
     background: #ddd;
-
 }
-
-
 .strip-photo img {
-
     display: block;
-
     width: 100%;
-
     aspect-ratio: 4 / 3;
-
     object-fit: cover;
-
 }
-
-
 .strip-footer {
-
     padding:
         9px 0 5px;
-
     text-align: center;
-
     font-family: monospace;
-
     font-size: 11px;
-
     line-height: 1.5;
-
 }
-
-
 .strip-footer span {
-
     display: block;
-
     font-size: 9px;
-
 }
-
-
-
 /* =================================
    RESULT BUTTON
 ================================= */
-
 .result-buttons {
-
     width: 90%;
-
     max-width: 500px;
-
     display: flex;
-
     gap: 12px;
-
 }
-
-
 .download-button {
-
     background:
         linear-gradient(
             135deg,
             #087c59,
             #064b38
         );
-
 }
-
-
 .restart-button {
-
     background:
         linear-gradient(
             135deg,
             #713db0,
             #422268
         );
-
 }
-
-
-
+/* =================================
+   ANIMATION GETAR SALAH
+================================= */
+.shake {
+    animation: shake 0.5s;
+}
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-8px); }
+    80% { transform: translateX(8px); }
+}
 /* =================================
    MOBILE
 ================================= */
-
 @media(max-width:600px) {
-
     .login-card,
     .quiz-card {
-
         padding:
             28px 20px;
-
     }
-
-
     .login-card h1 {
-
         font-size: 27px;
-
     }
-
-
     .circuit-decoration {
-
         font-size: 11px;
-
     }
-
-
     .camera-container {
-
         width: 100%;
-
     }
-
-
     #countdown {
-
         font-size: 65px;
-
     }
-
-
     .result-buttons {
-
         flex-direction: column;
-
     }
-
-
     .photo-strip {
-
         width: 210px;
-
     }
-
 }
