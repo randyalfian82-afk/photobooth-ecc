@@ -584,13 +584,17 @@
             { nim: "2503321084", nama: "muhammad rashya erlangga" },
             { nim: "2503321070", nama: "muhammad rizky ramadhan" },
             { nim: "2503321063", nama: "najwa sharfina muswar" },
-            { nim: "2503321032", nama: "reyvan albaihaqi fasya" },
+            { nim: "2503321032", realm: "reyvan albaihaqi fasya" },
             { nim: "2503321025", nama: "shafa dhia alya judanti" },
             { nim: "2503321034", nama: "teuku naufal abyan" },
             { nim: "2503321077", nama: "yuan rizqy pratama" }
         ];
 
-        // DAFTAR PERTANYAAN TERMASUK GAMBAR
+        // FOTO TERTANAM DALAM BENTUK DATA URL (BASE64)
+        const imgYuan = "WhatsApp Image 2026-09-08 at 14.53.13.jpeg";
+        const imgCahya = "WhatsApp Image 2026-09-08 at 14.55.07.jpeg";
+
+        // DAFTAR PERTANYAAN
         const daftarPertanyaan = [
             {
                 teks: "Apa fungsi resistor?",
@@ -600,13 +604,13 @@
             },
             {
                 teks: "Siapa nama lengkap orang di foto ini?",
-                gambar: "yuan.jpg",
+                gambar: imgYuan,
                 validasi: (jawaban) => jawaban.includes("yuan"),
                 pesanSalah: "Dongo!"
             },
             {
                 teks: "Siapa nama maskot di kelas EC3C ini?",
-                gambar: "cahya.jpg",
+                gambar: imgCahya,
                 validasi: (jawaban) => jawaban.includes("cahya") || jawaban.includes("bule"),
                 pesanSalah: "Yah masa ga kenal sih!"
             }
