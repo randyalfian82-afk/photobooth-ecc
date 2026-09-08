@@ -2,18 +2,17 @@
    ELEMENT
 ================================================== */
 
-let video =
-    document.getElementById("camera");
+let video = document.getElementById("camera");
 
-let canvas =
-    document.getElementById("canvas");
+let canvas = document.getElementById("canvas");
 
 let fotoArray = [];
 
 let namaUser = "";
 
-let pertanyaanSekarang = 0;
+let nimUser = "";
 
+let pertanyaanSekarang = 0;
 
 
 /* ==================================================
@@ -23,84 +22,46 @@ let pertanyaanSekarang = 0;
 const pertanyaan = [
 
     {
-        soal:
-            "Apa warna favorit saya?",
-
-        tipe:
-            "input",
-
-        jawaban:
-            "hitam"
+        soal: "Apa warna favorit saya?",
+        tipe: "input",
+        jawaban: "hitam"
     },
 
-
     {
-        soal:
-            "Berapa ukuran baju saya?",
-
-        tipe:
-            "input",
-
-        jawaban:
-            "l"
+        soal: "Berapa ukuran baju saya?",
+        tipe: "input",
+        jawaban: "l"
     },
 
-
     {
-        soal:
-            "Berapa ukuran sepatu saya?",
-
-        tipe:
-            "input",
-
-        jawaban:
-            "42"
+        soal: "Berapa ukuran sepatu saya?",
+        tipe: "input",
+        jawaban: "42"
     },
 
-
     {
-        soal:
-            "Kapan tanggal lahir saya?",
-
-        tipe:
-            "input",
-
-        jawaban:
-            "23 november 2006"
+        soal: "Kapan tanggal lahir saya?",
+        tipe: "input",
+        jawaban: "23 november 2006"
     },
 
-
     {
-        soal:
-            "Apa genre musik favorit saya?",
-
-        tipe:
-            "input",
-
-        jawaban:
-            "rock"
+        soal: "Apa genre musik favorit saya?",
+        tipe: "input",
+        jawaban: "rock"
     },
 
-
     {
-        soal:
-            "Sebutkan 3 band yang sudah kita tonton!",
-
-        tipe:
-            "bands"
+        soal: "Sebutkan 3 band yang sudah kita tonton!",
+        tipe: "bands"
     },
 
-
     {
-        soal:
-            "Ceritakan moment paling bahagia kamu sama saya ❤️",
-
-        tipe:
-            "textarea"
+        soal: "Ceritakan moment paling bahagia kamu sama saya ❤️",
+        tipe: "textarea"
     }
 
 ];
-
 
 
 /* ==================================================
@@ -119,93 +80,111 @@ function normalisasi(text) {
 }
 
 
-
 /* ==================================================
-   CEK TANGGAL JADIAN
+   HALAMAN NAMA
 ================================================== */
 
-function cekTanggal() {
+function lanjutNama() {
 
+    namaUser = document
+        .getElementById("nama")
+        .value
+        .trim();
 
-    namaUser =
-        document
-            .getElementById("nama")
-            .value
-            .trim();
-
-
-    let tanggal =
-        document
-            .getElementById("tanggalJadian")
-            .value
-            .trim()
-            .toLowerCase();
+    let pesan =
+        document.getElementById("pesanNama");
 
 
     if (namaUser === "") {
 
-        document
-            .getElementById("salahTanggal")
-            .innerText =
-            "Isi nama kamu dulu ya 🥺";
+        pesan.innerText =
+            "Masukkan nama kamu dulu ya ⚡";
 
         return;
-
     }
 
 
-
-    let tanggalNormal =
-        tanggal
-            .replaceAll("/", " ")
-            .replaceAll("-", " ")
-            .replace(/\s+/g, " ")
-            .trim();
+    pesan.innerText = "";
 
 
-
-    let benar = [
-
-        "26 desember 2024",
-
-        "26 12 2024"
-
-    ];
+    document
+        .getElementById("opening")
+        .classList
+        .remove("active");
 
 
-
-    if (
-        benar.includes(tanggalNormal)
-    ) {
-
-
-        document
-            .getElementById("opening")
-            .classList
-            .remove("active");
+    document
+        .getElementById("nimPage")
+        .classList
+        .add("active");
 
 
-        document
-            .getElementById("questions")
-            .classList
-            .add("active");
-
-
-        tampilkanPertanyaan();
-
-
-    } else {
-
-
-        document
-            .getElementById("salahTanggal")
-            .innerText =
-            "Kamu udah ga sayang 😭";
-
-    }
+    document
+        .getElementById("namaTampil")
+        .innerText =
+        namaUser;
 
 }
 
+
+/* ==================================================
+   HALAMAN NIM
+================================================== */
+
+function lanjutNIM() {
+
+    nimUser = document
+        .getElementById("nim")
+        .value
+        .trim();
+
+
+    /*
+       NIM TIDAK DI CEK.
+
+       Jadi walaupun salah,
+       tetap bisa masuk ke halaman pertanyaan.
+    */
+
+    if (nimUser === "") {
+
+        /*
+           Kalau ingin NIM juga boleh kosong,
+           bagian ini bisa dihapus.
+        */
+
+        nimUser = "NIM tidak diisi";
+
+    }
+
+
+    document
+        .getElementById("nimPage")
+        .classList
+        .remove("active");
+
+
+    document
+        .getElementById("questions")
+        .classList
+        .add("active");
+
+
+    document
+        .getElementById("userNama")
+        .innerText =
+        namaUser;
+
+
+    document
+        .getElementById("userNIM")
+        .innerText =
+        nimUser;
+
+
+    tampilkanPertanyaan();
+
+}
 
 
 /* ==================================================
@@ -213,7 +192,6 @@ function cekTanggal() {
 ================================================== */
 
 function tampilkanPertanyaan() {
-
 
     let data =
         pertanyaan[
@@ -230,22 +208,17 @@ function tampilkanPertanyaan() {
         pertanyaan.length;
 
 
-
     document
         .getElementById("judulPertanyaan")
         .innerText =
         data.soal;
 
 
-
     let area =
-        document
-            .getElementById("areaJawaban");
-
+        document.getElementById("areaJawaban");
 
 
     if (data.tipe === "textarea") {
-
 
         area.innerHTML = `
 
@@ -256,9 +229,7 @@ function tampilkanPertanyaan() {
 
         `;
 
-
     } else {
-
 
         area.innerHTML = `
 
@@ -273,7 +244,6 @@ function tampilkanPertanyaan() {
     }
 
 
-
     document
         .getElementById("pesanJawaban")
         .innerText = "";
@@ -281,13 +251,11 @@ function tampilkanPertanyaan() {
 }
 
 
-
 /* ==================================================
    CEK 3 BAND
 ================================================== */
 
 function cekBand(input) {
-
 
     let teks =
         normalisasi(input);
@@ -314,13 +282,11 @@ function cekBand(input) {
 }
 
 
-
 /* ==================================================
    CEK JAWABAN
 ================================================== */
 
 function cekJawaban() {
-
 
     let input =
         document
@@ -335,15 +301,11 @@ function cekJawaban() {
         ];
 
 
-
-    /* ===============================================
+    /* ==================================================
        MOMENT BAHAGIA
-    =============================================== */
+    ================================================== */
 
-    if (
-        data.tipe === "textarea"
-    ) {
-
+    if (data.tipe === "textarea") {
 
         if (input === "") {
 
@@ -353,7 +315,6 @@ function cekJawaban() {
                 "Ceritain dulu momentnya dong 🥺";
 
             return;
-
         }
 
 
@@ -365,26 +326,18 @@ function cekJawaban() {
 
         masukPhotobooth();
 
-
         return;
 
     }
 
 
-
-    /* ===============================================
+    /* ==================================================
        3 BAND
-    =============================================== */
+    ================================================== */
 
-    if (
-        data.tipe === "bands"
-    ) {
+    if (data.tipe === "bands") {
 
-
-        if (
-            cekBand(input)
-        ) {
-
+        if (cekBand(input)) {
 
             pertanyaanSekarang++;
 
@@ -398,9 +351,7 @@ function cekJawaban() {
 
             }
 
-
         } else {
-
 
             document
                 .getElementById("pesanJawaban")
@@ -409,16 +360,14 @@ function cekJawaban() {
 
         }
 
-
         return;
 
     }
 
 
-
-    /* ===============================================
+    /* ==================================================
        JAWABAN NORMAL
-    =============================================== */
+    ================================================== */
 
     let jawabanUser =
         normalisasi(input);
@@ -430,12 +379,10 @@ function cekJawaban() {
         );
 
 
-
     if (
         jawabanUser ===
         jawabanBenar
     ) {
-
 
         pertanyaanSekarang++;
 
@@ -449,9 +396,7 @@ function cekJawaban() {
 
         }
 
-
     } else {
-
 
         document
             .getElementById("pesanJawaban")
@@ -463,13 +408,11 @@ function cekJawaban() {
 }
 
 
-
 /* ==================================================
    MASUK PHOTOBOOTH
 ================================================== */
 
 function masukPhotobooth() {
-
 
     document
         .getElementById("questions")
@@ -494,16 +437,13 @@ function masukPhotobooth() {
 }
 
 
-
 /* ==================================================
    BUKA KAMERA
 ================================================== */
 
 async function bukaKamera() {
 
-
     try {
-
 
         const stream =
             await navigator
@@ -511,10 +451,7 @@ async function bukaKamera() {
                 .getUserMedia({
 
                     video: {
-
-                        facingMode:
-                            "user"
-
+                        facingMode: "user"
                     },
 
                     audio: false
@@ -528,11 +465,9 @@ async function bukaKamera() {
 
     } catch (error) {
 
-
         alert(
             "Kamera tidak bisa dibuka. Izinkan akses kamera terlebih dahulu."
         );
-
 
         console.error(error);
 
@@ -541,13 +476,11 @@ async function bukaKamera() {
 }
 
 
-
 /* ==================================================
    AMBIL FOTO
 ================================================== */
 
 function ambilFoto() {
-
 
     let tombol =
         document
@@ -573,38 +506,28 @@ function ambilFoto() {
     let timer =
         setInterval(function () {
 
-
             angka--;
 
 
-            if (
-                angka > 0
-            ) {
-
+            if (angka > 0) {
 
                 countdown.innerText =
                     angka;
 
-
             } else {
-
 
                 clearInterval(timer);
 
-
                 countdown.innerText =
                     "";
-
 
                 foto();
 
             }
 
-
         }, 1000);
 
 }
-
 
 
 /* ==================================================
@@ -613,10 +536,8 @@ function ambilFoto() {
 
 function foto() {
 
-
     canvas.width =
         video.videoWidth;
-
 
     canvas.height =
         video.videoHeight;
@@ -644,15 +565,11 @@ function foto() {
 
 
     context.drawImage(
-
         video,
-
         0,
         0,
-
         canvas.width,
         canvas.height
-
     );
 
 
@@ -668,11 +585,9 @@ function foto() {
     );
 
 
-
     if (
         fotoArray.length < 3
     ) {
-
 
         document
             .getElementById("fotoKe")
@@ -687,9 +602,7 @@ function foto() {
             .disabled =
             false;
 
-
     } else {
-
 
         document
             .getElementById("fotoBtn")
@@ -714,20 +627,15 @@ function foto() {
 }
 
 
-
 /* ==================================================
    HASIL
 ================================================== */
 
 function tampilkanHasil() {
 
-
     /* MATIKAN KAMERA */
 
-    if (
-        video.srcObject
-    ) {
-
+    if (video.srcObject) {
 
         let tracks =
             video
@@ -742,6 +650,19 @@ function tampilkanHasil() {
 
     }
 
+
+    /* TAMPILKAN DATA USER */
+
+    document
+        .getElementById("hasilNama")
+        .innerText =
+        namaUser;
+
+
+    document
+        .getElementById("hasilNIM")
+        .innerText =
+        nimUser;
 
 
     /* PINDAH HALAMAN */
@@ -758,77 +679,44 @@ function tampilkanHasil() {
         .add("active");
 
 
-
     let hasil =
-        document
-            .getElementById("hasil");
+        document.getElementById("hasil");
 
-
-
-    /*
-       DUA POLAROID
-    */
 
     hasil.innerHTML = `
-
-
-        <!-- =========================================
-             POLAROID 1
-        ========================================== -->
 
         <div class="photostrip">
 
             <div class="photostrip-header">
 
                 <div class="cat-decoration">
-                    🐱
+                    ⚡
                 </div>
 
             </div>
 
-
             <div class="photostrip-title">
-
-                our little moments ♡
-
+                ELECTRONIC MOMENTS ♡
             </div>
-
 
             <div class="photo-box">
-
-                <img
-                    src="${fotoArray[0]}"
-                >
-
+                <img src="${fotoArray[0]}">
             </div>
-
 
             <div class="photo-box">
-
-                <img
-                    src="${fotoArray[1]}"
-                >
-
+                <img src="${fotoArray[1]}">
             </div>
-
 
             <div class="photo-box">
-
-                <img
-                    src="${fotoArray[2]}"
-                >
-
+                <img src="${fotoArray[2]}">
             </div>
-
 
             <div class="photostrip-footer">
 
-                together ♡
+                TOGETHER ♡
 
                 <div class="photostrip-date">
-
-                    26 Desember 2024
-
+                    ${namaUser} • ${nimUser}
                 </div>
 
             </div>
@@ -837,63 +725,38 @@ function tampilkanHasil() {
 
 
 
-        <!-- =========================================
-             POLAROID 2
-        ========================================== -->
-
         <div class="photostrip">
 
             <div class="photostrip-header">
 
                 <div class="cat-decoration">
-                    🐱
+                    🔌
                 </div>
 
             </div>
 
-
             <div class="photostrip-title">
-
-                memories ♡
-
+                CIRCUIT MEMORIES ♡
             </div>
-
 
             <div class="photo-box">
-
-                <img
-                    src="${fotoArray[0]}"
-                >
-
+                <img src="${fotoArray[0]}">
             </div>
-
 
             <div class="photo-box">
-
-                <img
-                    src="${fotoArray[1]}"
-                >
-
+                <img src="${fotoArray[1]}">
             </div>
-
 
             <div class="photo-box">
-
-                <img
-                    src="${fotoArray[2]}"
-                >
-
+                <img src="${fotoArray[2]}">
             </div>
-
 
             <div class="photostrip-footer">
 
-                forever ♡
+                FOREVER ♡
 
                 <div class="photostrip-date">
-
-                    26 Desember 2024
-
+                    ELECTRONICS • 2026
                 </div>
 
             </div>
@@ -905,13 +768,11 @@ function tampilkanHasil() {
 }
 
 
-
 /* ==================================================
    SAVE PHOTO
 ================================================== */
 
 async function simpanFoto() {
-
 
     let tombol =
         document
@@ -927,13 +788,6 @@ async function simpanFoto() {
     tombol.disabled =
         true;
 
-
-
-    /*
-       CANVAS HASIL AKHIR
-
-       Dua photostrip berdampingan.
-    */
 
     let saveCanvas =
         document.createElement(
@@ -955,19 +809,14 @@ async function simpanFoto() {
     saveCanvas.width =
         width;
 
-
     saveCanvas.height =
         height;
 
 
-
-    /* ===============================================
-       BACKGROUND
-    =============================================== */
+    /* BACKGROUND */
 
     ctx.fillStyle =
-        "#ffe1eb";
-
+        "#101c2c";
 
     ctx.fillRect(
         0,
@@ -977,42 +826,45 @@ async function simpanFoto() {
     );
 
 
-
-    /* ===============================================
-       JUDUL
-    =============================================== */
+    /* JUDUL */
 
     ctx.fillStyle =
-        "#713f50";
-
+        "#69f0ff";
 
     ctx.textAlign =
         "center";
 
-
     ctx.font =
-        "bold 32px Arial";
+        "bold 30px Arial";
 
 
     ctx.fillText(
-        "Our Little Moment ♡",
+        "ELECTRONIC MOMENT ⚡",
         width / 2,
-        50
+        45
     );
 
 
+    ctx.font =
+        "15px Arial";
 
-    /*
-       POSISI POLAROID
-    */
+    ctx.fillStyle =
+        "#ffffff";
+
+    ctx.fillText(
+        namaUser + " • " + nimUser,
+        width / 2,
+        70
+    );
+
+
+    /* POSISI POLAROID */
 
     let stripWidth =
         285;
 
-
     let stripHeight =
         1050;
-
 
     let gap =
         25;
@@ -1029,16 +881,12 @@ async function simpanFoto() {
 
 
     let startY =
-        85;
+        90;
 
 
+    /* LOAD FOTO */
 
-    /*
-       LOAD SEMUA FOTO TERLEBIH DAHULU
-    */
-
-    let images =
-        [];
+    let images = [];
 
 
     for (
@@ -1046,7 +894,6 @@ async function simpanFoto() {
         i < fotoArray.length;
         i++
     ) {
-
 
         let img =
             new Image();
@@ -1073,10 +920,9 @@ async function simpanFoto() {
     }
 
 
-
-    /* ===============================================
-       FUNGSI MEMBUAT POLAROID
-    =============================================== */
+    /* ==================================================
+       FUNGSI POLAROID
+    ================================================== */
 
     function buatPolaroid(
         x,
@@ -1085,11 +931,8 @@ async function simpanFoto() {
         footer
     ) {
 
-
-        /* BACKGROUND */
-
         ctx.fillStyle =
-            "#ffb8cd";
+            "#d8faff";
 
 
         ctx.fillRect(
@@ -1100,43 +943,43 @@ async function simpanFoto() {
         );
 
 
+        /* HEADER */
 
-        /* KUCING */
+        ctx.fillStyle =
+            "#101c2c";
+
+        ctx.fillRect(
+            x,
+            y,
+            stripWidth,
+            80
+        );
+
+
+        ctx.fillStyle =
+            "#69f0ff";
 
         ctx.font =
-            "42px Arial";
-
+            "35px Arial";
 
         ctx.textAlign =
             "center";
 
-
         ctx.fillText(
-            "🐱",
-            x +
-            stripWidth / 2,
-            y + 48
+            "⚡",
+            x + stripWidth / 2,
+            y + 42
         );
-
-
-
-        /* JUDUL */
-
-        ctx.fillStyle =
-            "#713f50";
 
 
         ctx.font =
-            "bold 17px Arial";
-
+            "bold 15px Arial";
 
         ctx.fillText(
             judul,
-            x +
-            stripWidth / 2,
-            y + 78
+            x + stripWidth / 2,
+            y + 68
         );
-
 
 
         /* FOTO */
@@ -1148,10 +991,8 @@ async function simpanFoto() {
         let photoWidth =
             stripWidth - 20;
 
-
         let photoHeight =
             285;
-
 
 
         for (
@@ -1160,40 +1001,24 @@ async function simpanFoto() {
             i++
         ) {
 
-
             ctx.fillStyle =
                 "#ffffff";
 
 
             ctx.fillRect(
-
                 x + 10,
-
                 photoY,
-
                 photoWidth,
-
                 photoHeight
-
             );
 
 
-            /*
-               FOTO DI DALAM FRAME PUTIH
-            */
-
             ctx.drawImage(
-
                 images[i],
-
                 x + 14,
-
                 photoY + 4,
-
                 photoWidth - 8,
-
                 photoHeight - 8
-
             );
 
 
@@ -1203,88 +1028,60 @@ async function simpanFoto() {
         }
 
 
-
         /* FOOTER */
 
         ctx.fillStyle =
-            "#713f50";
-
+            "#18344a";
 
         ctx.font =
-            "bold 16px Arial";
+            "bold 15px Arial";
 
 
         ctx.fillText(
             footer,
-            x +
-            stripWidth / 2,
-            y +
-            stripHeight -
-            35
+            x + stripWidth / 2,
+            y + stripHeight - 35
         );
 
 
-
-        /* TANGGAL */
-
         ctx.font =
-            "11px Arial";
+            "10px Arial";
 
 
         ctx.fillText(
-            "26 Desember 2024",
-            x +
-            stripWidth / 2,
-            y +
-            stripHeight -
-            15
+            namaUser +
+            " • " +
+            nimUser,
+            x + stripWidth / 2,
+            y + stripHeight - 15
         );
 
     }
 
 
-
-    /* ===============================================
-       POLAROID KIRI
-    =============================================== */
+    /* KIRI */
 
     buatPolaroid(
-
         startX,
-
         startY,
-
-        "our little moments ♡",
-
-        "together ♡"
-
+        "ELECTRONIC MOMENTS",
+        "TOGETHER ♡"
     );
 
 
-
-    /* ===============================================
-       POLAROID KANAN
-    =============================================== */
+    /* KANAN */
 
     buatPolaroid(
-
         startX +
         stripWidth +
         gap,
-
         startY,
-
-        "memories ♡",
-
-        "forever ♡"
-
+        "CIRCUIT MEMORIES",
+        "FOREVER ♡"
     );
 
 
-
-    /* ===============================================
-       DOWNLOAD
-    =============================================== */
+    /* DOWNLOAD */
 
     let link =
         document.createElement(
@@ -1293,7 +1090,9 @@ async function simpanFoto() {
 
 
     link.download =
-        "our-little-moment.png";
+        "electronic-moment-" +
+        namaUser +
+        ".png";
 
 
     link.href =
@@ -1303,7 +1102,6 @@ async function simpanFoto() {
 
 
     link.click();
-
 
 
     tombol.innerText =
