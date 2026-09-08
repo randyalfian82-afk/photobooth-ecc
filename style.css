@@ -1,660 +1,1004 @@
-/* =====================================================
-   RESET DAN VARIABEL
-===================================================== */
-
 * {
     box-sizing: border-box;
+}
+
+
+html,
+body {
     margin: 0;
     padding: 0;
-}
-
-:root {
-    --cyan: #00e5ff;
-    --blue: #168dcc;
-    --dark-blue: #061b2a;
-    --orange: #ff9d00;
-    --white: #ffffff;
-    --success: #4cffb0;
-    --danger: #ff4f73;
-}
-
-html {
     min-height: 100%;
 }
 
+
 body {
-    min-height: 100vh;
-    padding: 20px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    overflow-x: hidden;
-    color: var(--white);
 
     font-family:
-        "Segoe UI",
-        Tahoma,
-        Geneva,
-        Verdana,
+        Arial,
+        Helvetica,
         sans-serif;
 
-    background:
-        linear-gradient(
-            rgba(1, 10, 18, 0.48),
-            rgba(1, 10, 18, 0.72)
-        ),
-        url("foto.jpg") center / cover no-repeat fixed;
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
+    color: #e8fbff;
 
     background:
-        radial-gradient(
-            circle at center,
-            rgba(0, 229, 255, 0.08),
-            transparent 55%
-        ),
-        linear-gradient(
-            90deg,
-            rgba(0, 0, 0, 0.38),
-            transparent 40%,
-            transparent 60%,
-            rgba(0, 0, 0, 0.38)
-        );
-}
+        #06111b;
 
-button,
-input {
-    font: inherit;
+    overflow-x: hidden;
+
 }
 
 
-/* =====================================================
-   CONTAINER DAN HALAMAN
-===================================================== */
-
-.app-container {
-    width: 100%;
-    max-width: 520px;
-    margin: auto;
-}
+/* =================================
+   GENERAL PAGE
+================================= */
 
 .page {
+
+    min-height: 100vh;
+
     display: none;
-    width: 100%;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-direction: column;
+
+    padding: 25px;
+
 }
+
 
 .page.active {
-    display: block;
-    animation: fade-in 0.45s ease both;
+
+    display: flex;
+
+    animation:
+        pageIn .6s ease;
+
 }
 
-@keyframes fade-in {
+
+@keyframes pageIn {
+
     from {
+
         opacity: 0;
-        transform: translateY(14px);
+
+        transform:
+            translateY(20px);
+
     }
 
     to {
+
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
+
     }
+
 }
 
 
-/* =====================================================
-   DEKORASI
-===================================================== */
+
+/* =================================
+   HALAMAN LOGIN
+================================= */
+
+.login-page {
+
+    position: relative;
+
+    background:
+
+        linear-gradient(
+            rgba(2, 12, 20, .72),
+            rgba(2, 12, 20, .88)
+        ),
+
+        url("foto.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-attachment: fixed;
+
+}
+
+
+.login-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            transparent 10%,
+            rgba(0,0,0,.55) 90%
+        );
+
+    pointer-events: none;
+
+}
+
+
+/* =================================
+   CIRCUIT
+================================= */
 
 .circuit-decoration {
-    width: 100%;
-    margin: 13px 0;
 
-    color: rgba(0, 229, 255, 0.92);
+    color: #45e9ff;
+
     font-family: monospace;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-align: center;
-    text-shadow: 0 0 10px rgba(0, 229, 255, 0.65);
-}
 
+    font-size: 16px;
 
-/* =====================================================
-   CARD
-===================================================== */
-
-.card {
-    position: relative;
-    width: 100%;
-    padding: 34px 28px;
-
-    overflow: hidden;
-    text-align: center;
-
-    border: 1px solid rgba(0, 229, 255, 0.38);
-    border-radius: 24px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(5, 33, 51, 0.78),
-            rgba(3, 17, 29, 0.68)
-        );
-
-    backdrop-filter: blur(10px) saturate(135%);
-    -webkit-backdrop-filter: blur(10px) saturate(135%);
-
-    box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.72),
-        0 0 25px rgba(0, 229, 255, 0.14),
-        inset 0 1px 0 rgba(255, 255, 255, 0.13);
-}
-
-.card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 12%;
-    right: 12%;
-    height: 1px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.55),
-            transparent
-        );
-}
-
-
-/* =====================================================
-   TEKS
-===================================================== */
-
-.logo-icon {
-    margin-bottom: 5px;
-
-    color: var(--orange);
-    font-size: 36px;
-    text-shadow: 0 0 14px rgba(255, 157, 0, 0.8);
-}
-
-.badge {
-    display: inline-block;
-    margin-bottom: 15px;
-    padding: 5px 11px;
-
-    border: 1px solid rgba(0, 229, 255, 0.8);
-    border-radius: 5px;
-
-    background: rgba(0, 229, 255, 0.07);
-    color: var(--cyan);
-
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
-}
-
-h1 {
-    margin-bottom: 8px;
-
-    font-size: clamp(24px, 7vw, 32px);
-    font-weight: 900;
-    line-height: 1.08;
     letter-spacing: 2px;
-    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.75);
+
+    text-shadow:
+        0 0 8px #00eaff,
+        0 0 20px #00eaff;
+
+    z-index: 2;
+
 }
 
-h2 {
+
+.circuit-decoration.top {
+
     margin-bottom: 18px;
 
-    font-size: clamp(19px, 5vw, 23px);
-    line-height: 1.35;
-    letter-spacing: 0.5px;
 }
+
+
+.circuit-decoration.bottom {
+
+    margin-top: 18px;
+
+}
+
+
+
+/* =================================
+   LOGIN CARD
+================================= */
+
+.login-card {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    padding: 38px;
+
+    text-align: center;
+
+    position: relative;
+
+    z-index: 2;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(7,25,38,.96),
+            rgba(3,13,22,.97)
+        );
+
+    border:
+        1px solid
+        rgba(0,225,255,.45);
+
+    border-radius: 22px;
+
+    box-shadow:
+
+        0 0 30px
+        rgba(0,220,255,.2),
+
+        0 25px 70px
+        rgba(0,0,0,.7);
+
+    backdrop-filter:
+        blur(8px);
+
+}
+
+
+.electric-icon {
+
+    font-size: 55px;
+
+    text-shadow:
+        0 0 15px #00eaff;
+
+}
+
+
+.chip {
+
+    display: inline-flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    width: 75px;
+
+    height: 32px;
+
+    margin:
+        8px 0 12px;
+
+    border:
+        1px solid #00eaff;
+
+    color: #00eaff;
+
+    background: #08141e;
+
+    font-family: monospace;
+
+}
+
+
+.login-card h1 {
+
+    margin:
+        5px 0 10px;
+
+    font-size: 32px;
+
+    line-height: 1.1;
+
+    letter-spacing: 2px;
+
+}
+
 
 .subtitle {
-    margin-bottom: 25px;
 
-    color: #b4d9ff;
-    font-size: 13px;
-    line-height: 1.5;
-}
+    color: #91b9c4;
 
-.user-badge,
-.result-user,
-.photo-counter,
-.question-number {
-    display: inline-block;
-    padding: 7px 12px;
+    margin-bottom: 28px;
 
-    border: 1px solid rgba(0, 229, 255, 0.34);
-    border-radius: 999px;
-
-    background: rgba(0, 229, 255, 0.08);
-    color: #ccecff;
-
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.user-badge {
-    margin-bottom: 13px;
-}
-
-.question-number {
-    display: block;
-    width: fit-content;
-    margin: 0 auto 15px;
-
-    color: var(--cyan);
-    letter-spacing: 1px;
-}
-
-.photo-counter,
-.result-user {
-    margin-bottom: 14px;
 }
 
 
-/* =====================================================
+
+/* =================================
    FORM
-===================================================== */
+================================= */
 
-.input-group {
-    margin-bottom: 18px;
-    text-align: left;
-}
+label {
 
-.input-group label {
     display: block;
-    margin-bottom: 8px;
 
-    color: #b7d9ff;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
+    text-align: left;
 
-input[type="text"] {
-    width: 100%;
-    padding: 14px 16px;
+    margin:
+        15px 0 7px;
 
-    border: 1px solid rgba(0, 229, 255, 0.36);
-    border-radius: 10px;
-    outline: none;
+    color: #9edbe5;
 
-    background: rgba(1, 16, 28, 0.66);
-    color: #ffffff;
+    font-weight: bold;
 
     font-size: 14px;
-    transition:
-        border-color 0.25s ease,
-        background 0.25s ease,
-        box-shadow 0.25s ease;
-}
 
-input[type="text"]::placeholder {
-    color: rgba(220, 240, 255, 0.55);
-}
-
-input[type="text"]:focus {
-    border-color: var(--cyan);
-    background: rgba(1, 19, 33, 0.82);
-
-    box-shadow:
-        0 0 0 3px rgba(0, 229, 255, 0.08),
-        0 0 16px rgba(0, 229, 255, 0.38);
 }
 
 
-/* =====================================================
-   PESAN
-===================================================== */
+input {
 
-.error-text {
-    min-height: 22px;
-    margin: 4px 0 13px;
-
-    color: var(--danger);
-    font-size: 13px;
-    font-weight: 800;
-    line-height: 1.4;
-    text-shadow: 0 0 8px rgba(255, 70, 100, 0.4);
-}
-
-.error-text.success {
-    color: var(--success);
-    text-shadow: 0 0 8px rgba(76, 255, 176, 0.45);
-}
-
-
-/* =====================================================
-   TOMBOL
-===================================================== */
-
-.btn-primary,
-.btn-secondary {
     width: 100%;
+
     padding: 14px;
 
     border-radius: 10px;
+
+    border:
+        1px solid #285565;
+
+    background:
+        rgba(2,14,22,.95);
+
+    color: white;
+
+    outline: none;
+
+    font-size: 16px;
+
+    transition: .25s;
+
+}
+
+
+input:focus {
+
+    border-color: #00eaff;
+
+    box-shadow:
+        0 0 15px
+        rgba(0,220,255,.2);
+
+}
+
+
+
+/* =================================
+   BUTTON
+================================= */
+
+button {
+
+    width: 100%;
+
+    padding: 15px;
+
+    margin-top: 22px;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #078ca8,
+            #12536b
+        );
+
+    font-weight: bold;
+
     cursor: pointer;
 
-    font-size: 13px;
-    font-weight: 900;
-    letter-spacing: 1px;
+    transition: .25s;
 
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease,
-        box-shadow 0.25s ease,
-        opacity 0.25s ease;
 }
 
-.btn-primary {
-    border: 1px solid rgba(0, 229, 255, 0.5);
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(0, 146, 214, 0.96),
-            rgba(0, 74, 123, 0.92)
-        );
+button:hover {
 
-    color: #ffffff;
+    transform:
+        translateY(-2px);
 
     box-shadow:
-        0 5px 18px rgba(0, 125, 190, 0.38),
-        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+        0 8px 25px
+        rgba(0,220,255,.25);
+
 }
 
-.btn-primary:hover:not(:disabled) {
-    transform: translateY(-2px);
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(0, 181, 239, 0.98),
-            rgba(0, 100, 160, 0.96)
-        );
+button:disabled {
 
-    box-shadow:
-        0 7px 24px rgba(0, 229, 255, 0.44),
-        0 0 15px rgba(0, 229, 255, 0.25);
-}
+    opacity: .5;
 
-.btn-primary:disabled {
-    opacity: 0.5;
     cursor: not-allowed;
-}
 
-.btn-secondary {
-    margin-top: 10px;
+    transform: none;
 
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-}
-
-.btn-secondary:hover {
-    transform: translateY(-1px);
-    background: rgba(255, 255, 255, 0.2);
 }
 
 
-/* =====================================================
-   GAMBAR KUIS
-===================================================== */
 
-.quiz-image-container {
-    margin-bottom: 18px;
+/* =================================
+   ERROR
+================================= */
+
+.error-message {
+
+    min-height: 25px;
+
+    margin-top: 14px;
+
+    color: #ff5075;
+
+    font-weight: bold;
+
+    text-shadow:
+        0 0 10px
+        rgba(255,50,100,.5);
+
 }
 
-.quiz-image-container[hidden] {
-    display: none;
+
+
+/* =================================
+   QUIZ
+================================= */
+
+.quiz-page {
+
+    background:
+
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(0,220,255,.1),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(120,0,255,.1),
+            transparent 30%
+        ),
+
+        #06111b;
+
 }
 
-.quiz-image-container img {
-    display: block;
+
+.quiz-card {
+
     width: 100%;
-    max-height: 260px;
 
-    border: 2px solid rgba(0, 229, 255, 0.5);
-    border-radius: 12px;
+    max-width: 550px;
 
-    background: #07151f;
+    padding: 35px;
+
+    text-align: center;
+
+    background:
+        rgba(5,20,31,.97);
+
+    border:
+        1px solid
+        rgba(0,220,255,.35);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.5);
+
+}
+
+
+.user-badge {
+
+    display: inline-block;
+
+    padding:
+        8px 16px;
+
+    border-radius: 30px;
+
+    color: #57eaff;
+
+    background:
+        rgba(0,220,255,.08);
+
+    border:
+        1px solid
+        rgba(0,220,255,.25);
+
+    font-family: monospace;
+
+}
+
+
+.question-number {
+
+    margin-top: 25px;
+
+    color: #4de7ff;
+
+    font-family: monospace;
+
+    font-weight: bold;
+
+}
+
+
+.quiz-card h2 {
+
+    line-height: 1.5;
+
+    font-size: 23px;
+
+}
+
+
+.question-image {
+
+    display: none;
+
+    width: 100%;
+
+    margin:
+        15px 0;
+
+}
+
+
+.question-image img {
+
+    width: 100%;
+
+    max-height: 280px;
+
     object-fit: contain;
 
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+    border-radius: 12px;
+
+    background: #02070b;
+
+    border:
+        1px solid #24586a;
+
 }
 
 
-/* =====================================================
-   KAMERA
-===================================================== */
 
-.camera-wrapper {
+/* =================================
+   CAMERA
+================================= */
+
+.camera-page {
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            rgba(0,220,255,.08),
+            transparent 50%
+        ),
+
+        #030b12;
+
+}
+
+
+.booth-header {
+
+    text-align: center;
+
+}
+
+
+.camera-icon {
+
+    font-size: 45px;
+
+}
+
+
+.booth-header h1,
+.result-header h1 {
+
+    margin:
+        5px 0;
+
+    letter-spacing: 2px;
+
+}
+
+
+.booth-header p,
+.result-header p {
+
+    color: #8eb8c3;
+
+}
+
+
+.photo-counter {
+
+    display: inline-block;
+
+    padding:
+        8px 18px;
+
+    border-radius: 30px;
+
+    color: #00eaff;
+
+    background:
+        rgba(0,220,255,.08);
+
+    border:
+        1px solid
+        rgba(0,220,255,.3);
+
+    font-family: monospace;
+
+    font-weight: bold;
+
+}
+
+
+.camera-container {
+
+    width: 90%;
+
+    max-width: 650px;
+
+    margin:
+        20px 0;
+
     position: relative;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    margin: 5px 0 12px;
 
     overflow: hidden;
 
-    border: 2px solid rgba(0, 229, 255, 0.42);
-    border-radius: 14px;
+    border-radius: 15px;
+
+    border:
+        2px solid #176d80;
 
     background: #000;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.55);
+
+    box-shadow:
+        0 0 35px
+        rgba(0,220,255,.15);
+
 }
+
 
 #camera {
-    display: block;
+
     width: 100%;
-    height: 100%;
 
-    object-fit: cover;
-    transform: scaleX(-1);
+    display: block;
+
+    transform:
+        scaleX(-1);
+
 }
 
-#canvas {
-    display: none;
-}
 
 .live-label {
+
     position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 3;
 
-    padding: 6px 9px;
+    z-index: 5;
 
-    border-radius: 6px;
-    background: rgba(0, 0, 0, 0.62);
+    top: 12px;
 
-    font-size: 10px;
-    font-weight: 900;
-    letter-spacing: 0.6px;
+    left: 12px;
+
+    padding:
+        6px 10px;
+
+    background:
+        rgba(0,0,0,.7);
+
+    color: #ff526f;
+
+    font-family: monospace;
+
+    font-size: 12px;
+
 }
 
-.countdown-overlay {
+
+#countdown {
+
     position: absolute;
+
     top: 50%;
+
     left: 50%;
-    z-index: 4;
 
-    transform: translate(-50%, -50%);
+    transform:
+        translate(-50%,-50%);
 
-    color: #ffffff;
-    font-size: 78px;
-    font-weight: 900;
-    pointer-events: none;
+    font-size: 90px;
+
+    font-weight: bold;
+
+    color: white;
 
     text-shadow:
-        0 0 20px rgba(0, 0, 0, 0.95),
-        0 0 15px var(--cyan);
+        0 0 20px #00eaff,
+        0 0 50px #00eaff;
+
 }
 
 
-/* =====================================================
-   HASIL FOTO
-===================================================== */
+#canvas {
 
-.strips-preview {
+    display: none;
+
+}
+
+
+.camera-button {
+
+    max-width: 650px;
+
+    font-size: 16px;
+
+}
+
+
+
+/* =================================
+   RESULT
+================================= */
+
+.result-page {
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            rgba(0,220,255,.08),
+            transparent 50%
+        ),
+
+        #06111b;
+
+}
+
+
+.result-header {
+
+    text-align: center;
+
+}
+
+
+.result-user {
+
+    display: inline-block;
+
+    padding:
+        8px 16px;
+
+    color: #4ce8ff;
+
+    border:
+        1px solid
+        rgba(0,220,255,.3);
+
+    border-radius: 30px;
+
+    font-family: monospace;
+
+}
+
+
+
+/* =================================
+   PHOTO STRIPS
+================================= */
+
+.strips-container {
+
     display: flex;
+
     justify-content: center;
-    gap: 14px;
 
-    margin: 20px 0;
-    padding: 4px 2px 12px;
+    align-items: flex-start;
 
-    overflow-x: auto;
+    gap: 25px;
+
+    width: 100%;
+
+    padding: 25px 10px;
+
+    flex-wrap: wrap;
+
 }
+
 
 .photo-strip {
-    flex: 0 0 160px;
-    width: 160px;
-    padding: 10px;
 
-    border-radius: 7px;
-    background: #ffffff;
-    color: #111111;
+    width: 230px;
 
-    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.55);
+    padding: 12px;
+
+    background: #fff;
+
+    color: #111;
+
+    border-radius: 4px;
+
+    box-shadow:
+        0 15px 45px
+        rgba(0,0,0,.5);
+
+    position: relative;
+
 }
 
-.strip-header {
-    width: 100%;
-    padding: 5px 0;
 
-    border-radius: 3px;
+.strip-top {
+
+    height: 38px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: white;
+
     background: #07151f;
-    color: #ffffff;
 
-    font-size: 10px;
-    font-weight: 900;
-    text-align: center;
+    font-size: 14px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
 }
+
 
 .strip-title {
-    margin: 5px 0 7px;
+
+    padding:
+        10px 0;
+
+    text-align: center;
 
     font-family: monospace;
-    font-size: 9px;
-    font-weight: 900;
+
+    font-weight: bold;
+
+    font-size: 12px;
+
 }
 
-.strip-photos {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
 
-.strip-photos img {
-    display: block;
+.strip-photo {
+
     width: 100%;
-    height: 105px;
 
-    border-radius: 2px;
-    background: #dddddd;
+    margin-bottom: 7px;
+
+    overflow: hidden;
+
+    background: #ddd;
+
+}
+
+
+.strip-photo img {
+
+    display: block;
+
+    width: 100%;
+
+    aspect-ratio: 4 / 3;
+
     object-fit: cover;
+
 }
 
-.strip-date {
-    margin-top: 7px;
-
-    font-family: monospace;
-    font-size: 8px;
-}
 
 .strip-footer {
-    margin-top: 3px;
+
+    padding:
+        9px 0 5px;
+
+    text-align: center;
 
     font-family: monospace;
-    font-size: 8px;
-    font-weight: 900;
-}
 
-.action-buttons {
-    width: 100%;
-}
+    font-size: 11px;
 
+    line-height: 1.5;
 
-/* =====================================================
-   ANIMASI
-===================================================== */
-
-.shake {
-    animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
-}
-
-@keyframes shake {
-    10%,
-    90% {
-        transform: translateX(-2px);
-    }
-
-    20%,
-    80% {
-        transform: translateX(4px);
-    }
-
-    30%,
-    50%,
-    70% {
-        transform: translateX(-7px);
-    }
-
-    40%,
-    60% {
-        transform: translateX(7px);
-    }
 }
 
 
-/* =====================================================
-   RESPONSIVE
-===================================================== */
+.strip-footer span {
 
-@media (max-width: 560px) {
-    body {
-        align-items: flex-start;
-        padding: 12px;
-        background-attachment: scroll;
+    display: block;
+
+    font-size: 9px;
+
+}
+
+
+
+/* =================================
+   RESULT BUTTON
+================================= */
+
+.result-buttons {
+
+    width: 90%;
+
+    max-width: 500px;
+
+    display: flex;
+
+    gap: 12px;
+
+}
+
+
+.download-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #087c59,
+            #064b38
+        );
+
+}
+
+
+.restart-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #713db0,
+            #422268
+        );
+
+}
+
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media(max-width:600px) {
+
+    .login-card,
+    .quiz-card {
+
+        padding:
+            28px 20px;
+
     }
 
-    .card {
-        padding: 27px 18px;
-        border-radius: 18px;
+
+    .login-card h1 {
+
+        font-size: 27px;
+
     }
+
 
     .circuit-decoration {
-        font-size: 10px;
+
+        font-size: 11px;
+
     }
+
+
+    .camera-container {
+
+        width: 100%;
+
+    }
+
+
+    #countdown {
+
+        font-size: 65px;
+
+    }
+
+
+    .result-buttons {
+
+        flex-direction: column;
+
+    }
+
 
     .photo-strip {
-        flex-basis: 145px;
-        width: 145px;
+
+        width: 210px;
+
     }
 
-    .strip-photos img {
-        height: 94px;
-    }
-}
-
-@media (max-width: 350px) {
-    .strips-preview {
-        justify-content: flex-start;
-    }
 }
