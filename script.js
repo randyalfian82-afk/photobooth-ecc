@@ -2,20 +2,27 @@
    VARIABEL & DAFTAR PERTANYAAN
 ================================================== */
 
-// Daftar Pertanyaan Baru
+// Jalur file gambar pertanyaan ke-2 & ke-3 (Sesuaikan nama file jika berbeda)
+const imgYuan = "yuan.jpg";
+const imgCahya = "cahya.jpg";
+
+// Daftar Pertanyaan
 const daftarPertanyaan = [
     {
         teks: "Apa fungsi resistor?",
-        validasi: (jawaban) => jawaban.includes("hambat"),
+        gambar: null, // Soal 1 tanpa gambar
+        validasi: (jawaban) => jawaban.includes("hambat") || jawaban.includes("tahan") || jawaban.includes("arus"),
         pesanSalah: "Tolol!"
     },
     {
-        teks: "Nama lengkap km?",
+        teks: "Siapa Nama Lengkap orang di bawah ini?",
+        gambar: imgYuan, // Soal 2 menggunakan gambar Yuan
         validasi: (jawaban) => jawaban.includes("yuan"),
         pesanSalah: "Dongo!"
     },
     {
-        teks: "Siapa maskot di kelas EC3C?",
+        teks: "Siapa maskot di kelas EC3C pada gambar di bawah?",
+        gambar: imgCahya, // Soal 3 menggunakan gambar Cahya
         validasi: (jawaban) => jawaban.includes("cahya") || jawaban.includes("bule"),
         pesanSalah: "Yah masa ga kenal sih!"
     }
@@ -27,7 +34,7 @@ let fotoTerambil = [];
 let mediaStream = null;
 
 /* ==================================================
-   ELEM DOM
+   ELEMEN DOM
 ================================================== */
 
 const registrasiPage = document.getElementById('registrasiPage');
@@ -41,6 +48,8 @@ const displayNamaUser = document.getElementById('displayNamaUser');
 
 const nomorPertanyaanEl = document.getElementById('nomorPertanyaan');
 const judulPertanyaanEl = document.getElementById('judulPertanyaan');
+const boxGambar = document.getElementById('boxGambar');
+const gambarPertanyaan = document.getElementById('gambarPertanyaan');
 const inputJawaban = document.getElementById('inputJawaban');
 const errPertanyaan = document.getElementById('errPertanyaan');
 
@@ -71,12 +80,23 @@ function submitRegistrasi() {
     muatPertanyaan();
 }
 
-// 2. Tampilkan Pertanyaan
+// 2. Tampilkan Pertanyaan (Termasuk logika Gambar)
 function muatPertanyaan() {
+    const soal = daftarPertanyaan[indeksPertanyaan];
+    
     nomorPertanyaanEl.textContent = `PERTANYAAN ${indeksPertanyaan + 1} / ${daftarPertanyaan.length}`;
-    judulPertanyaanEl.textContent = daftarPertanyaan[indeksPertanyaan].teks;
+    judulPertanyaanEl.textContent = soal.teks;
     inputJawaban.value = "";
     errPertanyaan.textContent = "";
+
+    // Kontrol Tampilan Gambar (Soal 2 & 3)
+    if (soal.gambar) {
+        gambarPertanyaan.src = soal.gambar;
+        boxGambar.style.display = "block";
+    } else {
+        boxGambar.style.display = "none";
+        gambarPertanyaan.src = "";
+    }
 }
 
 // 3. Submit & Cek Jawaban
@@ -103,7 +123,7 @@ function submitJawaban() {
             bukaKamera();
         }
     } else {
-        // Tampilkan Pesan Salah Sesuai Aturan
+        // Pesan Salah
         errPertanyaan.textContent = itemPertanyaan.pesanSalah;
     }
 }
