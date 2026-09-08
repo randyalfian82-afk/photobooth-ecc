@@ -53,10 +53,10 @@ const questions = [
         wrong: "BUKAN DONG!!"
     },
     {
-        question: "Siapa yang di suruh keluar sama Pak Isan?",
-        answers: ["fawaz", "fawwaz"],
-        image: "",
-        wrong: "SIAPA YANG RAMBUTNYA GONDRONG!!"
+        question: "Dia ini kenapa diusir dari kelas gess?",
+        answers: ["rambut", "gondrong"],
+        image: "fawwaz.jpg",
+        wrong: "DIUSIR KARNA RAMBUT GONDRONG!!"
     },
     {
         question: "Dosen yang jarang masuk di semester 3?",
