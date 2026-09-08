@@ -11,44 +11,40 @@
 
     <title>EC3C Photobooth</title>
 
-    <link rel="stylesheet" href="./style.css">
+    <link
+        rel="stylesheet"
+        href="style.css">
 
 </head>
-
 
 <body>
 
 
-    <!-- =====================================================
-         HALAMAN 1 - VERIFIKASI
-    ====================================================== -->
+    <!-- =================================
+         HALAMAN 1
+         LOGIN NIM + NAMA
+    ================================== -->
 
     <section
         id="loginPage"
         class="page active login-page">
 
-
-        <!-- Overlay shadow background -->
-        <div class="background-overlay"></div>
-
+        <div class="login-overlay"></div>
 
         <div class="circuit-decoration top">
-            ⚡ ━━━━━━━ EC3C PROTOCOL ━━━━━━━ ⚡
+            ⚡ ━━━━━ EC3C PROTOCOL ━━━━━ ⚡
         </div>
 
 
         <div class="login-card">
 
-
             <div class="electric-icon">
                 ⚡
             </div>
 
-
             <div class="chip">
                 EC-3C
             </div>
-
 
             <h1>
                 EC3C
@@ -56,43 +52,33 @@
                 PHOTOBOOTH
             </h1>
 
-
             <p class="subtitle">
-                Sistem Verifikasi Anak EC3C Elektronika
+                Sistem Verifikasi Anak EC3C
             </p>
 
 
             <form id="loginForm">
 
-
-                <!-- NAMA DULU -->
-
-                <label for="nama">
-                    NAMA
-                </label>
-
-
-                <input
-                    type="text"
-                    id="nama"
-                    placeholder="Masukkan nama kamu..."
-                    autocomplete="off"
-                    required>
-
-
-                <!-- BARU NIM -->
-
                 <label for="nim">
                     NIM
                 </label>
 
-
                 <input
                     type="text"
                     id="nim"
-                    placeholder="Masukkan NIM kamu..."
-                    inputmode="numeric"
-                    autocomplete="off"
+                    placeholder="Masukkan NIM..."
+                    maxlength="20"
+                    required>
+
+
+                <label for="nama">
+                    NAMA LENGKAP
+                </label>
+
+                <input
+                    type="text"
+                    id="nama"
+                    placeholder="Masukkan nama..."
                     required>
 
 
@@ -101,9 +87,8 @@
                     class="main-button">
 
                     MASUK KE EC3C →
-
+                    
                 </button>
-
 
             </form>
 
@@ -113,40 +98,35 @@
                 class="error-message">
             </div>
 
-
         </div>
 
 
         <div class="circuit-decoration bottom">
-            ⚡ ━━━━━━━ SYSTEM READY ━━━━━━━ ⚡
+            ⚡ ━━━━━ SYSTEM READY ━━━━━ ⚡
         </div>
-
 
     </section>
 
 
 
-    <!-- =====================================================
-         HALAMAN 2 - QUIZ
-    ====================================================== -->
+    <!-- =================================
+         HALAMAN QUIZ
+    ================================== -->
 
     <section
         id="quizPage"
         class="page quiz-page">
 
-
         <div class="circuit-decoration top">
-            ⚡ ━━━━━━━ EC3C VERIFICATION ━━━━━━━ ⚡
+            ⚡ ━━━━━ EC3C VERIFICATION ━━━━━ ⚡
         </div>
 
 
         <div class="quiz-card">
 
-
             <div class="user-badge">
 
                 👤
-
                 <span id="displayNama">
                     -
                 </span>
@@ -164,33 +144,28 @@
 
 
             <h2 id="questionText">
-                Apa fungsi utama dari resistor?
+                Apa fungsi utama resistor?
             </h2>
 
-
-            <!-- GAMBAR SOAL -->
 
             <div
                 id="questionImage"
                 class="question-image">
 
-
                 <img
                     id="quizImage"
                     src=""
-                    alt="Gambar soal">
-
+                    alt="Gambar pertanyaan">
 
             </div>
 
 
             <form id="quizForm">
 
-
                 <input
                     type="text"
                     id="answer"
-                    placeholder="Ketik jawaban kamu..."
+                    placeholder="Jawaban kamu..."
                     autocomplete="off"
                     required>
 
@@ -203,7 +178,6 @@
 
                 </button>
 
-
             </form>
 
 
@@ -212,22 +186,20 @@
                 class="error-message">
             </div>
 
-
         </div>
 
 
         <div class="circuit-decoration bottom">
-            ⚡ ━━━━━━━ ACCESS CONTROL ━━━━━━━ ⚡
+            ⚡ ━━━━━ ACCESS CONTROL ━━━━━ ⚡
         </div>
-
 
     </section>
 
 
 
-    <!-- =====================================================
-         HALAMAN 3 - PHOTOBOOTH
-    ====================================================== -->
+    <!-- =================================
+         HALAMAN PHOTOBOOTH
+    ================================== -->
 
     <section
         id="cameraPage"
@@ -236,21 +208,17 @@
 
         <div class="booth-header">
 
-
             <div class="camera-icon">
                 📷
             </div>
-
 
             <h1>
                 EC3C PHOTOSTUDIO
             </h1>
 
-
             <p>
                 Siapkan pose terbaikmu!
             </p>
-
 
             <div
                 id="photoCounter"
@@ -260,12 +228,10 @@
 
             </div>
 
-
         </div>
 
 
         <div class="camera-container">
-
 
             <div class="live-label">
                 🔴 LIVE CAMERA
@@ -283,7 +249,6 @@
 
 
             <canvas id="canvas"></canvas>
-
 
         </div>
 
@@ -307,9 +272,9 @@
 
 
 
-    <!-- =====================================================
-         HALAMAN 4 - HASIL
-    ====================================================== -->
+    <!-- =================================
+         HALAMAN HASIL
+    ================================== -->
 
     <section
         id="resultPage"
@@ -318,21 +283,17 @@
 
         <div class="result-header">
 
-
             <div class="camera-icon">
                 📸
             </div>
-
 
             <h1>
                 HASIL PHOTOBOOTH
             </h1>
 
-
             <p>
                 Sesi foto selesai!
             </p>
-
 
             <div
                 id="resultName"
@@ -342,7 +303,6 @@
 
             </div>
 
-
         </div>
 
 
@@ -350,12 +310,11 @@
         <div class="strips-container">
 
 
-            <!-- ================= STRIP 1 ================= -->
+            <!-- STRIP 1 -->
 
             <div
                 id="strip1"
                 class="photo-strip">
-
 
                 <div class="strip-top">
                     ⚡ EC3C ⚡
@@ -399,17 +358,15 @@
 
                 </div>
 
-
             </div>
 
 
 
-            <!-- ================= STRIP 2 ================= -->
+            <!-- STRIP 2 -->
 
             <div
                 id="strip2"
                 class="photo-strip">
-
 
                 <div class="strip-top">
                     ⚡ EC3C ⚡
@@ -453,16 +410,13 @@
 
                 </div>
 
-
             </div>
-
 
         </div>
 
 
 
         <div class="result-buttons">
-
 
             <button
                 id="downloadButton"
@@ -481,15 +435,13 @@
 
             </button>
 
-
         </div>
 
 
     </section>
 
 
-
-    <script src="./script.js"></script>
+    <script src="script.js"></script>
 
 </body>
 
