@@ -6,6 +6,9 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
 
 body {
 
@@ -16,35 +19,120 @@ body {
         Helvetica,
         sans-serif;
 
-    color: #5a3442;
+    color: #d9faff;
 
     min-height: 100vh;
 
     background:
 
         radial-gradient(
-            circle at 10% 10%,
-            #ffd7e5 0%,
+            circle at 15% 20%,
+            rgba(0, 220, 255, 0.15),
             transparent 25%
         ),
 
         radial-gradient(
-            circle at 90% 15%,
-            #ffc2d7 0%,
+            circle at 85% 80%,
+            rgba(120, 0, 255, 0.15),
             transparent 25%
-        ),
-
-        radial-gradient(
-            circle at 20% 90%,
-            #ffe2eb 0%,
-            transparent 30%
         ),
 
         linear-gradient(
             135deg,
-            #fff2f6,
-            #ffd8e5
+            #07111d,
+            #0b1d2c 45%,
+            #06101a
         );
+
+    overflow-x: hidden;
+
+    position: relative;
+}
+
+
+/* ==================================================
+   BACKGROUND PCB
+================================================== */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.35;
+
+    background-image:
+
+        linear-gradient(
+            90deg,
+            transparent 48%,
+            rgba(0, 220, 255, 0.12) 49%,
+            rgba(0, 220, 255, 0.12) 51%,
+            transparent 52%
+        ),
+
+        linear-gradient(
+            transparent 48%,
+            rgba(0, 220, 255, 0.12) 49%,
+            rgba(0, 220, 255, 0.12) 51%,
+            transparent 52%
+        );
+
+    background-size:
+        80px 80px;
+
+    z-index: -2;
+}
+
+
+/* ==================================================
+   GARIS SIRKUIT
+================================================== */
+
+body::after {
+
+    content:
+        "⚡ ━━━●━━━━━━━●━━━━ IC ━━━●━━━━━━●━━━ ⚡";
+
+    position: fixed;
+
+    left: 0;
+
+    top: 10%;
+
+    width: 100%;
+
+    color: rgba(70, 230, 255, 0.12);
+
+    font-size: 25px;
+
+    letter-spacing: 8px;
+
+    white-space: nowrap;
+
+    pointer-events: none;
+
+    animation:
+        circuitMove 15s linear infinite;
+
+    z-index: -1;
+}
+
+
+@keyframes circuitMove {
+
+    from {
+        transform: translateX(-20%);
+    }
+
+    to {
+        transform: translateX(20%);
+    }
 
 }
 
@@ -68,6 +156,7 @@ body {
 
     padding: 20px;
 
+    position: relative;
 }
 
 
@@ -76,9 +165,46 @@ body {
 }
 
 
+/* ==================================================
+   DEKORASI SIRKUIT
+================================================== */
+
+.circuit-decoration {
+
+    color: #55e8ff;
+
+    font-family:
+        monospace;
+
+    font-size: 18px;
+
+    letter-spacing: 3px;
+
+    text-shadow:
+        0 0 10px
+        rgba(50, 220, 255, 0.8);
+
+    opacity: 0.8;
+
+    margin: 15px;
+
+    text-align: center;
+}
+
+
+.circuit-top {
+    margin-bottom: 0;
+}
+
+
+.circuit-bottom {
+    margin-top: 5px;
+}
+
+
 
 /* ==================================================
-   CARD
+   CARD ELEKTRONIKA
 ================================================== */
 
 .card {
@@ -90,39 +216,140 @@ body {
     padding: 35px;
 
     background:
-        rgba(255, 255, 255, 0.96);
 
-    border-radius: 25px;
+        linear-gradient(
+            145deg,
+            rgba(12, 31, 47, 0.97),
+            rgba(7, 19, 31, 0.97)
+        );
+
+    border:
+
+        1px solid
+        rgba(65, 225, 255, 0.35);
+
+    border-radius: 20px;
 
     text-align: center;
 
     box-shadow:
-        0 15px 40px
-        rgba(110, 50, 70, 0.15);
+
+        0 0 25px
+        rgba(0, 210, 255, 0.12),
+
+        0 20px 50px
+        rgba(0, 0, 0, 0.45);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -100%;
+
+    width: 100%;
+
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #55e8ff,
+            transparent
+        );
+
+    animation:
+        scan 4s linear infinite;
+}
+
+
+@keyframes scan {
+
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
 
 }
 
 
 
 /* ==================================================
-   KUCING
+   ICON ELEKTRONIKA
 ================================================== */
 
-.cat-icon {
+.electronic-icon {
 
     font-size: 50px;
 
-    margin-bottom: 8px;
+    margin-bottom: 5px;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(0, 230, 255, 0.7)
+        );
+
+    animation:
+        pulseElectronic 2s ease-in-out infinite;
+}
+
+
+@keyframes pulseElectronic {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
 
 }
 
 
-.cat-icon.small {
+.chip-icon {
 
-    font-size: 35px;
+    display: inline-flex;
 
-    margin-bottom: 0;
+    align-items: center;
 
+    justify-content: center;
+
+    width: 70px;
+
+    height: 32px;
+
+    margin-bottom: 10px;
+
+    background: #101820;
+
+    border:
+        1px solid #42e7ff;
+
+    color: #42e7ff;
+
+    font-family: monospace;
+
+    font-size: 13px;
+
+    box-shadow:
+        0 0 15px
+        rgba(0, 220, 255, 0.3);
 }
 
 
@@ -137,17 +364,58 @@ body {
 
     font-size: 32px;
 
-    color: #713f50;
+    color: #d9faff;
 
+    text-shadow:
+        0 0 12px
+        rgba(70, 220, 255, 0.35);
 }
 
 
 .subtitle {
 
-    color: #9b6d7c;
+    color: #8db9c5;
 
     margin-bottom: 30px;
 
+    line-height: 1.6;
+}
+
+
+
+/* ==================================================
+   USER INFO
+================================================== */
+
+.user-info {
+
+    display: inline-block;
+
+    padding: 7px 14px;
+
+    margin-bottom: 10px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(50, 220, 255, 0.08);
+
+    border:
+        1px solid
+        rgba(50, 220, 255, 0.25);
+
+    color: #64eaff;
+
+    font-size: 12px;
+
+    font-family: monospace;
+}
+
+
+.separator {
+    margin: 0 7px;
+
+    color: #607d8b;
 }
 
 
@@ -168,8 +436,7 @@ label {
 
     font-weight: bold;
 
-    color: #68404f;
-
+    color: #9ed4df;
 }
 
 
@@ -180,9 +447,11 @@ textarea {
 
     padding: 13px;
 
-    border: 2px solid #edc5d2;
+    border:
+        1px solid
+        #285465;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
     font-size: 16px;
 
@@ -193,6 +462,13 @@ textarea {
         Helvetica,
         sans-serif;
 
+    color: #dffaff;
+
+    background:
+        #081722;
+
+    transition:
+        0.25s;
 }
 
 
@@ -201,15 +477,25 @@ textarea {
     height: 130px;
 
     resize: none;
+}
 
+
+input::placeholder,
+textarea::placeholder {
+
+    color: #557783;
 }
 
 
 input:focus,
 textarea:focus {
 
-    border-color: #d86b91;
+    border-color:
+        #4de8ff;
 
+    box-shadow:
+        0 0 15px
+        rgba(50, 220, 255, 0.15);
 }
 
 
@@ -226,27 +512,41 @@ button {
 
     margin-top: 25px;
 
-    border-radius: 30px;
+    border-radius: 8px;
 
-    background: #713f50;
+    background:
 
-    color: white;
+        linear-gradient(
+            135deg,
+            #0c8ca8,
+            #126078
+        );
 
-    font-size: 15px;
+    color: #ffffff;
+
+    font-size: 14px;
 
     font-weight: bold;
 
     cursor: pointer;
 
-    transition: 0.2s;
+    transition:
+        0.25s;
 
+    box-shadow:
+        0 0 15px
+        rgba(0, 220, 255, 0.15);
 }
 
 
 button:hover {
 
-    transform: scale(1.03);
+    transform:
+        translateY(-2px);
 
+    box-shadow:
+        0 0 25px
+        rgba(0, 220, 255, 0.3);
 }
 
 
@@ -257,7 +557,6 @@ button:disabled {
     cursor: not-allowed;
 
     transform: none;
-
 }
 
 
@@ -268,14 +567,13 @@ button:disabled {
 
 .error-message {
 
-    color: #c24768;
+    color: #ff6b91;
 
     font-weight: bold;
 
     min-height: 20px;
 
     margin-top: 15px;
-
 }
 
 
@@ -286,10 +584,12 @@ button:disabled {
 
 .question-number {
 
-    color: #a16d7d;
+    color: #53dff5;
 
-    font-size: 14px;
+    font-size: 13px;
 
+    font-family:
+        monospace;
 }
 
 
@@ -301,6 +601,7 @@ button:disabled {
 
     margin: 20px 0;
 
+    color: #dffaff;
 }
 
 
@@ -312,14 +613,12 @@ button:disabled {
 #photobooth {
 
     text-align: center;
-
 }
 
 
 .booth-title {
 
     text-align: center;
-
 }
 
 
@@ -327,15 +626,17 @@ button:disabled {
 
     margin: 0;
 
-    color: #713f50;
+    color: #dffaff;
 
+    text-shadow:
+        0 0 15px
+        rgba(0, 220, 255, 0.4);
 }
 
 
 .booth-title p {
 
-    color: #956b7a;
-
+    color: #8db9c5;
 }
 
 
@@ -343,8 +644,10 @@ button:disabled {
 
     font-weight: bold;
 
-    color: #713f50;
+    color: #53dff5;
 
+    font-family:
+        monospace;
 }
 
 
@@ -361,16 +664,44 @@ button:disabled {
 
     max-width: 600px;
 
-    background: black;
+    background: #02070b;
 
-    border-radius: 18px;
+    border:
+        2px solid
+        #1c8095;
+
+    border-radius: 12px;
 
     overflow: hidden;
 
     box-shadow:
-        0 12px 30px
-        rgba(70, 30, 50, 0.3);
 
+        0 0 30px
+        rgba(0, 220, 255, 0.2);
+}
+
+
+.camera-label {
+
+    position: absolute;
+
+    top: 10px;
+
+    left: 10px;
+
+    z-index: 3;
+
+    padding: 5px 10px;
+
+    background:
+        rgba(0, 0, 0, 0.65);
+
+    color: #ff526f;
+
+    font-family:
+        monospace;
+
+    font-size: 11px;
 }
 
 
@@ -380,8 +711,8 @@ button:disabled {
 
     display: block;
 
-    transform: scaleX(-1);
-
+    transform:
+        scaleX(-1);
 }
 
 
@@ -403,25 +734,29 @@ button:disabled {
     color: white;
 
     text-shadow:
-        0 3px 15px black;
-
+        0 0 20px
+        #00d9ff;
 }
 
 
 #canvas {
 
     display: none;
-
 }
 
 
 .camera-button {
 
-    background: #d95d86;
+    background:
+
+        linear-gradient(
+            135deg,
+            #e04d72,
+            #a83255
+        );
 
     padding:
         15px 30px;
-
 }
 
 
@@ -432,21 +767,20 @@ button:disabled {
 
 #hasilPage {
 
-    justify-content: flex-start;
+    justify-content:
+        flex-start;
 
     padding-top: 35px;
 
     text-align: center;
 
     overflow-x: hidden;
-
 }
 
 
 .result-title {
 
     margin-bottom: 15px;
-
 }
 
 
@@ -454,17 +788,45 @@ button:disabled {
 
     margin: 0;
 
-    color: #713f50;
+    color: #dffaff;
 
     font-size: 32px;
 
+    text-shadow:
+        0 0 15px
+        rgba(0, 220, 255, 0.35);
 }
 
 
 .result-title p {
 
-    color: #956a78;
+    color: #8db9c5;
+}
 
+
+.result-user {
+
+    display: inline-block;
+
+    margin-top: 5px;
+
+    padding: 7px 15px;
+
+    border-radius: 20px;
+
+    border:
+        1px solid
+        rgba(70, 225, 255, 0.3);
+
+    background:
+        rgba(70, 225, 255, 0.07);
+
+    color: #54e8ff;
+
+    font-family:
+        monospace;
+
+    font-size: 12px;
 }
 
 
@@ -486,7 +848,6 @@ button:disabled {
     gap: 30px;
 
     padding: 25px 15px;
-
 }
 
 
@@ -504,30 +865,39 @@ button:disabled {
         12px
         18px;
 
-    background: #ffb8cd;
+    background:
+
+        linear-gradient(
+            180deg,
+            #d8faff,
+            #b9eaf2
+        );
 
     border-radius: 5px;
 
     position: relative;
 
     box-shadow:
-        0 15px 30px
-        rgba(100, 50, 70, 0.25);
 
+        0 15px 35px
+        rgba(0, 0, 0, 0.5),
+
+        0 0 20px
+        rgba(0, 220, 255, 0.08);
 }
 
 
 .photostrip:nth-child(1) {
 
-    transform: rotate(-4deg);
-
+    transform:
+        rotate(-4deg);
 }
 
 
 .photostrip:nth-child(2) {
 
-    transform: rotate(4deg);
-
+    transform:
+        rotate(4deg);
 }
 
 
@@ -546,8 +916,8 @@ button:disabled {
 
     justify-content: center;
 
-    background: #ffb8cd;
-
+    background:
+        #07151f;
 }
 
 
@@ -555,6 +925,11 @@ button:disabled {
 
     font-size: 40px;
 
+    filter:
+        drop-shadow(
+            0 0 8px
+            rgba(0, 220, 255, 0.7)
+        );
 }
 
 
@@ -567,16 +942,17 @@ button:disabled {
 
     text-align: center;
 
-    color: #713f50;
+    color: #173c4a;
 
-    font-family: cursive;
+    font-family:
+        monospace;
 
     font-weight: bold;
 
-    font-size: 17px;
+    font-size: 15px;
 
-    margin-bottom: 10px;
-
+    margin:
+        10px 0;
 }
 
 
@@ -589,12 +965,12 @@ button:disabled {
 
     width: 100%;
 
-    background: white;
+    background:
+        white;
 
     padding: 4px;
 
     margin-bottom: 8px;
-
 }
 
 
@@ -603,7 +979,6 @@ button:disabled {
     width: 100%;
 
     display: block;
-
 }
 
 
@@ -616,31 +991,32 @@ button:disabled {
 
     text-align: center;
 
-    color: #713f50;
+    color: #173c4a;
 
-    font-family: cursive;
+    font-family:
+        monospace;
 
     font-weight: bold;
 
-    font-size: 16px;
+    font-size: 14px;
 
     margin-top: 13px;
-
 }
 
 
 .photostrip-date {
 
-    font-family: Arial, sans-serif;
+    font-family:
+        Arial,
+        sans-serif;
 
-    font-size: 11px;
+    font-size: 10px;
 
     font-weight: normal;
 
-    color: #8d596b;
+    color: #507482;
 
     margin-top: 5px;
-
 }
 
 
@@ -660,30 +1036,36 @@ button:disabled {
     gap: 2px;
 
     margin-bottom: 40px;
-
 }
 
 
 .save-button {
 
-    background: #d95d86;
+    background:
+
+        linear-gradient(
+            135deg,
+            #00a6c7,
+            #08718b
+        );
 
     box-shadow:
-        0 7px 18px
-        rgba(150, 60, 90, 0.25);
-
+        0 7px 20px
+        rgba(0, 180, 220, 0.2);
 }
 
 
 .retry-button {
 
-    background: white;
+    background:
+        transparent;
 
-    color: #713f50;
+    color:
+        #61e8ff;
 
     border:
-        2px solid #e4a1b7;
-
+        1px solid
+        #27798b;
 }
 
 
@@ -694,12 +1076,32 @@ button:disabled {
 
 @media (max-width: 700px) {
 
+    .card {
+
+        padding: 28px 22px;
+    }
+
+
+    .card h1 {
+
+        font-size: 27px;
+    }
+
+
+    .circuit-decoration {
+
+        font-size: 12px;
+
+        letter-spacing: 1px;
+    }
+
+
     .polaroid-container {
 
         gap: 15px;
 
-        padding: 20px 8px;
-
+        padding:
+            20px 8px;
     }
 
 
@@ -713,42 +1115,36 @@ button:disabled {
             8px
             8px
             14px;
-
     }
 
 
     .photostrip-header {
 
         height: 55px;
-
     }
 
 
     .cat-decoration {
 
         font-size: 30px;
-
     }
 
 
     .photostrip-title {
 
-        font-size: 12px;
-
+        font-size: 10px;
     }
 
 
     .photostrip-footer {
 
-        font-size: 12px;
-
+        font-size: 11px;
     }
 
 
     .photostrip-date {
 
-        font-size: 8px;
-
+        font-size: 7px;
     }
 
 }
@@ -764,14 +1160,18 @@ button:disabled {
     .polaroid-container {
 
         gap: 8px;
-
     }
 
 
     .photostrip {
 
         width: 45vw;
+    }
 
+
+    .electronic-icon {
+
+        font-size: 42px;
     }
 
 }
