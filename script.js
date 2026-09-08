@@ -2,7 +2,6 @@
    EC3C PHOTOBOOTH
 ========================================== */
 
-
 /* ==========================================
    DATA MAHASISWA
 ========================================== */
@@ -106,7 +105,6 @@ const students = [
     }
 ];
 
-
 /* ==========================================
    DATA PERTANYAAN
 ========================================== */
@@ -144,7 +142,6 @@ const questions = [
     }
 ];
 
-
 /* ==========================================
    VARIABLE GLOBAL
 ========================================== */
@@ -154,7 +151,6 @@ let currentStudent = null;
 let photos = [];
 let cameraStream = null;
 let takingPhotos = false;
-
 
 /* ==========================================
    ELEMENT HTML
@@ -176,7 +172,6 @@ const loginError = document.getElementById("loginError");
 const quizError = document.getElementById("quizError");
 
 const displayNama = document.getElementById("displayNama");
-
 const questionNumber = document.getElementById("questionNumber");
 const questionText = document.getElementById("questionText");
 
@@ -190,19 +185,20 @@ const photoCounter = document.getElementById("photoCounter");
 const snapButton = document.getElementById("snapButton");
 const cameraError = document.getElementById("cameraError");
 
-
 /* ==========================================
-   NAVIGASI HALAMAN
+   NAVIGASI
 ========================================== */
 
 function showPage(page) {
-    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.querySelectorAll(".page").forEach((item) => {
+        item.classList.remove("active");
+    });
+
     page.classList.add("active");
 }
 
-
 /* ==========================================
-   NORMALISASI TEKS (SENSITIFITAS KETIKAN)
+   NORMALISASI TEKS
 ========================================== */
 
 function normalize(text) {
@@ -212,20 +208,19 @@ function normalize(text) {
         .replace(/\s+/g, " ");
 }
 
-
 /* ==========================================
-   AKSI LOGIN
+   LOGIN
 ========================================== */
 
-loginForm.addEventListener("submit", function(event) {
+loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const nim = nimInput.value.trim();
     const nama = normalize(namaInput.value);
 
-    const student = students.find(
-        student => student.nim === nim && normalize(student.nama) === nama
-    );
+    const student = students.find((item) => {
+        return item.nim === nim && normalize(item.nama) === nama;
+    });
 
     if (!student) {
         loginError.textContent = "LO BUKAN ANAK EC";
@@ -233,58 +228,61 @@ loginForm.addEventListener("submit", function(event) {
     }
 
     currentStudent = student;
-    displayNama.textContent = student.nama;
     currentQuestion = 0;
     loginError.textContent = "";
+    displayNama.textContent = student.nama;
 
     showPage(quizPage);
     loadQuestion();
 });
 
-
 /* ==========================================
-   LOAD SOAL KUIZ
+   LOAD PERTANYAAN
 ========================================== */
 
 function loadQuestion() {
-    const q = questions[currentQuestion];
+    const question = questions[currentQuestion];
 
-    questionNumber.textContent = `PERTANYAAN ${currentQuestion + 1} / ${questions.length}`;
-    questionText.textContent = q.question;
+    questionNumber.textContent =
+        `PERTANYAAN ${currentQuestion + 1} / ${questions.length}`;
+
+    questionText.textContent = question.question;
     answerInput.value = "";
     quizError.textContent = "";
 
-    if (q.image) {
-        quizImage.src = q.image;
+    if (question.image) {
+        quizImage.src = question.image;
         questionImage.style.display = "block";
     } else {
         quizImage.src = "";
         questionImage.style.display = "none";
     }
 
-    setTimeout(() => answerInput.focus(), 100);
+    setTimeout(() => {
+        answerInput.focus();
+    }, 100);
 }
 
-
 /* ==========================================
-   CEK JAWABAN KUIZ
+   CEK JAWABAN
 ========================================== */
 
-quizForm.addEventListener("submit", function(event) {
+quizForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const userAnswer = normalize(answerInput.value);
-    const q = questions[currentQuestion];
+    const question = questions[currentQuestion];
 
-    const correct = q.answers.some(answer =>
-        userAnswer.includes(normalize(answer))
-    );
+    const correct = question.answers.some((answer) => {
+        return userAnswer.includes(normalize(answer));
+    });
 
     if (!correct) {
-        quizError.textContent = q.wrong;
+        quizError.style.color = "#ff6666";
+        quizError.textContent = question.wrong;
 
-        /* Efek getar pada form jika salah */
         quizForm.classList.add("shake");
+
         setTimeout(() => {
             quizForm.classList.remove("shake");
         }, 500);
@@ -292,7 +290,6 @@ quizForm.addEventListener("submit", function(event) {
         return;
     }
 
-    /* Jawaban benar */
     quizError.style.color = "#4cffb0";
     quizError.textContent = "✓ BENAR!";
 
@@ -310,16 +307,19 @@ quizForm.addEventListener("submit", function(event) {
     }, 600);
 });
 
-
 /* ==========================================
-   KONTROL KAMERA
+   KAMERA
 ========================================== */
 
 async function startCamera() {
     cameraError.textContent = "";
 
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        cameraError.textContent = "Browser tidak mendukung kamera.";
+    if (
+        !navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia
+    ) {
+        cameraError.textContent =
+            "Browser tidak mendukung kamera.";
         return;
     }
 
@@ -337,24 +337,32 @@ async function startCamera() {
         await camera.play();
     } catch (error) {
         console.error(error);
-        cameraError.textContent = "KAMERA GAGAL DIAKSES. Izinkan kamera pada browser.";
+
+        cameraError.textContent =
+            "KAMERA GAGAL DIAKSES. Izinkan kamera pada browser.";
     }
 }
 
 function stopCamera() {
-    if (!cameraStream) return;
+    if (!cameraStream) {
+        return;
+    }
 
-    cameraStream.getTracks().forEach(track => track.stop());
+    cameraStream.getTracks().forEach((track) => {
+        track.stop();
+    });
+
     cameraStream = null;
 }
 
-
 /* ==========================================
-   PROSES TANGKAP FOTO
+   MULAI FOTO
 ========================================== */
 
-snapButton.addEventListener("click", function() {
-    if (takingPhotos) return;
+snapButton.addEventListener("click", function () {
+    if (takingPhotos) {
+        return;
+    }
 
     if (!cameraStream) {
         cameraError.textContent = "Kamera belum aktif.";
@@ -362,19 +370,23 @@ snapButton.addEventListener("click", function() {
     }
 
     photos = [];
-    photoCounter.textContent = "0 / 6 FOTO";
     takingPhotos = true;
     snapButton.disabled = true;
+    photoCounter.textContent = "0 / 6 FOTO";
 
     takePhoto(0);
 });
 
+/* ==========================================
+   TIMER FOTO
+========================================== */
+
 function takePhoto(index) {
     if (index >= 6) {
         stopCamera();
+        takingPhotos = false;
         renderResults();
         showPage(resultPage);
-        takingPhotos = false;
         return;
     }
 
@@ -388,8 +400,8 @@ function takePhoto(index) {
             countdown.textContent = count;
         } else {
             clearInterval(timer);
-            countdown.textContent = "📸";
 
+            countdown.textContent = "📸";
             capturePhoto();
 
             setTimeout(() => {
@@ -400,6 +412,10 @@ function takePhoto(index) {
     }, 1000);
 }
 
+/* ==========================================
+   CAPTURE FOTO
+========================================== */
+
 function capturePhoto() {
     const width = camera.videoWidth || 1280;
     const height = camera.videoHeight || 720;
@@ -407,24 +423,22 @@ function capturePhoto() {
     canvas.width = width;
     canvas.height = height;
 
-    const ctx = canvas.getContext("2d");
+    const context = canvas.getContext("2d");
 
-    /* Mirror foto secara horizontal */
-    ctx.save();
-    ctx.translate(width, 0);
-    ctx.scale(-1, 1);
-    ctx.drawImage(camera, 0, 0, width, height);
-    ctx.restore();
+    context.save();
+    context.translate(width, 0);
+    context.scale(-1, 1);
+    context.drawImage(camera, 0, 0, width, height);
+    context.restore();
 
     const image = canvas.toDataURL("image/jpeg", 0.92);
-    photos.push(image);
 
+    photos.push(image);
     photoCounter.textContent = `${photos.length} / 6 FOTO`;
 }
 
-
 /* ==========================================
-   TAMPILKAN HASIL FOTO
+   HASIL FOTO
 ========================================== */
 
 function renderResults() {
@@ -434,22 +448,25 @@ function renderResults() {
         year: "numeric"
     });
 
-    document.getElementById("resultName").textContent = "User: " + currentStudent.nama;
+    document.getElementById("resultName").textContent =
+        "User: " + currentStudent.nama;
+
     document.getElementById("date1").textContent = date;
     document.getElementById("date2").textContent = date;
 
     for (let i = 0; i < 6; i++) {
-        const img = document.getElementById(`result${i}`);
-        img.src = photos[i];
+        const imageElement = document.getElementById(`result${i}`);
+        imageElement.src = photos[i];
     }
 }
 
-
 /* ==========================================
-   DOWNLOAD HASIL GABUNGAN (CANVAS)
+   DOWNLOAD STRIP
 ========================================== */
 
-document.getElementById("downloadButton").addEventListener("click", downloadResult);
+document
+    .getElementById("downloadButton")
+    .addEventListener("click", downloadResult);
 
 async function downloadResult() {
     if (photos.length !== 6) {
@@ -465,70 +482,78 @@ async function downloadResult() {
     output.width = finalWidth;
     output.height = stripHeight + 40;
 
-    const ctx = output.getContext("2d");
+    const context = output.getContext("2d");
 
-    /* Background Kertas Luar */
-    ctx.fillStyle = "#dcdcdc";
-    ctx.fillRect(0, 0, output.width, output.height);
+    context.fillStyle = "#dcdcdc";
+    context.fillRect(
+        0,
+        0,
+        output.width,
+        output.height
+    );
 
-    drawStrip(ctx, 20, 20, 0);
-    drawStrip(ctx, stripWidth + 40, 20, 3);
+    await drawStrip(context, 20, 20, 0);
+    await drawStrip(context, stripWidth + 40, 20, 3);
 
     const link = document.createElement("a");
-    link.download = `EC3C-${currentStudent.nama}.jpg`;
+
+    link.download =
+        `EC3C-${currentStudent.nama.replace(/\s+/g, "-")}.jpg`;
+
     link.href = output.toDataURL("image/jpeg", 0.95);
     link.click();
-
-    function drawStrip(ctx, x, y, start) {
-        /* Kertas Strip */
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(x, y, stripWidth, stripHeight);
-
-        /* Header Box */
-        ctx.fillStyle = "#07151f";
-        ctx.fillRect(x + 20, y + 20, stripWidth - 40, 55);
-
-        ctx.fillStyle = "#ffffff";
-        ctx.textAlign = "center";
-        ctx.font = "bold 22px Arial";
-        ctx.fillText("⚡ EC3C ⚡", x + stripWidth / 2, y + 55);
-
-        /* Judul */
-        ctx.fillStyle = "#111111";
-        ctx.font = "bold 17px monospace";
-        ctx.fillText("EC3C PHOTOBOOTH", x + stripWidth / 2, y + 105);
-
-        /* Render 3 Foto per Strip */
-        let imageY = y + 125;
-
-        for (let i = 0; i < 3; i++) {
-            const img = new Image();
-            img.src = photos[start + i];
-
-            const photoWidth = stripWidth - 40;
-            const photoHeight = 320;
-
-            ctx.drawImage(img, x + 20, imageY, photoWidth, photoHeight);
-            imageY += photoHeight + 10;
-        }
-
-        /* Footer */
-        ctx.fillStyle = "#111111";
-        ctx.font = "bold 15px monospace";
-        ctx.fillText("CLASS OF EC3C", x + stripWidth / 2, y + stripHeight - 35);
-    }
 }
 
+function loadImage(source) {
+    return new Promise((resolve, reject) => {
+        const image = new Image();
 
-/* ==========================================
-   RESET & RESTART
-========================================== */
+        image.onload = () => resolve(image);
+        image.onerror = reject;
+        image.src = source;
+    });
+}
 
-document.getElementById("restartButton").addEventListener("click", function() {
-    stopCamera();
-    location.reload();
-});
+async function drawStrip(context, x, y, startIndex) {
+    const stripWidth = 460;
+    const stripHeight = 1180;
 
-window.addEventListener("beforeunload", function() {
-    stopCamera();
-});
+    context.fillStyle = "#ffffff";
+    context.fillRect(
+        x,
+        y,
+        stripWidth,
+        stripHeight
+    );
+
+    context.fillStyle = "#07151f";
+    context.fillRect(
+        x + 20,
+        y + 20,
+        stripWidth - 40,
+        55
+    );
+
+    context.fillStyle = "#ffffff";
+    context.textAlign = "center";
+    context.font = "bold 22px Arial";
+    context.fillText(
+        "⚡ EC3C ⚡",
+        x + stripWidth / 2,
+        y + 55
+    );
+
+    context.fillStyle = "#111111";
+    context.font = "bold 17px monospace";
+    context.fillText(
+        "EC3C PHOTOBOOTH",
+        x + stripWidth / 2,
+        y + 105
+    );
+
+    let imageY = y + 125;
+
+    for (let i = 0; i < 3; i++) {
+        const image = await loadImage(photos[startIndex + i]);
+
+        const photoWidth =
