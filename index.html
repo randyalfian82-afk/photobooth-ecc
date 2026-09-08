@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Our Little Story ♡</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         HALAMAN AWAL
+    =================================================== -->
+
+    <section id="opening" class="page active">
+
+        <div class="card">
+
+            <div class="cat-icon">
+                🐱
+            </div>
+
+            <h1>
+                Our Little Story ♡
+            </h1>
+
+            <p class="subtitle">
+                Sebelum masuk, jawab dulu ya...
+            </p>
+
+
+            <label>
+                Nama kamu
+            </label>
+
+            <input
+                type="text"
+                id="nama"
+                placeholder="Tulis nama kamu..."
+            >
+
+
+            <label>
+                Tanggal Jadian
+            </label>
+
+            <input
+                type="text"
+                id="tanggalJadian"
+                placeholder="26 Desember 2024"
+            >
+
+
+            <button onclick="cekTanggal()">
+                LANJUT ♡
+            </button>
+
+
+            <p
+                id="salahTanggal"
+                class="error-message"
+            ></p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         HALAMAN PERTANYAAN
+    =================================================== -->
+
+    <section id="questions" class="page">
+
+        <div class="card">
+
+            <div class="cat-icon">
+                🐱
+            </div>
+
+
+            <p
+                id="nomorPertanyaan"
+                class="question-number"
+            >
+                Pertanyaan 1 dari 7
+            </p>
+
+
+            <h2 id="judulPertanyaan">
+            </h2>
+
+
+            <div id="areaJawaban">
+            </div>
+
+
+            <p
+                id="pesanJawaban"
+                class="error-message"
+            ></p>
+
+
+            <button onclick="cekJawaban()">
+                JAWAB ♡
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         PHOTOBOOTH
+    =================================================== -->
+
+    <section id="photobooth" class="page">
+
+        <div class="booth-title">
+
+            <div class="cat-icon small">
+                🐱
+            </div>
+
+            <h1>
+                Photobooth ♡
+            </h1>
+
+            <p id="info">
+                3 foto untuk satu kenangan
+            </p>
+
+        </div>
+
+
+        <p
+            id="fotoKe"
+            class="photo-counter"
+        >
+            Foto 1 dari 3
+        </p>
+
+
+        <div class="camera-container">
+
+            <video
+                id="camera"
+                autoplay
+                playsinline
+            ></video>
+
+
+            <div id="countdown"></div>
+
+        </div>
+
+
+        <button
+            id="fotoBtn"
+            class="camera-button"
+            onclick="ambilFoto()"
+        >
+            📸 TAKE PHOTO
+        </button>
+
+
+        <canvas id="canvas"></canvas>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         HALAMAN HASIL
+    =================================================== -->
+
+    <section id="hasilPage" class="page">
+
+        <div class="result-title">
+
+            <div class="cat-icon">
+                🐱
+            </div>
+
+            <h1>
+                Our Little Moment ♡
+            </h1>
+
+            <p>
+                Ini kenangan kecil kita.
+            </p>
+
+        </div>
+
+
+        <div
+            id="hasil"
+            class="polaroid-container"
+        ></div>
+
+
+        <div class="result-buttons">
+
+            <button
+                onclick="simpanFoto()"
+                class="save-button"
+            >
+                💾 SAVE PHOTO
+            </button>
+
+
+            <button
+                onclick="location.reload()"
+                class="retry-button"
+            >
+                ↻ ULANGI
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
