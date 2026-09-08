@@ -146,7 +146,7 @@ const questions = [
 
 
 /* ==========================================
-   VARIABLE
+   VARIABLE GLOBAL
 ========================================== */
 
 let currentQuestion = 0;
@@ -192,7 +192,7 @@ const cameraError = document.getElementById("cameraError");
 
 
 /* ==========================================
-   SHOW PAGE
+   NAVIGASI HALAMAN
 ========================================== */
 
 function showPage(page) {
@@ -202,7 +202,7 @@ function showPage(page) {
 
 
 /* ==========================================
-   NORMALISASI TEXT
+   NORMALISASI TEKS (SENSITIFITAS KETIKAN)
 ========================================== */
 
 function normalize(text) {
@@ -214,7 +214,7 @@ function normalize(text) {
 
 
 /* ==========================================
-   LOGIN
+   AKSI LOGIN
 ========================================== */
 
 loginForm.addEventListener("submit", function(event) {
@@ -243,7 +243,7 @@ loginForm.addEventListener("submit", function(event) {
 
 
 /* ==========================================
-   LOAD QUESTION
+   LOAD SOAL KUIZ
 ========================================== */
 
 function loadQuestion() {
@@ -267,7 +267,7 @@ function loadQuestion() {
 
 
 /* ==========================================
-   QUIZ CHECK
+   CEK JAWABAN KUIZ
 ========================================== */
 
 quizForm.addEventListener("submit", function(event) {
@@ -283,7 +283,7 @@ quizForm.addEventListener("submit", function(event) {
     if (!correct) {
         quizError.textContent = q.wrong;
 
-        /* efek getar */
+        /* Efek getar pada form jika salah */
         quizForm.classList.add("shake");
         setTimeout(() => {
             quizForm.classList.remove("shake");
@@ -312,7 +312,7 @@ quizForm.addEventListener("submit", function(event) {
 
 
 /* ==========================================
-   START CAMERA
+   KONTROL KAMERA
 ========================================== */
 
 async function startCamera() {
@@ -341,11 +341,6 @@ async function startCamera() {
     }
 }
 
-
-/* ==========================================
-   STOP CAMERA
-========================================== */
-
 function stopCamera() {
     if (!cameraStream) return;
 
@@ -355,7 +350,7 @@ function stopCamera() {
 
 
 /* ==========================================
-   TOMBOL FOTO
+   PROSES TANGKAP FOTO
 ========================================== */
 
 snapButton.addEventListener("click", function() {
@@ -373,11 +368,6 @@ snapButton.addEventListener("click", function() {
 
     takePhoto(0);
 });
-
-
-/* ==========================================
-   FOTO 1 - 6
-========================================== */
 
 function takePhoto(index) {
     if (index >= 6) {
@@ -410,11 +400,6 @@ function takePhoto(index) {
     }, 1000);
 }
 
-
-/* ==========================================
-   CAPTURE PHOTO
-========================================== */
-
 function capturePhoto() {
     const width = camera.videoWidth || 1280;
     const height = camera.videoHeight || 720;
@@ -424,7 +409,7 @@ function capturePhoto() {
 
     const ctx = canvas.getContext("2d");
 
-    /* Mirror foto */
+    /* Mirror foto secara horizontal */
     ctx.save();
     ctx.translate(width, 0);
     ctx.scale(-1, 1);
@@ -439,7 +424,7 @@ function capturePhoto() {
 
 
 /* ==========================================
-   RENDER RESULTS
+   TAMPILKAN HASIL FOTO
 ========================================== */
 
 function renderResults() {
@@ -461,7 +446,7 @@ function renderResults() {
 
 
 /* ==========================================
-   DOWNLOAD STRIP
+   DOWNLOAD HASIL GABUNGAN (CANVAS)
 ========================================== */
 
 document.getElementById("downloadButton").addEventListener("click", downloadResult);
@@ -482,7 +467,7 @@ async function downloadResult() {
 
     const ctx = output.getContext("2d");
 
-    /* Background */
+    /* Background Kertas Luar */
     ctx.fillStyle = "#dcdcdc";
     ctx.fillRect(0, 0, output.width, output.height);
 
@@ -495,11 +480,11 @@ async function downloadResult() {
     link.click();
 
     function drawStrip(ctx, x, y, start) {
-        /* Kertas */
+        /* Kertas Strip */
         ctx.fillStyle = "#ffffff";
         ctx.fillRect(x, y, stripWidth, stripHeight);
 
-        /* Header */
+        /* Header Box */
         ctx.fillStyle = "#07151f";
         ctx.fillRect(x + 20, y + 20, stripWidth - 40, 55);
 
@@ -508,12 +493,12 @@ async function downloadResult() {
         ctx.font = "bold 22px Arial";
         ctx.fillText("⚡ EC3C ⚡", x + stripWidth / 2, y + 55);
 
-        /* Title */
+        /* Judul */
         ctx.fillStyle = "#111111";
         ctx.font = "bold 17px monospace";
         ctx.fillText("EC3C PHOTOBOOTH", x + stripWidth / 2, y + 105);
 
-        /* FOTO */
+        /* Render 3 Foto per Strip */
         let imageY = y + 125;
 
         for (let i = 0; i < 3; i++) {
@@ -536,18 +521,13 @@ async function downloadResult() {
 
 
 /* ==========================================
-   RESTART
+   RESET & RESTART
 ========================================== */
 
 document.getElementById("restartButton").addEventListener("click", function() {
     stopCamera();
     location.reload();
 });
-
-
-/* ==========================================
-   PAGE DITUTUP
-========================================== */
 
 window.addEventListener("beforeunload", function() {
     stopCamera();
