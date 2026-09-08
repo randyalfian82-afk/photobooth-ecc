@@ -1,496 +1,272 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0">
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>EC3C Photobooth</title>
 
-    <link rel="stylesheet" href="./style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body>
+    <main class="app-container">
 
-
-    <!-- =====================================================
-         HALAMAN 1 - VERIFIKASI
-    ====================================================== -->
-
-    <section
-        id="loginPage"
-        class="page active login-page">
-
-
-        <!-- Overlay shadow background -->
-        <div class="background-overlay"></div>
-
-
-        <div class="circuit-decoration top">
-            ⚡ ━━━━━━━ EC3C PROTOCOL ━━━━━━━ ⚡
-        </div>
-
-
-        <div class="login-card">
-
-
-            <div class="electric-icon">
-                ⚡
+        <!-- HALAMAN LOGIN -->
+        <section id="loginPage" class="page active">
+            <div class="circuit-decoration top-decoration">
+                ⚡ ━━━━━ EC3C PROTOCOL ━━━━━ ⚡
             </div>
 
+            <div class="card login-card">
+                <div class="logo-icon">⚡</div>
+                <div class="badge">EC-3C</div>
 
-            <div class="chip">
-                EC-3C
+                <h1>EC3C<br>PHOTOBOOTH</h1>
+
+                <p class="subtitle">
+                    Sistem Verifikasi Anak EC3C Elektronika
+                </p>
+
+                <form id="loginForm" novalidate>
+                    <div class="input-group">
+                        <label for="nama">NAMA</label>
+
+                        <input
+                            type="text"
+                            id="nama"
+                            name="nama"
+                            placeholder="Nama lengkap atau nama panggilan..."
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+
+                    <div class="input-group">
+                        <label for="nim">NIM</label>
+
+                        <input
+                            type="text"
+                            id="nim"
+                            name="nim"
+                            placeholder="Masukkan NIM kamu..."
+                            inputmode="numeric"
+                            autocomplete="off"
+                            maxlength="20"
+                            required
+                        >
+                    </div>
+
+                    <div
+                        id="loginError"
+                        class="error-text"
+                        role="alert"
+                        aria-live="polite"
+                    ></div>
+
+                    <button type="submit" class="btn-primary">
+                        MASUK KE EC3C →
+                    </button>
+                </form>
             </div>
 
+            <div class="circuit-decoration bottom-decoration">
+                ⚡ ━━━━━ SYSTEM READY ━━━━━ ⚡
+            </div>
+        </section>
 
-            <h1>
-                EC3C
-                <br>
-                PHOTOBOOTH
-            </h1>
+        <!-- HALAMAN KUIS -->
+        <section id="quizPage" class="page">
+            <div class="circuit-decoration top-decoration">
+                ⚡ ━━━ EC3C VERIFICATION ━━━ ⚡
+            </div>
 
+            <div class="card quiz-card">
+                <div class="user-badge">
+                    👤 <span id="displayNama">-</span>
+                </div>
 
-            <p class="subtitle">
-                Sistem Verifikasi Anak EC3C Elektronika
-            </p>
+                <div id="questionNumber" class="question-number">
+                    PERTANYAAN 1 / 5
+                </div>
 
+                <h2 id="questionText">
+                    Memuat pertanyaan...
+                </h2>
 
-            <form id="loginForm">
+                <div
+                    id="questionImage"
+                    class="quiz-image-container"
+                    hidden
+                >
+                    <img
+                        id="quizImage"
+                        src=""
+                        alt="Gambar soal"
+                    >
+                </div>
 
+                <form id="quizForm" novalidate>
+                    <div class="input-group">
+                        <label for="answer">JAWABAN</label>
 
-                <!-- NAMA DULU -->
+                        <input
+                            type="text"
+                            id="answer"
+                            name="answer"
+                            placeholder="Ketik jawaban kamu..."
+                            autocomplete="off"
+                            required
+                        >
+                    </div>
 
-                <label for="nama">
-                    NAMA
-                </label>
+                    <div
+                        id="quizError"
+                        class="error-text"
+                        role="alert"
+                        aria-live="polite"
+                    ></div>
 
+                    <button type="submit" class="btn-primary">
+                        JAWAB →
+                    </button>
+                </form>
+            </div>
 
-                <input
-                    type="text"
-                    id="nama"
-                    placeholder="Masukkan nama kamu..."
-                    autocomplete="off"
-                    required>
+            <div class="circuit-decoration bottom-decoration">
+                ⚡ ━━━━━ ACCESS CONTROL ━━━━━ ⚡
+            </div>
+        </section>
 
+        <!-- HALAMAN KAMERA -->
+        <section id="cameraPage" class="page">
+            <div class="card camera-card">
+                <div class="logo-icon">📷</div>
 
-                <!-- BARU NIM -->
+                <h1>EC3C PHOTOSTUDIO</h1>
 
-                <label for="nim">
-                    NIM
-                </label>
+                <p class="subtitle">
+                    Siapkan pose terbaikmu!
+                </p>
 
+                <div id="photoCounter" class="photo-counter">
+                    0 / 6 FOTO
+                </div>
 
-                <input
-                    type="text"
-                    id="nim"
-                    placeholder="Masukkan NIM kamu..."
-                    inputmode="numeric"
-                    autocomplete="off"
-                    required>
+                <div class="camera-wrapper">
+                    <div class="live-label">🔴 LIVE CAMERA</div>
 
+                    <video
+                        id="camera"
+                        autoplay
+                        muted
+                        playsinline
+                    ></video>
+
+                    <div
+                        id="countdown"
+                        class="countdown-overlay"
+                        aria-live="assertive"
+                    ></div>
+
+                    <canvas id="canvas"></canvas>
+                </div>
+
+                <div
+                    id="cameraError"
+                    class="error-text"
+                    role="alert"
+                    aria-live="polite"
+                ></div>
 
                 <button
-                    type="submit"
-                    class="main-button">
-
-                    MASUK KE EC3C →
-
+                    id="snapButton"
+                    type="button"
+                    class="btn-primary"
+                    disabled
+                >
+                    MEMUAT KAMERA...
                 </button>
-
-
-            </form>
-
-
-            <div
-                id="loginError"
-                class="error-message">
-            </div>
-
-
-        </div>
-
-
-        <div class="circuit-decoration bottom">
-            ⚡ ━━━━━━━ SYSTEM READY ━━━━━━━ ⚡
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =====================================================
-         HALAMAN 2 - QUIZ
-    ====================================================== -->
-
-    <section
-        id="quizPage"
-        class="page quiz-page">
-
-
-        <div class="circuit-decoration top">
-            ⚡ ━━━━━━━ EC3C VERIFICATION ━━━━━━━ ⚡
-        </div>
-
-
-        <div class="quiz-card">
-
-
-            <div class="user-badge">
-
-                👤
-
-                <span id="displayNama">
-                    -
-                </span>
-
-            </div>
-
-
-            <div
-                id="questionNumber"
-                class="question-number">
-
-                PERTANYAAN 1 / 5
-
-            </div>
-
-
-            <h2 id="questionText">
-                Apa fungsi utama dari resistor?
-            </h2>
-
-
-            <!-- GAMBAR SOAL -->
-
-            <div
-                id="questionImage"
-                class="question-image">
-
-
-                <img
-                    id="quizImage"
-                    src=""
-                    alt="Gambar soal">
-
-
-            </div>
-
-
-            <form id="quizForm">
-
-
-                <input
-                    type="text"
-                    id="answer"
-                    placeholder="Ketik jawaban kamu..."
-                    autocomplete="off"
-                    required>
-
 
                 <button
-                    type="submit"
-                    class="main-button">
-
-                    JAWAB →
-
+                    id="backToQuizButton"
+                    type="button"
+                    class="btn-secondary"
+                >
+                    KEMBALI
                 </button>
-
-
-            </form>
-
-
-            <div
-                id="quizError"
-                class="error-message">
             </div>
+        </section>
 
+        <!-- HALAMAN HASIL -->
+        <section id="resultPage" class="page">
+            <div class="card result-card">
+                <div class="logo-icon">📸</div>
 
-        </div>
+                <h1>HASIL PHOTOBOOTH</h1>
 
+                <p class="subtitle">
+                    Sesi foto selesai!
+                </p>
 
-        <div class="circuit-decoration bottom">
-            ⚡ ━━━━━━━ ACCESS CONTROL ━━━━━━━ ⚡
-        </div>
+                <div id="resultName" class="result-user">
+                    User: -
+                </div>
 
+                <div class="strips-preview">
+                    <div class="photo-strip">
+                        <div class="strip-header">⚡ EC3C ⚡</div>
+                        <div class="strip-title">EC3C PHOTOBOOTH</div>
 
-    </section>
+                        <div class="strip-photos">
+                            <img id="result0" alt="Foto 1">
+                            <img id="result1" alt="Foto 2">
+                            <img id="result2" alt="Foto 3">
+                        </div>
 
+                        <div id="date1" class="strip-date"></div>
+                        <div class="strip-footer">CLASS OF EC3C</div>
+                    </div>
 
+                    <div class="photo-strip">
+                        <div class="strip-header">⚡ EC3C ⚡</div>
+                        <div class="strip-title">EC3C PHOTOBOOTH</div>
 
-    <!-- =====================================================
-         HALAMAN 3 - PHOTOBOOTH
-    ====================================================== -->
+                        <div class="strip-photos">
+                            <img id="result3" alt="Foto 4">
+                            <img id="result4" alt="Foto 5">
+                            <img id="result5" alt="Foto 6">
+                        </div>
 
-    <section
-        id="cameraPage"
-        class="page camera-page">
+                        <div id="date2" class="strip-date"></div>
+                        <div class="strip-footer">CLASS OF EC3C</div>
+                    </div>
+                </div>
 
+                <div class="action-buttons">
+                    <button
+                        id="downloadButton"
+                        type="button"
+                        class="btn-primary"
+                    >
+                        💾 DOWNLOAD HASIL
+                    </button>
 
-        <div class="booth-header">
-
-
-            <div class="camera-icon">
-                📷
+                    <button
+                        id="restartButton"
+                        type="button"
+                        class="btn-secondary"
+                    >
+                        🔄 FOTO LAGI
+                    </button>
+                </div>
             </div>
+        </section>
+    </main>
 
-
-            <h1>
-                EC3C PHOTOSTUDIO
-            </h1>
-
-
-            <p>
-                Siapkan pose terbaikmu!
-            </p>
-
-
-            <div
-                id="photoCounter"
-                class="photo-counter">
-
-                0 / 6 FOTO
-
-            </div>
-
-
-        </div>
-
-
-        <div class="camera-container">
-
-
-            <div class="live-label">
-                🔴 LIVE CAMERA
-            </div>
-
-
-            <video
-                id="camera"
-                autoplay
-                playsinline>
-            </video>
-
-
-            <div id="countdown"></div>
-
-
-            <canvas id="canvas"></canvas>
-
-
-        </div>
-
-
-        <button
-            id="snapButton"
-            class="camera-button">
-
-            📸 AMBIL 6 FOTO
-
-        </button>
-
-
-        <div
-            id="cameraError"
-            class="error-message">
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =====================================================
-         HALAMAN 4 - HASIL
-    ====================================================== -->
-
-    <section
-        id="resultPage"
-        class="page result-page">
-
-
-        <div class="result-header">
-
-
-            <div class="camera-icon">
-                📸
-            </div>
-
-
-            <h1>
-                HASIL PHOTOBOOTH
-            </h1>
-
-
-            <p>
-                Sesi foto selesai!
-            </p>
-
-
-            <div
-                id="resultName"
-                class="result-user">
-
-                User: -
-
-            </div>
-
-
-        </div>
-
-
-
-        <div class="strips-container">
-
-
-            <!-- ================= STRIP 1 ================= -->
-
-            <div
-                id="strip1"
-                class="photo-strip">
-
-
-                <div class="strip-top">
-                    ⚡ EC3C ⚡
-                </div>
-
-
-                <div class="strip-title">
-                    EC3C PHOTOBOOTH
-                </div>
-
-
-                <div class="strip-photo">
-                    <img
-                        id="result0"
-                        alt="Foto 1">
-                </div>
-
-
-                <div class="strip-photo">
-                    <img
-                        id="result1"
-                        alt="Foto 2">
-                </div>
-
-
-                <div class="strip-photo">
-                    <img
-                        id="result2"
-                        alt="Foto 3">
-                </div>
-
-
-                <div class="strip-footer">
-
-                    <strong>
-                        CLASS OF EC3C
-                    </strong>
-
-                    <span id="date1">
-                    </span>
-
-                </div>
-
-
-            </div>
-
-
-
-            <!-- ================= STRIP 2 ================= -->
-
-            <div
-                id="strip2"
-                class="photo-strip">
-
-
-                <div class="strip-top">
-                    ⚡ EC3C ⚡
-                </div>
-
-
-                <div class="strip-title">
-                    EC3C PHOTOBOOTH
-                </div>
-
-
-                <div class="strip-photo">
-                    <img
-                        id="result3"
-                        alt="Foto 4">
-                </div>
-
-
-                <div class="strip-photo">
-                    <img
-                        id="result4"
-                        alt="Foto 5">
-                </div>
-
-
-                <div class="strip-photo">
-                    <img
-                        id="result5"
-                        alt="Foto 6">
-                </div>
-
-
-                <div class="strip-footer">
-
-                    <strong>
-                        CLASS OF EC3C
-                    </strong>
-
-                    <span id="date2">
-                    </span>
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-
-        <div class="result-buttons">
-
-
-            <button
-                id="downloadButton"
-                class="download-button">
-
-                💾 DOWNLOAD HASIL
-
-            </button>
-
-
-            <button
-                id="restartButton"
-                class="restart-button">
-
-                🔄 FOTO LAGI
-
-            </button>
-
-
-        </div>
-
-
-    </section>
-
-
-
-    <script src="./script.js"></script>
-
+    <script src="script.js" defer></script>
 </body>
-
 </html>
