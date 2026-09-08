@@ -1,49 +1,85 @@
-/* ==========================================
-   RESET & BASE STYLES
-========================================== */
+/* ================================
+   RESET
+================================ */
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+:root {
+    --cyan: #00e5ff;
+    --blue: #168dcc;
+    --dark-blue: #061b2a;
+    --orange: #ff9d00;
+    --white: #ffffff;
+}
+
+/* ================================
+   BODY & BACKGROUND
+================================ */
 
 body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Ganti bg.jpg sesuai nama file background kamu */
-    background: url('bg.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: #ffffff;
+    position: relative;
     overflow-x: hidden;
+    padding: 20px;
+
+    background:
+        linear-gradient(
+            rgba(1, 10, 18, 0.42),
+            rgba(1, 10, 18, 0.62)
+        ),
+        url("foto.jpg") center center / cover no-repeat fixed;
+
+    color: var(--white);
 }
 
-/* Overlay kegelapan tipis di atas background gambar */
+/* Shadow tambahan pada seluruh background */
 body::before {
-    content: '';
+    content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(3, 10, 16, 0.45);
+    inset: 0;
+    pointer-events: none;
     z-index: -1;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(0, 229, 255, 0.06),
+            transparent 50%
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.32),
+            transparent 40%,
+            transparent 60%,
+            rgba(0, 0, 0, 0.32)
+        );
 }
+
+/* ================================
+   CONTAINER
+================================ */
 
 .app-container {
     width: 100%;
-    max-width: 450px;
-    padding: 20px;
+    max-width: 470px;
+    margin: auto;
 }
 
-/* ==========================================
-   PAGE MANAGEMENT
-========================================== */
+/* ================================
+   PAGE
+================================ */
+
 .page {
     display: none;
-    animation: fadeIn 0.4s ease-in-out forwards;
+    animation: fadeIn 0.45s ease forwards;
 }
 
 .page.active {
@@ -51,212 +87,316 @@ body::before {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* ==========================================
-   CARD & GLASSMORPHISM
-========================================== */
+/* ================================
+   CARD GLASS
+================================ */
+
 .card {
-    /* Background transparan bernuansa dark cyan */
-    background: rgba(7, 21, 31, 0.65); 
-    
-    /* Efek Blur pada Background */
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    
-    /* Border halus & glowing */
-    border: 1px solid rgba(0, 229, 255, 0.25);
-    border-radius: 24px;
-    
-    /* Shadow lembut */
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6),
-                0 0 20px rgba(0, 229, 255, 0.15);
-    
+    position: relative;
     padding: 35px 28px;
     text-align: center;
-    position: relative;
+    overflow: hidden;
+
+    /*
+       Transparansi biru diturunkan agar foto background
+       lebih terlihat di balik card.
+    */
+    background:
+        linear-gradient(
+            135deg,
+            rgba(5, 33, 51, 0.62),
+            rgba(3, 17, 29, 0.48)
+        );
+
+    border: 1px solid rgba(0, 229, 255, 0.38);
+    border-radius: 24px;
+
+    backdrop-filter: blur(8px) saturate(135%);
+    -webkit-backdrop-filter: blur(8px) saturate(135%);
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.72),
+        0 0 25px rgba(0, 229, 255, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.13);
 }
 
+/* Kilau tipis pada card */
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12%;
+    right: 12%;
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.55),
+        transparent
+    );
+}
+
+/* ================================
+   TEXT
+================================ */
+
 .logo-icon {
-    font-size: 32px;
-    color: #ff9d00;
     margin-bottom: 5px;
-    text-shadow: 0 0 10px rgba(255, 157, 0, 0.6);
+    color: var(--orange);
+    font-size: 34px;
+    text-shadow: 0 0 14px rgba(255, 157, 0, 0.8);
 }
 
 .badge {
     display: inline-block;
-    border: 1px solid #00e5ff;
-    color: #00e5ff;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    padding: 4px 10px;
-    border-radius: 4px;
     margin-bottom: 15px;
+    padding: 5px 11px;
+
+    border: 1px solid rgba(0, 229, 255, 0.8);
+    border-radius: 5px;
+
+    color: var(--cyan);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+    background: rgba(0, 229, 255, 0.07);
 }
 
 h1 {
+    margin-bottom: 7px;
     font-size: 24px;
     font-weight: 800;
     letter-spacing: 2px;
-    margin-bottom: 6px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.75);
+}
+
+h2 {
+    margin-bottom: 12px;
+    font-size: 21px;
+    letter-spacing: 1px;
 }
 
 .subtitle {
+    margin-bottom: 26px;
+    color: #b4d9ff;
     font-size: 13px;
-    color: #8ab4f8;
-    margin-bottom: 25px;
 }
 
 .user-greeting {
-    font-size: 14px;
-    color: #a0c4ff;
     margin-bottom: 10px;
+    color: #c3e1ff;
+    font-size: 14px;
 }
 
-.question-title {
-    font-size: 18px;
-    line-height: 1.4;
-    margin: 15px 0 20px;
-}
+/* ================================
+   FORM
+================================ */
 
-/* ==========================================
-   FORM & INPUTS
-========================================== */
 .input-group {
-    text-align: left;
     margin-bottom: 18px;
+    text-align: left;
 }
 
 .input-group label {
     display: block;
+    margin-bottom: 8px;
+
+    color: #b7d9ff;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 1px;
-    color: #8ab4f8;
-    margin-bottom: 8px;
 }
 
 input[type="text"] {
     width: 100%;
-    background: rgba(10, 25, 38, 0.65);
-    border: 1px solid rgba(0, 229, 255, 0.3);
-    border-radius: 10px;
     padding: 14px 16px;
+
+    border: 1px solid rgba(0, 229, 255, 0.36);
+    border-radius: 10px;
+    outline: none;
+
+    background: rgba(1, 16, 28, 0.58);
     color: #ffffff;
     font-size: 14px;
-    outline: none;
-    backdrop-filter: blur(4px);
-    transition: all 0.3s ease;
+
+    backdrop-filter: blur(3px);
+    transition: 0.3s ease;
+}
+
+input[type="text"]::placeholder {
+    color: rgba(220, 240, 255, 0.55);
 }
 
 input[type="text"]:focus {
-    border-color: #00e5ff;
-    box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
-    background: rgba(10, 25, 38, 0.85);
+    border-color: var(--cyan);
+    background: rgba(1, 19, 33, 0.76);
+    box-shadow:
+        0 0 0 3px rgba(0, 229, 255, 0.08),
+        0 0 16px rgba(0, 229, 255, 0.38);
 }
+
+/* ================================
+   ERROR
+================================ */
 
 .error-text {
-    color: #ff4d4d;
-    font-size: 13px;
-    font-weight: 700;
     min-height: 20px;
     margin-bottom: 15px;
-    text-shadow: 0 0 8px rgba(255, 77, 77, 0.5);
-}
 
-/* ==========================================
-   BUTTONS
-========================================== */
-.btn-primary, .btn-secondary {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 10px;
+    color: #ff6666;
     font-size: 13px;
     font-weight: 700;
-    letter-spacing: 1px;
+    text-shadow: 0 0 8px rgba(255, 70, 70, 0.65);
+}
+
+/* ================================
+   BUTTON
+================================ */
+
+.btn-primary,
+.btn-secondary {
+    width: 100%;
+    padding: 14px;
+
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
+
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #0088cc, #005588);
+    border: 1px solid rgba(0, 229, 255, 0.5);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0, 146, 214, 0.92),
+            rgba(0, 74, 123, 0.88)
+        );
+
     color: #ffffff;
-    box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
+    box-shadow:
+        0 5px 18px rgba(0, 125, 190, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 .btn-primary:hover {
-    background: linear-gradient(135deg, #0099ee, #0066aa);
-    box-shadow: 0 4px 20px rgba(0, 229, 255, 0.6);
     transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0, 181, 239, 0.96),
+            rgba(0, 100, 160, 0.94)
+        );
+
+    box-shadow:
+        0 7px 24px rgba(0, 229, 255, 0.44),
+        0 0 15px rgba(0, 229, 255, 0.25);
+}
+
+.btn-primary:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .btn-secondary {
+    margin-top: 10px;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
     background: rgba(255, 255, 255, 0.1);
     color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    margin-top: 10px;
 }
 
 .btn-secondary:hover {
     background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.12);
 }
 
-/* ==========================================
+/* ================================
    QUIZ IMAGE
-========================================== */
+================================ */
+
 .quiz-image-container {
+    display: none;
     margin-bottom: 15px;
 }
 
 .quiz-image-container img {
     max-width: 100%;
     max-height: 180px;
+
+    border: 2px solid rgba(0, 229, 255, 0.5);
     border-radius: 12px;
-    border: 2px solid rgba(0, 229, 255, 0.4);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
 }
 
-/* ==========================================
-   CAMERA & DISPLAY
-========================================== */
+/* ================================
+   CAMERA
+================================ */
+
 .camera-wrapper {
     position: relative;
     width: 100%;
-    aspect-ratio: 4/3;
-    background: #000;
-    border-radius: 12px;
-    overflow: hidden;
+    aspect-ratio: 4 / 3;
     margin: 15px 0;
-    border: 2px solid rgba(0, 229, 255, 0.3);
+
+    overflow: hidden;
+    border: 2px solid rgba(0, 229, 255, 0.42);
+    border-radius: 14px;
+    background: #000;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.55);
 }
 
 #camera {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scaleX(-1); /* Mirror camera */
+    transform: scaleX(-1);
+}
+
+#canvas {
+    display: none;
 }
 
 .countdown-overlay {
     position: absolute;
     top: 50%;
     left: 50%;
+    z-index: 2;
+
     transform: translate(-50%, -50%);
+
+    color: #ffffff;
     font-size: 72px;
     font-weight: 900;
-    color: #ffffff;
-    text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 10px #00e5ff;
     pointer-events: none;
+    text-shadow:
+        0 0 20px rgba(0, 0, 0, 0.9),
+        0 0 14px var(--cyan);
 }
 
-/* ==========================================
-   RESULTS & STRIPS PREVIEW
-========================================== */
+/* ================================
+   RESULT
+================================ */
+
 .result-card {
     max-width: 100%;
 }
@@ -264,40 +404,47 @@ input[type="text"]:focus {
 .strips-preview {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 14px;
+
     margin: 20px 0;
-    overflow-x: auto;
     padding-bottom: 10px;
+    overflow-x: auto;
 }
 
 .strip {
-    background: #ffffff;
-    color: #111111;
+    flex: 0 0 140px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
     width: 140px;
     padding: 10px;
+
     border-radius: 6px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background: #ffffff;
+    color: #111111;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.55);
 }
 
 .strip-header {
-    background: #07151f;
-    color: #fff;
     width: 100%;
-    text-align: center;
-    font-size: 10px;
-    font-weight: bold;
     padding: 4px 0;
+
     border-radius: 2px;
+    background: #07151f;
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 800;
+    text-align: center;
 }
 
 .strip-title {
+    margin: 4px 0 6px;
+
     font-family: monospace;
     font-size: 8px;
-    font-weight: bold;
-    margin: 4px 0 6px;
+    font-weight: 800;
 }
 
 .strip-photos {
@@ -310,32 +457,33 @@ input[type="text"]:focus {
 .strip-photos img {
     width: 100%;
     height: 85px;
-    object-fit: cover;
+
     border-radius: 2px;
-    background: #ddd;
+    background: #dddddd;
+    object-fit: cover;
 }
 
 .strip-date {
-    font-size: 7px;
-    font-family: monospace;
     margin-top: 6px;
+    font-family: monospace;
+    font-size: 7px;
 }
 
 .strip-footer {
+    margin-top: 2px;
     font-family: monospace;
     font-size: 8px;
-    font-weight: bold;
-    margin-top: 2px;
+    font-weight: 800;
 }
 
-/* Efek Getar (Wrong Answer) */
+.action-buttons {
+    width: 100%;
+}
+
+/* ================================
+   SHAKE EFFECT
+================================ */
+
 .shake {
-    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-}
-
-@keyframes shake {
-    10%, 90% { transform: translate3d(-1px, 0, 0); }
-    20%, 80% { transform: translate3d(2px, 0, 0); }
-    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-    40%, 60% { transform: translate3d(4px, 0, 0); }
+    animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
 }
